@@ -23,6 +23,8 @@ function* getUser({ googleUserData }) {
     .on('value', (snapshot) => {
         const user = snapshot.val();
 
+        debugger;
+
         window._UI_STORE_.dispatch(setCurrentUser(user))
     });
 
@@ -30,6 +32,8 @@ function* getUser({ googleUserData }) {
 }
 
 function* updateUser({ userData }) {
+
+    debugger;
 
     const updates = {};
     updates['users/' + userData.uid] = {

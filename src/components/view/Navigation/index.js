@@ -38,19 +38,17 @@ class Navigation extends React.Component {
         this.themePalette = this.props.muiTheme.palette;
     }
     
-    buildIconMenu (permissions, actions) {
+    buildIconMenu (actions) {
         const { logout } = actions;
-        if (permissions.basic) {
-            return (
-                <IconMenu
-                    iconButtonElement={<IconButton><ExpandMoreIcon /></IconButton>}
-                    anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-                    targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-                >
-                    <MenuItem onTouchTap={logout} primaryText="Logout" />
-                </IconMenu>
-            );
-        }
+        return (
+            <IconMenu
+                iconButtonElement={<IconButton><ExpandMoreIcon /></IconButton>}
+                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            >
+                <MenuItem onTouchTap={logout} primaryText="Logout" />
+            </IconMenu>
+        );
     };
 
     navigateToRoute (someArg, evt, tabEl) {
@@ -72,7 +70,7 @@ class Navigation extends React.Component {
             );
     };
 
-    buildNavigationTabs (permissions, config) {
+    buildNavigationTabs () {
 
         const tabObjs = [
             {
@@ -100,12 +98,6 @@ class Navigation extends React.Component {
         const currentPagePath = window.location.pathname; // e.g. '/events'
 
         const tabs = tabObjs
-            .filter(tabObj => {
-                return !tabObj.permissionsRequired || tabObj.permissionsRequired.every(reqPermission => permissions[reqPermission] === true);
-            })
-            .filter(tabObj => {
-                return !tabObj.configRequired || tabObj.configRequired.every(reqConfig => config[reqConfig] === true);
-            })
             .map(tabObj => {
                 return this.buildTab(tabObj);
             });
@@ -125,20 +117,11 @@ class Navigation extends React.Component {
     };
 
     render () {
-        const { user, userPermissions, config, logout } = this.props;
-
-        if (!userPermissions || Object.keys(userPermissions).length < 1) {
-            return (
-                <AppBar
-                    title='AHOPE Intake'
-                >
-                </AppBar>
-            );
-        }
+        const { user, logout } = this.props;
         
-        const iconMenu = this.buildIconMenu(userPermissions, { logout });
+        const iconMenu = this.buildIconMenu({ logout });
         
-        const navigationTabs = this.buildNavigationTabs(userPermissions, config, this.toggleEventDetail);
+        const navigationTabs = this.buildNavigationTabs();
 
         return (
             <div>

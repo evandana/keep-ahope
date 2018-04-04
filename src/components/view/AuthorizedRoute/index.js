@@ -24,9 +24,11 @@ class AuthorizedRoute extends Component {
             // height: userPermissions.admin ? 'calc(100% - 247px)' : 'calc(100% - 175px)',
         }
 
+        debugger;
+
         return (
             <Route {...rest} render={props => (
-                userPermissions.basic || userPermissions.admin || userPermissions.seller ? (
+                userPermissions.basic ? (
                         <div className='page-wrapper' style={pageWrapperStyles}>
                             <Component {...props}/>
                         </div>

@@ -1,13 +1,13 @@
 import React from 'react';
 import './styles.css';
 
-import Home from 'components/controller/Home'
+import Login from 'components/controller/Login'
 
 const NotAuthorizedPage = props => {
 
     return (
         <div className="page">
-            <Home />
+            <Login />
         </div>
     );
 };

@@ -31,6 +31,8 @@ function user(state = defaultUserState, action) {
         
         case SET_CURRENT_USER: 
 
+            debugger;
+
             return {
                 ...rest,
             };    

@@ -45,6 +45,8 @@ class App extends Component {
         window._FIREBASE_STORAGE_ = firebase.storage().ref();
         window._FIREBASE_.auth().onAuthStateChanged(
             (googleUser) => {
+
+                debugger;
                 
                 window._UI_STORE_.dispatch(showLoginSpinner(false));
 
@@ -112,7 +114,7 @@ class App extends Component {
                             <Navigation />
                             <Messages />
                             <Switch>
-                                <Route exact path="/" component={Intake} />
+                                <AuthorizedRoute exact path="/" component={Intake} />
                                 <AuthorizedRoute exact path="/intake" component={Intake} />
                                 <AuthorizedRoute exact path="/contacts" component={Contacts} />
                                 <AuthorizedRoute exact path="/reports" component={Reports} />
