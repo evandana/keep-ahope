@@ -41,6 +41,7 @@ class App extends Component {
         /** Firebase Setup **/
         window._FIREBASE_ = firebase.initializeApp(config.firebase);
         window._FIREBASE_PROVIDER_ = new firebase.auth.GoogleAuthProvider();
+        window._FIREBASE_PROVIDER_.addScope('https://www.googleapis.com/auth/userinfo.email');
         window._FIREBASE_DB_ = firebase.database();
         window._FIREBASE_STORAGE_ = firebase.storage().ref();
         window._FIREBASE_.auth().onAuthStateChanged(

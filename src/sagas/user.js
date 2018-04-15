@@ -11,6 +11,8 @@ import { setCurrentUser, updateUser as updateUserAction, showLoginSpinner } from
 
 function* getUser({ googleUserData }) {
 
+    debugger;
+
     window._UI_STORE_.dispatch(showLoginSpinner(true));
 
     window._UI_STORE_.dispatch(updateUserAction({

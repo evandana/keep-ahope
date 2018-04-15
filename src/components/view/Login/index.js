@@ -70,9 +70,18 @@ class Login extends Component {
                 <h2>Login</h2>
 
                 { showLoginSpinner ? (
-                    <div className="loader">
-                        <div className="loader-spinner" />
+                    <div className="login-menu">
+                        <img 
+                            className='login-btn' 
+                            onClick={loginGoogleRequest} 
+                            // src={getImageForEnv('google_signin/btn_google_signin_light_normal_web.png')} 
+                            src={googleLoginImg} 
+                            alt="Google login" 
+                            />
                     </div>
+                    // <div className="loader">
+                    //     <div className="loader-spinner" />
+                    // </div>
                 ) : (
                     <div>
                     Please sign in.
