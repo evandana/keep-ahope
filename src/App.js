@@ -47,10 +47,8 @@ class App extends Component {
         window._FIREBASE_.auth().onAuthStateChanged(
             (googleUser) => {
 
-                debugger;
-                
                 window._UI_STORE_.dispatch(showLoginSpinner(false));
-
+                
                 // user data from Google Auth
                 if (googleUser && googleUser.uid) {
                     const googleUserData = {
@@ -58,6 +56,7 @@ class App extends Component {
                         displayName: googleUser.displayName,
                         email: googleUser.email,
                     };
+
 
                     window._UI_STORE_.dispatch(fetchConfig());
 
