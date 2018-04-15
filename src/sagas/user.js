@@ -13,11 +13,6 @@ function* getUser({ googleUserData }) {
 
     window._UI_STORE_.dispatch(showLoginSpinner(true));
 
-    window._UI_STORE_.dispatch(updateUserAction({
-        permissions: { basic: true },
-        ...googleUserData, // uid, displayName, email
-    }));
-
     // hook up listener for changes to user until they log in again
     window._FIREBASE_DB_.ref('/users/' + googleUserData.uid)
     .on('value', (snapshot) => {
