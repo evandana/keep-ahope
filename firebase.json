@@ -20,7 +20,7 @@
     ],
     "rewrites": [
       {
-        "source": "/{intake,contacts,reports}",
+        "source": "/{intake,contact,reports}",
         "destination": "/index.html"
       }
     ]

@@ -116,7 +116,7 @@ class App extends Component {
                             <Switch>
                                 <AuthorizedRoute exact path="/" component={Intake} />
                                 <AuthorizedRoute exact path="/intake" component={Intake} />
-                                <AuthorizedRoute exact path="/contacts" component={Contacts} />
+                                <AuthorizedRoute exact path="/contact" component={Contacts} />
                                 <AuthorizedRoute exact path="/reports" component={Reports} />
                             </Switch>
                             <Footer />

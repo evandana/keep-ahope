@@ -80,19 +80,19 @@ class Navigation extends React.Component {
             },
             {
                 icon: <AssignmentInd />,
-                label: 'Contacts',
-                link: 'contacts',
+                label: 'Contact Info',
+                link: 'contact',
             },
-            {
-                icon: <ModeEditIcon />,
-                label: 'Form Editor',
-                link: 'editor',
-            },
-            {
-                icon: <PollIcon />,
-                label: 'Reporting',
-                link: 'reports',
-            },
+            // {
+            //     icon: <ModeEditIcon />,
+            //     label: 'Form Editor',
+            //     link: 'editor',
+            // },
+            // {
+            //     icon: <PollIcon />,
+            //     label: 'Reporting',
+            //     link: 'reports',
+            // },
         ];
 
         const currentPagePath = window.location.pathname; // e.g. '/events'
