@@ -13,12 +13,30 @@ function* getUser({ googleUserData }) {
 
     window._UI_STORE_.dispatch(showLoginSpinner(true));
 
+    // add user into db, if not already
+    window._FIREBASE_DB_.ref('/users/')
+        .once('value', (snapshot) => {
+            const users = snapshot.val();
+
+            if (!Object.keys(users).includes(googleUserData.uid)) {
+                // add user into db
+                window._UI_STORE_.dispatch(updateUserAction({
+                    ...{ permissions: {basic: false} },
+                    ...googleUserData, // uid, displayName, email
+                }));
+            }
+        });
+
+
     // hook up listener for changes to user until they log in again
     window._FIREBASE_DB_.ref('/users/' + googleUserData.uid)
     .on('value', (snapshot) => {
         const user = snapshot.val();
 
-        window._UI_STORE_.dispatch(setCurrentUser(user))
+        if (!!user) {
+            window._UI_STORE_.dispatch(setCurrentUser(user));
+            window._UI_STORE_.dispatch(showLoginSpinner(false));
+        }
     });
 
     yield;

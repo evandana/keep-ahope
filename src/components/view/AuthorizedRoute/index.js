@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Route, Redirect } from 'react-router-dom';
 
-import NotAuthorized from 'components/view/NotAuthorized';
+import NotAuthorizedRoute from 'components/controller/NotAuthorizedRoute';
 
 class AuthorizedRoute extends Component {
 
@@ -35,7 +35,7 @@ class AuthorizedRoute extends Component {
                             <Component {...props}/>
                         </div>
                     ) : (
-                        <NotAuthorized {...notAuthProps} />
+                        <NotAuthorizedRoute {...notAuthProps} />
                     )
             )}/>
         );
