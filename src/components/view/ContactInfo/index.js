@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 
 import { getImageForEnv } from 'static/images/index'
 
-class Contacts extends Component {
+class ContactInfo extends Component {
 
     render() {
 
-        const { user, contacts, events } = this.props;
+        const { user, uid, contacts, events } = this.props;
     
         return (
             <div className='page'>
                 
                 <h2>Contacts</h2>
+
+                <pre>UID from URL: <span style={{color:'red'}}>{uid}</span></pre>
     
                 <table>
                     <thead>
@@ -43,4 +45,4 @@ class Contacts extends Component {
     }
 }
 
-export default Contacts;
+export default ContactInfo;

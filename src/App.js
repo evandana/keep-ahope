@@ -20,8 +20,7 @@ import 'firebase/storage';
 import config from 'config';
 import AuthorizedRoute from 'components/controller/AuthorizedRoute';
 
-import Intake from 'components/controller/Intake';
-import Contacts from 'components/controller/Contacts';
+import Contact from 'components/controller/Contact';
 import Reports from 'components/controller/Reports';
 import Messages from 'components/controller/Messages';
 
@@ -111,12 +110,11 @@ class App extends Component {
                 <Provider store={store}>
                     <ConnectedRouter history={history}>
                         <div className="app">
-                            <Navigation />
+                            <Navigation/>
                             <Messages />
                             <Switch>
-                                <AuthorizedRoute exact path="/" component={Intake} />
-                                <AuthorizedRoute exact path="/intake" component={Intake} />
-                                <AuthorizedRoute exact path="/contact" component={Contacts} />
+                                {/* <AuthorizedRoute exact path="/" component={Contact} /> */}
+                                <AuthorizedRoute path="/contact/:uid/:action" component={Contact} />
                                 <AuthorizedRoute exact path="/reports" component={Reports} />
                             </Switch>
                             <Footer />

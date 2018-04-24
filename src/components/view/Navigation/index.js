@@ -58,70 +58,10 @@ class Navigation extends React.Component {
         this.props.history.push(tabEl.props['data-route']);
     };
 
-    buildTab ({icon, label, active, link, style}) {
-        return (
-            <Tab
-                label={label}
-                data-route={'/'+link}
-                icon={icon}
-                key={link}
-                style={style}
-            />
-            );
-    };
-
-    buildNavigationTabs () {
-
-        const tabObjs = [
-            {
-                icon: <ChromeReaderModeIcon />,
-                label: 'Intake',
-                link: 'intake',
-            },
-            {
-                icon: <AssignmentInd />,
-                label: 'Contact Info',
-                link: 'contact',
-            },
-            // {
-            //     icon: <ModeEditIcon />,
-            //     label: 'Form Editor',
-            //     link: 'editor',
-            // },
-            // {
-            //     icon: <PollIcon />,
-            //     label: 'Reporting',
-            //     link: 'reports',
-            // },
-        ];
-
-        const currentPagePath = window.location.pathname; // e.g. '/events'
-
-        const tabs = tabObjs
-            .map(tabObj => {
-                return this.buildTab(tabObj);
-            });
-
-        const initialSelectedIndex = tabObjs.findIndex(tab => '/' + tab.link === currentPagePath) 
-
-        return (
-            <Tabs
-                inkBarStyle={{background: this.themePalette.highlight1Color}}
-                initialSelectedIndex={initialSelectedIndex === -1 ? 0 : initialSelectedIndex}
-                onChange={this.navigateToRoute}
-                tabItemContainerStyle={{backgroundColor: this.themePalette.primary2Color}}
-                >
-                {tabs}
-            </Tabs>
-        );
-    };
-
     render () {
         const { user, logout } = this.props;
         
         const iconMenu = this.buildIconMenu({ logout });
-        
-        const navigationTabs = this.buildNavigationTabs();
 
         return (
             <div>
@@ -131,8 +71,6 @@ class Navigation extends React.Component {
                     iconElementRight={iconMenu}
                 >
                 </AppBar>}
-
-                {navigationTabs}
 
             </div>
         );  

@@ -18,7 +18,7 @@ import { createEvent } from 'actions';
 
 import MuiForm from './MuiForm';
 
-class CreateEvent extends Component {
+class IntakeForm extends Component {
 
     constructor(props) {
         super(props);
@@ -80,4 +80,4 @@ class CreateEvent extends Component {
 
 }
 
-export default muiThemeable()(CreateEvent);
+export default muiThemeable()(IntakeForm);
