@@ -7,7 +7,7 @@ import {
 import { refreshContacts } from 'actions';
 
 
-function* fetchContacts({uid, userData}) {
+function* fetchContacts() {
     window._FIREBASE_DB_.ref('/contacts')
         .on('value', (snapshot) => {
             const contacts = snapshot.val();
