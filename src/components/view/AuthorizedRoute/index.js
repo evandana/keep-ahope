@@ -25,7 +25,7 @@ class AuthorizedRoute extends Component {
         }
 
         if (userPermissions && userPermissions.basic && location.pathname === '/') {
-            return <Redirect to="/intake"/>
+            return <Redirect to="/contact"/>
         }
 
         return (

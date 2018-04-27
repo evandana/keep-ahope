@@ -113,9 +113,10 @@ class App extends Component {
                             <Navigation/>
                             <Messages />
                             <Switch>
-                                {/* <AuthorizedRoute exact path="/" component={Contact} /> */}
+                                <AuthorizedRoute exact path="/contact/" component={Contact} />
                                 <AuthorizedRoute path="/contact/:uid/:action" component={Contact} />
                                 <AuthorizedRoute exact path="/reports" component={Reports} />
+                                <AuthorizedRoute path="/" component={Contact} />
                             </Switch>
                             <Footer />
                         </div>

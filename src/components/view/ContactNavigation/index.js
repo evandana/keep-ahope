@@ -140,7 +140,7 @@ class ContactNavigation extends React.Component {
         return (
             <div>
 
-                {navigationTabs}
+                {!!urlPathAction && navigationTabs}
 
             </div>
         );  

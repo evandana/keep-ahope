@@ -9,7 +9,7 @@ const Results = (props) => {
     return (
         <div className='page'>
             
-            <h2>Results</h2>
+            <h2>Reports</h2>
         </div>
     );
 }

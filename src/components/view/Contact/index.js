@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ContactInfo from 'components/controller/ContactInfo';
 import ContactIntake from 'components/controller/ContactIntake';
 import ContactNavigation from 'components/controller/ContactNavigation';
+import ContactSearchResults from 'components/controller/ContactSearchResults';
 
 class Contact extends Component {
 
@@ -19,6 +20,11 @@ class Contact extends Component {
                     >
                 </ContactNavigation>
                 <div className='page'>
+                    {!urlPathAction && (
+                        <ContactSearchResults
+                            contactUidEntry='abc123'>
+                        </ContactSearchResults>
+                    )}
                     {urlPathAction === 'intake' && (
                         <ContactIntake
                             uid={urlPathUid}
