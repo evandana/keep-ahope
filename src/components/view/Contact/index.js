@@ -22,7 +22,7 @@ class Contact extends Component {
                 <div className='page'>
                     {!urlPathAction && (
                         <ContactSearchResults
-                            contactUidEntry='abc123'>
+                            contactUidEntry='hardcoded123'>
                         </ContactSearchResults>
                     )}
                     {urlPathAction === 'intake' && (

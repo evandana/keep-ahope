@@ -15,7 +15,14 @@ class ContactInfo extends Component {
 
                 <pre>contactUidEntry: <span style={{color:'red'}}>{contactUidEntry}</span></pre>
 
-                <a href="/contact/abc123/intake">go to some contact intake</a>
+                <ul>
+                    <li>
+                        Go to <a href={'/contact/'+contactUidEntry+'/intake'}>/contact/{contactUidEntry}/intake</a>
+                    </li>
+                    <li>
+                        Go to <a href={'/contact/'+contactUidEntry+'/info'}>/contact/{contactUidEntry}/info</a>
+                    </li>
+                </ul>
                 
             </div>
         );
