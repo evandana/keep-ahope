@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { logoutUserRequest, toggleEventDetail } from 'actions';
+import { logoutUserRequest } from 'actions';
 import ContactNavigationView from 'components/view/ContactNavigation';
 
 const mapStateToProps = (state) => {

@@ -24,10 +24,6 @@ class AuthorizedRoute extends Component {
             // height: userPermissions.admin ? 'calc(100% - 247px)' : 'calc(100% - 175px)',
         }
 
-        if (userPermissions && userPermissions.basic && location.pathname === '/') {
-            return <Redirect to="/contact"/>
-        }
-
         return (
             <Route {...rest} render={props => (
                 userPermissions.basic ? (
