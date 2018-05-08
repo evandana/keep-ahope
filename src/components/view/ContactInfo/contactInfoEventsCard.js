@@ -9,7 +9,7 @@ import { getImageForEnv } from 'static/images/index'
 class ContactInfoEventsCard extends Component {
 
   render() {
-        const { events } = this.props
+    const { events } = this.props
 
     const cardProps = {
         initiallyExpanded: true
@@ -26,17 +26,31 @@ class ContactInfoEventsCard extends Component {
         expandable: true
     }
 
+    const noEventsText = 'There are no events for this user'
+
     return (
         <Card {...cardProps}>
             <CardHeader {...cardHeaderProps} />
             <CardText {...cardTextProps}>
-                <list>
-                    {!!events && events.map(event => (
-                    <ListItem key={event.uid} disabled={true}>
-                        {event.uid}
+                {/* QUESTION: is it even worth using list and listItem if we need
+                to override the styles like this? */}
+                <List
+                    insetChildren={false}
+                    style={{padding: 0}}
+                >
+                {!!events ? (
+                    // if there are events, list each one
+                    events.map(event => (
+                    <ListItem key={event.uid}
+                        disabled={true}
+                        primaryText={event.uid}
+                        innerDivStyle={{paddingLeft: 0, paddingTop: 0}}>
                     </ListItem>
-                    ))}
-                </list>
+                    ))
+                 ) : (
+                     noEventsText
+                 )}
+                 </List>
             </CardText>
         </Card>
     );
