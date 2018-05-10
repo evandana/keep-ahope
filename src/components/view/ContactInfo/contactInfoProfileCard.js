@@ -6,7 +6,7 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 class ContactProfileCard extends React.Component {
 
   render() {
-    const { contact } = this.props;
+    const { contact, palette } = this.props;
 
     const infoKeyStyle = {
       color: '#90A4AE',
@@ -18,7 +18,7 @@ class ContactProfileCard extends React.Component {
         <Card initiallyExpanded={true} >
           <CardHeader
               title='Profile'
-              titleColor={this.props.titleColor}
+              titleColor={palette.primary1Color}
               actAsExpander={true}
               showExpandableButton={true}
           />

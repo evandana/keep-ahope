@@ -21,9 +21,9 @@ class ContactInfo extends Component {
                 <pre>UID from URL: <span style={{color:'red'}}>{uid}</span></pre>
 
                 <div>
-                    <ContactInfoProfileCard titleColor={palette.primary1Color} contact={contact} />
-                    <ContactInfoEventsCard titleColor={palette.primary1Color} events={contact.events} />
-                    <ContactInfoNotesCard titleColor={palette.primary1Color} />
+                    <ContactInfoProfileCard palette={palette} contact={contact} />
+                    <ContactInfoEventsCard palette={palette} events={contact.events} />
+                    <ContactInfoNotesCard palette={palette} />
                 </div>
 
             </div>
