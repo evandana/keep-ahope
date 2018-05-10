@@ -8,12 +8,12 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
-import { blueGrey600, cyan600 } from 'material-ui/styles/colors'
 
+import ArrowDownIcon from 'material-ui/svg-icons/navigation/arrow-drop-down';
+import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import PersonOutlineIcon from 'material-ui/svg-icons/social/person-outline';
 import EventNoteIcon from 'material-ui/svg-icons/notification/event-note';
-import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
 
 // Unused icons; some are good candidates if we need more.
 //
@@ -41,7 +41,7 @@ class Navigation extends React.Component {
     }
 
     handleToggle () {
-        // doesn't show nevigation unless logged in.
+        // doesn't show nvigation unless logged in.
         const { user } = this.props;
         if (user.uid && user.uid.length > 0) {
             this.setState({drawerOpen: !this.state.drawerOpen});
@@ -61,7 +61,7 @@ class Navigation extends React.Component {
     }
 
     render () {
-        const { user } = this.props;
+        const { user, muiTheme } = this.props;
 
         const avatarSize = 60,
             paddingSize = 15,
@@ -72,17 +72,27 @@ class Navigation extends React.Component {
                 <AppBar onLeftIconButtonTouchTap={this.handleToggle} title={'Welcome, ' + user.displayName}>
                 </AppBar>
                 <Drawer docked={false} width={drawerWidth} open={this.state.drawerOpen} onRequestChange={() => this.setState({drawerOpen : false})}>
-                    <div style={{backgroundColor: this.props.muiTheme.appBar.color, padding: paddingSize }}>
+                <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+                    <div style={{backgroundColor: muiTheme.appBar.color, padding: paddingSize }}>
                         <Avatar size={avatarSize} icon={<PersonOutlineIcon/>}/>
-                        <div style={{ color: this.props.muiTheme.appBar.textColor, paddingTop: paddingSize, paddingBottom: paddingSize }}>
-                            {'Welcome, ' + user.displayName}
-                        </div>
+                        <MenuItem
+                            style={{ color: muiTheme.appBar.textColor, paddingTop: paddingSize }}
+                            primaryText={user.email}
+                            rightIcon={<ArrowDownIcon color={muiTheme.appBar.textColor}/>}
+                        />
                     </div>
                     <MenuItem onTouchTap={this.getMenuItemHandler('/contact')} primaryText='Contact' leftIcon={<PersonIcon/>}/>
                     <MenuItem onTouchTap={this.getMenuItemHandler('/reports')} primaryText='Report' leftIcon={<EventNoteIcon/>}/>
-                    <MenuItem onTouchTap={this.handleLogout} primaryText='Logout' leftIcon={<ExitToAppIcon/>}/>
-                </Drawer>
-            </div>
+                    <div style={{marginTop: 'auto'}}>
+                        <MenuItem
+                            onTouchTap={this.handleLogout}
+                            primaryText='Logout'
+                            leftIcon={<ArrowBackIcon/>}
+                        />
+                    </div>
+                    </div>
+                    </Drawer>
+                </div>
         );
     }
 }
