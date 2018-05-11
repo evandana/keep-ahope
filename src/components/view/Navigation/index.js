@@ -2,13 +2,17 @@ import React from 'react';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import AppBar from 'material-ui/AppBar'
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {List, ListItem} from 'material-ui/List';
+import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
-import { blueGrey600, cyan600 } from 'material-ui/styles/colors'
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+
+import { white } from 'material-ui/styles/colors'
 
 import ContactTypeaheadSearch from 'components/controller/ContactTypeaheadSearch';
 
@@ -21,7 +25,7 @@ import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
 //
 // import AssignmentInd from 'material-ui/svg-icons/action/assignment-ind';
 // import ChromeReaderModeIcon from 'material-ui/svg-icons/action/chrome-reader-mode';
-// import ExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import ExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 // import GroupAddIcon from 'material-ui/svg-icons/social/group-add';
 // import GroupIcon from 'material-ui/svg-icons/social/group';
 // import PeopleIcon from 'material-ui/svg-icons/social/people';
@@ -41,6 +45,19 @@ class Navigation extends React.Component {
         this.themePalette = this.props.muiTheme.palette;
         this.state = { drawerOpen: false };
     }
+
+    search(event, newVal) {
+        window._FIREBASE_DB_.ref('/users/').once('value').then(function(snapshot) {
+
+            Object.keys(snapshot.val()).forEach(key => {
+                if (snapshot.val()[key].displayName.startsWith(newVal)){
+                    console.log(snapshot.val()[key].displayName);
+                }
+            });
+        });
+    }
+
+
 
     handleToggle () {
         // doesn't show nevigation unless logged in.
@@ -64,16 +81,22 @@ class Navigation extends React.Component {
 
     render () {
         const { user } = this.props;
-
         const avatarSize = 60,
             paddingSize = 15,
             drawerWidth = Math.min(450, window.outerWidth * .8);
 
         return (
             <div>
-                <AppBar onLeftIconButtonTouchTap={this.handleToggle} title={'Welcome, ' + user.displayName} children={<EventNoteIcon/>}>
-                </AppBar>
-                <ContactTypeaheadSearch/>
+                <Toolbar style={{backgroundColor: this.themePalette.primary1Color}}>
+                    <ToolbarGroup firstChild={true}>
+                        <IconButton onTouchTap={this.handleToggle}>
+                            <MenuIcon color={white}  />
+                        </IconButton>
+                        <ContactTypeaheadSearch />
+
+                    </ToolbarGroup>
+                </Toolbar>
+
                 <Drawer docked={false} width={drawerWidth} open={this.state.drawerOpen} onRequestChange={() => this.setState({drawerOpen : false})}>
                     <div style={{backgroundColor: this.props.muiTheme.appBar.color, padding: paddingSize }}>
                         <Avatar size={avatarSize} icon={<PersonOutlineIcon/>}/>
@@ -85,6 +108,7 @@ class Navigation extends React.Component {
                     <MenuItem onTouchTap={this.getMenuItemHandler('/reports')} primaryText='Report' leftIcon={<EventNoteIcon/>}/>
                     <MenuItem onTouchTap={this.handleLogout} primaryText='Logout' leftIcon={<ExitToAppIcon/>}/>
                 </Drawer>
+
             </div>
         );
     }

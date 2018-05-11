@@ -16,7 +16,7 @@ class ContactSearchResults extends Component {
             <div>
 
             {searchResults.length === 0 && <Subheader>
-                Enter User ID
+                No results found.  Search by contact ID above
             </Subheader>}
 
             {searchResults.length > 0 && <div>

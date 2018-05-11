@@ -1,31 +1,37 @@
 import React, {Component} from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+
 
 import CancelIcon from 'material-ui/svg-icons/navigation/cancel';
 
 class ContactTypeaheadSearch extends Component {
+    constructor(props){
+        super(props);
 
-    handleUpdateInput = (value) => {
-        if (value.length > 0) {
-            this.props.typeaheadSearch(value);
-        }
+        this.state = {
+            value: props.value
+        };
+
+    }
+
+    handleUpdateInput = (event, newVal) => {
+        this.setState({value: newVal});
+            this.props.typeaheadSearch(newVal);
     };
 
     render() {
-        const { dataSource } = this.props;
+
         return (
-            <Paper style={{display: 'flex', alignItems: 'baseline', width: 'auto', padding: '0.5rem'}} zDepth={1} >
-                <AutoComplete
-                    menuStyle={{display: 'none'}} // FIXME:
-                    dataSource={dataSource}
-                    floatingLabelText="User ID"
-                    hintText="AA BB 01 01 2018 AAA"
-                    onNewRequest={(c) => {console.log(`go to contact/${c}/`)}}
-                    onUpdateInput={this.handleUpdateInput}
+                <TextField
+                    style               = {{ backgroundColor: '#fff' }}
+                    id                  = 'contact-search-input'
+                    floatingLabelText   = 'Contact ID'
+                    hintText            = 'AA BB 01 01 2018 AAA'
+                    value               = { this.state.value }
+                    onChange            = { this.handleUpdateInput }
                 />
-                <button onClick={this.clearValue}>clic</button>
-            </Paper>
         );
     }
 }
