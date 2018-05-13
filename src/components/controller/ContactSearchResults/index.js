@@ -2,9 +2,11 @@ import { connect } from 'react-redux';
 import ContactSearchResults from 'components/view/ContactSearchResults';
 
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        searchResults: state.contacts.searchResults,
+    };
 };
-  
+
 export default connect(
     mapStateToProps
 )(ContactSearchResults);

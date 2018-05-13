@@ -16,10 +16,10 @@ function* fetchContacts() {
                 contact.uid = key;
                 return contact;
             })
-            
+
             window._UI_STORE_.dispatch(refreshContacts(contactsArr));
         });
-    
+
     yield;
 }
 

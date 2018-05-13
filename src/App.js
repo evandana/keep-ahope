@@ -26,7 +26,7 @@ import Messages from 'components/controller/Messages';
 
 import Navigation from 'components/controller/Navigation';
 import Footer from 'components/view/common/Footer';
-import { getUser, fetchEvents, fetchConfig, showLoginSpinner, fetchContacts, getContact } from './actions';
+import { getUser, fetchEvents, fetchConfig, showLoginSpinner, fetchContacts, getContact, searchContacts } from './actions';
 
 import './app.css';
 
@@ -61,8 +61,10 @@ class App extends Component {
 
                     window._UI_STORE_.dispatch(getUser(googleUserData));
 
-                    window._UI_STORE_.dispatch(fetchContacts());
+                    // window._UI_STORE_.dispatch(fetchContacts());
                     // window._UI_STORE_.dispatch(fetchEvents());
+
+                    // window._UI_STORE_.dispatch(searchContacts('jnd'));
 
                     // TODO: put this where it belongs and pull from route param
                     window._UI_STORE_.dispatch(getContact('jnde123199abc'));

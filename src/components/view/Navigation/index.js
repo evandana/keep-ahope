@@ -2,7 +2,7 @@ import React from 'react';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import AppBar from 'material-ui/AppBar'
+import AppBar from 'material-ui/AppBar';
 import Avatar from 'material-ui/Avatar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -10,10 +10,11 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
 
 import ArrowDownIcon from 'material-ui/svg-icons/navigation/arrow-drop-down';
+import ContactTypeaheadSearch from 'components/controller/ContactTypeaheadSearch';
 import EventNoteIcon from 'material-ui/svg-icons/notification/event-note';
 import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
-import PersonIcon from 'material-ui/svg-icons/social/person';
 import PersonOutlineIcon from 'material-ui/svg-icons/social/person-outline';
+import PersonIcon from 'material-ui/svg-icons/social/person';
 
 // Unused icons; some are good candidates if we need more.
 //
@@ -68,8 +69,9 @@ class Navigation extends React.Component {
 
         return (
             <div>
-                <AppBar onLeftIconButtonTouchTap={this.handleToggle} title={'Welcome, ' + user.displayName}>
+                <AppBar onLeftIconButtonTouchTap={this.handleToggle} title={'Welcome, ' + user.displayName} children={<EventNoteIcon/>}>
                 </AppBar>
+                <ContactTypeaheadSearch/>
                 <Drawer docked={false} width={drawerWidth} open={this.state.drawerOpen} onRequestChange={() => this.setState({drawerOpen : false})}>
                     <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
                         <div style={{backgroundColor: muiTheme.palette.primary1Color, padding: paddingSize }}>
