@@ -10,14 +10,21 @@ class ContactSearchResults extends Component {
 
     render() {
 
-        const { searchResults, contactUidEntry } = this.props;
+        const { searchResults, contactUidEntry, contactSearchQuery } = this.props;
 
         return (
             <div>
 
-            {searchResults.length === 0 && <Subheader>
-                Enter User ID
+            {(searchResults.length === 0 && contactSearchQuery.length < 1) && <Subheader>
+                Enter User ID {contactSearchQuery}
             </Subheader>}
+
+            {(searchResults.length === 0 && contactSearchQuery.length > 1) && <div>
+                <Subheader>
+                    No results for contact ID: {contactSearchQuery}
+                </Subheader>
+                <Divider/>
+            </div>}
 
             {searchResults.length > 0 && <div>
                 <List>
@@ -25,9 +32,9 @@ class ContactSearchResults extends Component {
                     {searchResults.map((result) => {
                         return (
                             <ListItem
+                                key={result}
                                 primaryText={result}
-                                leftAvatar={<PersonIcon />}
-                                // TODO: replace this with the actual result once routing works
+                                leftIcon={<PersonIcon />}
                                 onClick={() => {window.location = `/contact/${result}/intake`}}
                             />
                         )
@@ -39,7 +46,7 @@ class ContactSearchResults extends Component {
             <Subheader>Most Recent Contact</Subheader>
             <ListItem
                 primaryText={contactUidEntry}
-                leftAvatar={<PersonIcon />}
+                leftIcon={<PersonIcon />}
                 onClick={() => {window.location = `/contact/${contactUidEntry}/intake`}}
             />
 

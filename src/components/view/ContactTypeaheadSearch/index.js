@@ -19,12 +19,12 @@ class ContactTypeaheadSearch extends Component {
                 <AutoComplete
                     menuStyle={{display: 'none'}} // FIXME:
                     dataSource={dataSource}
-                    floatingLabelText="User ID"
+                    floatingLabelText="Search for a User ID"
+                    fullWidth={true}
                     hintText="AA BB 01 01 2018 AAA"
                     onNewRequest={(c) => {console.log(`go to contact/${c}/`)}}
                     onUpdateInput={this.handleUpdateInput}
                 />
-                <button onClick={this.clearValue}>clic</button>
             </Paper>
         );
     }

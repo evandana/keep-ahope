@@ -69,9 +69,15 @@ class Navigation extends React.Component {
 
         return (
             <div>
-                <AppBar onLeftIconButtonTouchTap={this.handleToggle} title={'Welcome, ' + user.displayName} children={<EventNoteIcon/>}>
-                </AppBar>
-                <ContactTypeaheadSearch/>
+                <AppBar
+                    onLeftIconButtonTouchTap={this.handleToggle}
+                    title={<ContactTypeaheadSearch/>}
+                    titleStyle={{
+                        paddingTop: '0.5rem',
+                        paddingBottom: '1rem',
+                        height: 'auto' //override
+                    }}
+                />
                 <Drawer docked={false} width={drawerWidth} open={this.state.drawerOpen} onRequestChange={() => this.setState({drawerOpen : false})}>
                     <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
                         <div style={{backgroundColor: muiTheme.palette.primary1Color, padding: paddingSize }}>
