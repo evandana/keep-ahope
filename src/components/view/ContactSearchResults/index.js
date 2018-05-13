@@ -1,32 +1,51 @@
 import React, { Component } from 'react';
 
-import { getImageForEnv } from 'static/images/index'
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import { getImageForEnv } from 'static/images/index';
+import PersonIcon from 'material-ui/svg-icons/social/person';
+import Divider from 'material-ui/Divider';
 
-class ContactInfo extends Component {
+class ContactSearchResults extends Component {
 
     render() {
 
-        const { contactUidEntry } = this.props;
-    
+        const { searchResults, contactUidEntry } = this.props;
+
         return (
-            <div className='page'>
-                
-                <h2>Contact Search Results</h2>
+            <div>
 
-                <pre>contactUidEntry: <span style={{color:'red'}}>{contactUidEntry}</span></pre>
+            {searchResults.length === 0 && <Subheader>
+                Enter User ID
+            </Subheader>}
 
-                <ul>
-                    <li>
-                        Go to <a href={'/contact/'+contactUidEntry+'/intake'}>/contact/{contactUidEntry}/intake</a>
-                    </li>
-                    <li>
-                        Go to <a href={'/contact/'+contactUidEntry+'/info'}>/contact/{contactUidEntry}/info</a>
-                    </li>
-                </ul>
-                
+            {searchResults.length > 0 && <div>
+                <List>
+                    <Subheader>Results</Subheader>
+                    {searchResults.map((result) => {
+                        return (
+                            <ListItem
+                                primaryText={result}
+                                leftAvatar={<PersonIcon />}
+                                // TODO: replace this with the actual result once routing works
+                                onClick={() => {window.location = `/contact/${result}/intake`}}
+                            />
+                        )
+                    })}
+                    </List>
+                <Divider />
+            </div>}
+
+            <Subheader>Most Recent Contact</Subheader>
+            <ListItem
+                primaryText={contactUidEntry}
+                leftAvatar={<PersonIcon />}
+                onClick={() => {window.location = `/contact/${contactUidEntry}/intake`}}
+            />
+
             </div>
         );
     }
 }
 
-export default ContactInfo;
+export default ContactSearchResults;

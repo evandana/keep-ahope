@@ -19,7 +19,7 @@ class Contact extends Component {
                 <ContactNavigation
                     >
                 </ContactNavigation>
-                <div className='page'>
+                <div>
                     {!urlPathAction && (
                         <ContactSearchResults
                             contactUidEntry='hardcoded123'>

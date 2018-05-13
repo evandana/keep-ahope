@@ -10,6 +10,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
 import { blueGrey600, cyan600 } from 'material-ui/styles/colors'
 
+import ContactTypeaheadSearch from 'components/controller/ContactTypeaheadSearch';
+
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import PersonOutlineIcon from 'material-ui/svg-icons/social/person-outline';
 import EventNoteIcon from 'material-ui/svg-icons/notification/event-note';
@@ -69,8 +71,9 @@ class Navigation extends React.Component {
 
         return (
             <div>
-                <AppBar onLeftIconButtonTouchTap={this.handleToggle} title={'Welcome, ' + user.displayName}>
+                <AppBar onLeftIconButtonTouchTap={this.handleToggle} title={'Welcome, ' + user.displayName} children={<EventNoteIcon/>}>
                 </AppBar>
+                <ContactTypeaheadSearch/>
                 <Drawer docked={false} width={drawerWidth} open={this.state.drawerOpen} onRequestChange={() => this.setState({drawerOpen : false})}>
                     <div style={{backgroundColor: this.props.muiTheme.appBar.color, padding: paddingSize }}>
                         <Avatar size={avatarSize} icon={<PersonOutlineIcon/>}/>
