@@ -9,7 +9,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 class ContactTypeaheadSearch extends Component {
 
     handleUpdateInput = (value) => {
-        if (value.length > 0 && value.length < 16 /* TODO: validate entry regex here */) {
+        if (value.length < 16 /* TODO: validate entry regex here */) {
             this.props.typeaheadSearch(value);
 
             // navigate to contact search results page if we're not already there
@@ -57,7 +57,7 @@ class ContactTypeaheadSearch extends Component {
                         cursor: 'pointer',
                         zIndex: '1101',
                     }}
-                    onClick={() => {setCurrentSearchQuery('')}}
+                    onClick={() => {this.handleUpdateInput('')}}
                 />
                 <div style={{
                     position: 'absolute',

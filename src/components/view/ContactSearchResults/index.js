@@ -28,7 +28,7 @@ class ContactSearchResults extends Component {
 
             {searchResults.length > 0 && <div>
                 <List>
-                    <Subheader>Results</Subheader>
+                    <Subheader>Results (Top 10)</Subheader>
                     {searchResults.map((result) => {
                         return (
                             <ListItem
