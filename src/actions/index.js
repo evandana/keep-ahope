@@ -20,6 +20,7 @@ import {
     FETCH_CONTACTS,
     REFRESH_CONTACTS,
     SET_CONTACT_SEARCH_RESULTS,
+    SET_CURRENT_SEARCH_QUERY,
     SEARCH_CONTACTS,
 
     // CONFIG
@@ -140,6 +141,13 @@ export function setContactSearchResults(searchResultArray) {
     return {
         type: SET_CONTACT_SEARCH_RESULTS,
         searchResultArray,
+    }
+}
+
+export function setCurrentSearchQuery(searchQuery) {
+    return {
+        type: SET_CURRENT_SEARCH_QUERY,
+        searchQuery,
     }
 }
 
