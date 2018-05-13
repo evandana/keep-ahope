@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { searchContacts } from 'actions';
+import { searchContacts, setCurrentSearchQuery } from 'actions';
 import ContactTypeaheadSearch from 'components/view/ContactTypeaheadSearch';
 
 const mapStateToProps = (state) => {

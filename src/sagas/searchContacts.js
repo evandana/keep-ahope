@@ -4,9 +4,13 @@ import {
     SEARCH_CONTACTS,
 } from '../constants';
 
-import { setContactSearchResults } from 'actions';
+import { setContactSearchResults, setCurrentSearchQuery } from 'actions';
 
 function* searchContacts({ searchStringUid }) {
+    // set query in state
+    window._UI_STORE_.dispatch(setCurrentSearchQuery(searchStringUid));
+
+    // get results from backend
     window._FIREBASE_DB_.ref('/contacts/')
         .orderByKey()
         .startAt(searchStringUid)
@@ -16,6 +20,7 @@ function* searchContacts({ searchStringUid }) {
                 const subString = uid.slice(0, searchStringUid.length);
                 return searchStringUid === subString;
             });
+            // set results in state
             window._UI_STORE_.dispatch(setContactSearchResults(searchResultsArray))
         })
     yield;
