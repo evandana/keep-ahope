@@ -72,27 +72,27 @@ class Navigation extends React.Component {
                 <AppBar onLeftIconButtonTouchTap={this.handleToggle} title={'Welcome, ' + user.displayName}>
                 </AppBar>
                 <Drawer docked={false} width={drawerWidth} open={this.state.drawerOpen} onRequestChange={() => this.setState({drawerOpen : false})}>
-                <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-                    <div style={{backgroundColor: muiTheme.appBar.color, padding: paddingSize }}>
-                        <Avatar size={avatarSize} icon={<PersonOutlineIcon/>}/>
-                        <MenuItem
-                            style={{ color: muiTheme.appBar.textColor, paddingTop: paddingSize }}
-                            primaryText={user.email}
-                            rightIcon={<ArrowDownIcon color={muiTheme.appBar.textColor}/>}
-                        />
-                    </div>
-                    <MenuItem onTouchTap={this.getMenuItemHandler('/contact')} primaryText='Contact' leftIcon={<PersonIcon/>}/>
-                    <MenuItem onTouchTap={this.getMenuItemHandler('/reports')} primaryText='Report' leftIcon={<EventNoteIcon/>}/>
-                    <div style={{marginTop: 'auto'}}>
-                        <MenuItem
-                            onTouchTap={this.handleLogout}
-                            primaryText='Logout'
-                            leftIcon={<ArrowBackIcon/>}
-                        />
-                    </div>
-                    </div>
-                    </Drawer>
-                </div>
+                    <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+                        <div style={{backgroundColor: muiTheme.appBar.color, padding: paddingSize }}>
+                            <Avatar size={avatarSize} icon={<PersonOutlineIcon/>}/>
+                            <MenuItem
+                                style={{ color: muiTheme.appBar.textColor, paddingTop: paddingSize }}
+                                primaryText={user.email}
+                                rightIcon={<ArrowDownIcon color={muiTheme.appBar.textColor}/>}
+                            />
+                        </div>
+                        <MenuItem onTouchTap={this.getMenuItemHandler('/contact')} primaryText='Contact' leftIcon={<PersonIcon/>}/>
+                        <MenuItem onTouchTap={this.getMenuItemHandler('/reports')} primaryText='Report' leftIcon={<EventNoteIcon/>}/>
+                        <div style={{marginTop: 'auto'}}>
+                            <MenuItem
+                                onTouchTap={this.handleLogout}
+                                primaryText='Logout'
+                                leftIcon={<ArrowBackIcon/>}
+                            />
+                        </div>
+                        </div>
+                </Drawer>
+            </div>
         );
     }
 }
