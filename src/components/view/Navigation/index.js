@@ -10,10 +10,10 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
 
 import ArrowDownIcon from 'material-ui/svg-icons/navigation/arrow-drop-down';
-import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
+import EventNoteIcon from 'material-ui/svg-icons/notification/event-note';
+import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import PersonOutlineIcon from 'material-ui/svg-icons/social/person-outline';
-import EventNoteIcon from 'material-ui/svg-icons/notification/event-note';
 
 // Unused icons; some are good candidates if we need more.
 //
@@ -87,7 +87,7 @@ class Navigation extends React.Component {
                             <MenuItem
                                 onTouchTap={this.handleLogout}
                                 primaryText='Logout'
-                                leftIcon={<ArrowBackIcon/>}
+                                leftIcon={<ExitToAppIcon/>}
                             />
                         </div>
                         </div>
