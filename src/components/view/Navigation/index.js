@@ -41,7 +41,7 @@ class Navigation extends React.Component {
     }
 
     handleToggle () {
-        // doesn't show nvigation unless logged in.
+        // doesn't show navigation unless logged in.
         const { user } = this.props;
         if (user.uid && user.uid.length > 0) {
             this.setState({drawerOpen: !this.state.drawerOpen});
