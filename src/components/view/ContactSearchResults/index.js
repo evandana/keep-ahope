@@ -26,12 +26,14 @@ class ContactSearchResults extends Component {
                     onClick={() => window.location = `/contact/${contactUidEntry}/intake`}
                 />
 
-                {(searchResults.length === 0 && contactSearchQuery.length > 1) && <div>
-                    <Subheader>
-                        No results for contact ID: {contactSearchQuery}
-                    </Subheader>
-                    <Divider/>
-                </div>}
+                {(searchResults.length === 0 && contactSearchQuery.length > 1) && (
+                    <div>
+                        <Subheader>
+                            No results for contact ID: {contactSearchQuery}
+                        </Subheader>
+                        <Divider/>
+                    </div>
+                )}
 
                 {searchResults.length > 0 && <div>
                     <List>
