@@ -30,11 +30,9 @@ class ContactTypeaheadSearch extends Component {
         // can this be done with a single RegEx??
         if (value.length > 0 && value.length <= 4) {
             regex = new RegExp('(\\w{1,4})');
-        }
-        else if (value.length > 4 && value.length <= 10) {
+        } else if (value.length > 4 && value.length <= 10) {
             regex = new RegExp('\\w{4}\\d{1,6}');
-        }
-        else if (value.length > 10) {
+        } else if (value.length > 10) {
             regex = new RegExp('\\w{4}\\d{6}\\w{1,3}');
         }
 
@@ -81,9 +79,11 @@ class ContactTypeaheadSearch extends Component {
                         top: '2.5rem',
                         right: '0.4rem',
                         cursor: 'pointer',
-                        zIndex: '1101',
+                        zIndex: 1101, // appBar is 1100
                     }}
-                    onClick ={ () => {this.handleUpdateInput('')} }
+                    onClick ={ () => {
+this.handleUpdateInput('')
+} }
                 />
                 <div style={{
                     position: 'absolute',

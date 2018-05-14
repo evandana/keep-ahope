@@ -56,19 +56,9 @@ class App extends Component {
                         email: googleUser.email,
                     };
 
-
+                    // fetch initial state
                     window._UI_STORE_.dispatch(fetchConfig());
-
                     window._UI_STORE_.dispatch(getUser(googleUserData));
-
-                    // window._UI_STORE_.dispatch(fetchContacts());
-                    // window._UI_STORE_.dispatch(fetchEvents());
-
-                    // window._UI_STORE_.dispatch(searchContacts('jnd'));
-
-                    // TODO: put this where it belongs and pull from route param
-                    window._UI_STORE_.dispatch(getContact('jnde123199abc'));
-
                 }
             }
         );

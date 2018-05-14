@@ -14,41 +14,40 @@ class ContactSearchResults extends Component {
 
         return (
             <div>
+                {(searchResults.length === 0 && contactSearchQuery.length < 1) && <Subheader>
+                    Enter User ID {contactSearchQuery}
+                </Subheader>}
 
-            {(searchResults.length === 0 && contactSearchQuery.length < 1) && <Subheader>
-                Enter User ID {contactSearchQuery}
-            </Subheader>}
+                {(searchResults.length === 0 && contactSearchQuery.length > 1) && <div>
+                    <Subheader>
+                        No results for contact ID: {contactSearchQuery}
+                    </Subheader>
+                    <Divider/>
+                </div>}
 
-            {(searchResults.length === 0 && contactSearchQuery.length > 1) && <div>
-                <Subheader>
-                    No results for contact ID: {contactSearchQuery}
-                </Subheader>
-                <Divider/>
-            </div>}
+                {searchResults.length > 0 && <div>
+                    <List>
+                        <Subheader>Results (Top 10)</Subheader>
+                        {searchResults.map((result) => {
+                            return (
+                                <ListItem
+                                    key={result}
+                                    primaryText={result}
+                                    leftIcon={<PersonIcon />}
+                                    onClick={() => {window.location = `/contact/${result}/intake`}}
+                                />
+                            )
+                        })}
+                        </List>
+                    <Divider />
+                </div>}
 
-            {searchResults.length > 0 && <div>
-                <List>
-                    <Subheader>Results (Top 10)</Subheader>
-                    {searchResults.map((result) => {
-                        return (
-                            <ListItem
-                                key={result}
-                                primaryText={result}
-                                leftIcon={<PersonIcon />}
-                                onClick={() => {window.location = `/contact/${result}/intake`}}
-                            />
-                        )
-                    })}
-                    </List>
-                <Divider />
-            </div>}
-
-            <Subheader>Most Recent Contact</Subheader>
-            <ListItem
-                primaryText={contactUidEntry}
-                leftIcon={<PersonIcon />}
-                onClick={() => {window.location = `/contact/${contactUidEntry}/intake`}}
-            />
+                <Subheader>Most Recent Contact</Subheader>
+                <ListItem
+                    primaryText={contactUidEntry}
+                    leftIcon={<PersonIcon />}
+                    onClick={() => {window.location = `/contact/${contactUidEntry}/intake`}}
+                />
 
             </div>
         );
