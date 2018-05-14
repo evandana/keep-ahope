@@ -36,7 +36,6 @@ class Navigation extends React.Component {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
-        this.themePalette = this.props.muiTheme.palette;
         this.state = { drawerOpen: false };
     }
 
@@ -73,12 +72,12 @@ class Navigation extends React.Component {
                 </AppBar>
                 <Drawer docked={false} width={drawerWidth} open={this.state.drawerOpen} onRequestChange={() => this.setState({drawerOpen : false})}>
                     <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-                        <div style={{backgroundColor: muiTheme.appBar.color, padding: paddingSize }}>
+                        <div style={{backgroundColor: muiTheme.palette.primary1Color, padding: paddingSize }}>
                             <Avatar size={avatarSize} icon={<PersonOutlineIcon/>}/>
                             <MenuItem
-                                style={{ color: muiTheme.appBar.textColor, paddingTop: paddingSize }}
+                                style={{ color: muiTheme.palette.alternateTextColor, paddingTop: paddingSize }}
                                 primaryText={user.email}
-                                rightIcon={<ArrowDownIcon color={muiTheme.appBar.textColor}/>}
+                                rightIcon={<ArrowDownIcon color={muiTheme.palette.alternateTextColor}/>}
                             />
                         </div>
                         <MenuItem onTouchTap={this.getMenuItemHandler('/contact')} primaryText='Contact' leftIcon={<PersonIcon/>}/>
