@@ -8,17 +8,42 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 
 class ContactTypeaheadSearch extends Component {
 
-    handleUpdateInput = (value) => {
-        if (value.length < 16 /* TODO: validate entry regex here */) {
-            this.props.typeaheadSearch(value);
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
-            // navigate to contact search results page if we're not already there
-            if (this.props.location.pathname !== '/contact') {
-                this.props.history.push('/contact');
-            }
+    handleUpdateInput = (value) => {
+        this.validate(value);
+
+        this.props.typeaheadSearch(value);
+
+        // navigate to contact search results page if we're not already there
+        if (this.props.location.pathname !== '/contact') {
+            this.props.history.push('/contact');
+        }
+    };
+
+    validate(value) {
+        let regex;
+        let errorMsg = '';
+        // can this be done with a single RegEx??
+        if (value.length > 0 && value.length <= 4) {
+            regex = new RegExp('(\\w{1,4})');
+        }
+        else if (value.length > 4 && value.length <= 10) {
+            regex = new RegExp('\\w{4}\\d{1,6}');
+        }
+        else if (value.length > 10) {
+            regex = new RegExp('\\w{4}\\d{6}\\w{1,3}');
         }
 
-    };
+        if (value.length > 0 && !regex.test(value)) {
+            errorMsg = 'Contact ID must be of the form: AA BB 01 01 2018 AAA';
+        }
+
+        this.setState({errorMessage: errorMsg});
+    }
 
     render() {
         const {
@@ -40,24 +65,25 @@ class ContactTypeaheadSearch extends Component {
                 zDepth={1}
             >
                 <AutoComplete
-                    dataSource={dataSource}
-                    floatingLabelText="Search for a User ID"
-                    fullWidth={true}
-                    hintText="AA BB 01 01 2018 AAA"
-                    menuStyle={{display: 'none'}} // FIXME:
-                    onUpdateInput={this.handleUpdateInput}
-                    searchText={contactSearchQuery}
+                    dataSource          = {dataSource}
+                    floatingLabelText   = "Search for a Contact ID"
+                    fullWidth           = {true}
+                    hintText            = "AA BB 01 01 2018 AAA"
+                    errorText           = { this.state.errorMessage }
+                    menuStyle           = {{ display: 'none' }}
+                    onUpdateInput       = { this.handleUpdateInput }
+                    searchText          = {contactSearchQuery}
                 />
                 <CancelIcon
-                    color={palette.accent3Color}
-                    style={{
+                    color = {palette.accent3Color}
+                    style = {{
                         position: 'absolute',
                         top: '2.5rem',
                         right: '0.4rem',
                         cursor: 'pointer',
                         zIndex: '1101',
                     }}
-                    onClick={() => {this.handleUpdateInput('')}}
+                    onClick ={ () => {this.handleUpdateInput('')} }
                 />
                 <div style={{
                     position: 'absolute',
