@@ -29,13 +29,11 @@ class ContactInfoEventsCard extends Component {
             titleColor: palette.primary1Color
         }
 
-
         return (
             <Card initiallyExpanded={true}>
                 <CardHeader {...cardHeaderProps} />
                 <CardText expandable={true}>
                     <List
-                        insetChildren={false}
                         style={{padding: 0}}
                     >
                     {!!events ? (
