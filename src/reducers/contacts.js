@@ -10,6 +10,7 @@ const defaultState = {
     // array of filtered contacts based on user search
     searchResults: [],
     searchQuery: '',
+    selectedContact: '',
 };
 
 function contacts(state = defaultState, action) {

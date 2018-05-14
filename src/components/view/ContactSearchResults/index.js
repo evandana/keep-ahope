@@ -14,9 +14,17 @@ class ContactSearchResults extends Component {
 
         return (
             <div>
+                {/* TODO: only show if there is nothing else showing */}
                 {(searchResults.length === 0 && contactSearchQuery.length < 1) && <Subheader>
                     Enter User ID {contactSearchQuery}
                 </Subheader>}
+
+                <Subheader>Most Recent Contact</Subheader>
+                <ListItem
+                    primaryText={contactUidEntry}
+                    leftIcon={<PersonIcon />}
+                    onClick={() => window.location = `/contact/${contactUidEntry}/intake`}
+                />
 
                 {(searchResults.length === 0 && contactSearchQuery.length > 1) && <div>
                     <Subheader>
@@ -34,7 +42,9 @@ class ContactSearchResults extends Component {
                                     key={result}
                                     primaryText={result}
                                     leftIcon={<PersonIcon />}
-                                    onClick={() => {window.location = `/contact/${result}/intake`}}
+                                    onClick={() => {
+window.location = `/contact/${result}/intake`
+}}
                                 />
                             )
                         })}
@@ -42,12 +52,7 @@ class ContactSearchResults extends Component {
                     <Divider />
                 </div>}
 
-                <Subheader>Most Recent Contact</Subheader>
-                <ListItem
-                    primaryText={contactUidEntry}
-                    leftIcon={<PersonIcon />}
-                    onClick={() => {window.location = `/contact/${contactUidEntry}/intake`}}
-                />
+
 
             </div>
         );

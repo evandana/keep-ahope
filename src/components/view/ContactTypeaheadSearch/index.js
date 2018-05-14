@@ -64,7 +64,7 @@ class ContactTypeaheadSearch extends Component {
             >
                 <AutoComplete
                     dataSource          = {dataSource}
-                    floatingLabelText   = "Search for a Contact ID"
+                    floatingLabelText    = "Search for a Contact ID"
                     fullWidth           = {true}
                     hintText            = "AA BB 01 01 2018 AAA"
                     errorText           = { this.state.errorMessage }
@@ -81,9 +81,7 @@ class ContactTypeaheadSearch extends Component {
                         cursor: 'pointer',
                         zIndex: 1101, // appBar is 1100
                     }}
-                    onClick ={ () => {
-this.handleUpdateInput('')
-} }
+                    onClick = {() => this.handleUpdateInput('')}
                 />
                 <div style={{
                     position: 'absolute',
