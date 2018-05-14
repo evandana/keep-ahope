@@ -22,10 +22,6 @@ class ContactInfoEventsCard extends Component {
     render() {
         const { events, palette } = this.props
 
-        const cardProps = {
-            initiallyExpanded: true
-        }
-
         const cardHeaderProps = {
             title: 'Events',
             actAsExpander: true,
@@ -33,14 +29,11 @@ class ContactInfoEventsCard extends Component {
             titleColor: palette.primary1Color
         }
 
-        const cardTextProps = {
-            expandable: true
-        }
 
         return (
-            <Card {...cardProps}>
+            <Card initiallyExpanded={true}>
                 <CardHeader {...cardHeaderProps} />
-                <CardText {...cardTextProps}>
+                <CardText expandable={true}>
                     <List
                         insetChildren={false}
                         style={{padding: 0}}
@@ -48,11 +41,11 @@ class ContactInfoEventsCard extends Component {
                     {!!events ? (
                         // if there are events, list each one
                         events.map(event => (
-                        <ListItem key={event.uid}
-                            disabled={true}
-                            primaryText={this.formatUidToDate(event.uid)}
-                            innerDivStyle={{paddingLeft: 0, paddingTop: 0}}>
-                        </ListItem>
+                            <ListItem key={event.uid}
+                                disabled={true}
+                                primaryText={this.formatUidToDate(event.uid)}
+                                innerDivStyle={{paddingLeft: 0, paddingTop: 0}}>
+                            </ListItem>
                         ))
                     ) : (
                         'There are no events for this user'
