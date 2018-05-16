@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 /** MATERIAL UI **/
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {cyan50,blueGrey200,cyan500,cyan900,limeA200,yellow800,pink800,green400} from 'material-ui/styles/colors';
+import {cyan50,blueGrey200,cyan500,cyan900,limeA200,yellow800,pink800,green400,grey500} from 'material-ui/styles/colors';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 /** ROUTER **/
 import { Route } from 'react-router-dom';
@@ -23,6 +23,7 @@ import AuthorizedRoute from 'components/controller/AuthorizedRoute';
 import Contact from 'components/controller/Contact';
 import Reports from 'components/controller/Reports';
 import Messages from 'components/controller/Messages';
+import Intake from 'components/controller/Intake';
 
 import Navigation from 'components/controller/Navigation';
 import Footer from 'components/view/common/Footer';
@@ -61,9 +62,6 @@ class App extends Component {
 
                     window._UI_STORE_.dispatch(getUser(googleUserData));
 
-                    window._UI_STORE_.dispatch(fetchContacts());
-                    // window._UI_STORE_.dispatch(fetchEvents());
-
                     // TODO: put this where it belongs and pull from route param
                     window._UI_STORE_.dispatch(getContact('jnde123199abc'));
 
@@ -80,7 +78,7 @@ class App extends Component {
                 primary1Color: '#1DAFEC',
                 accent1Color: '#8EC449',
                 highlight1Color: '#E8448B',
-                ternaryTextColor: '#8DC3DB', // TODO: rename
+                tertiaryTextColor: '#8DC3DB',
                 fadedPrimary1Color: '#4FDFFF',
                 primaryLinkColor: '#1DAFEC',
                 secondaryLinkColor: '#8AC9EC',
@@ -91,7 +89,7 @@ class App extends Component {
                 // DEFAULTS
                 // primary1Color: cyan500,
                 // primary2Color: cyan700,
-                // primary3Color: grey400,
+                primary3Color: grey500,
                 // accent1Color: pinkA200,
                 // accent2Color: grey100,
                 // accent3Color: grey500,
@@ -119,9 +117,9 @@ class App extends Component {
                                 <AuthorizedRoute exact path="/contact/" component={Contact} />
                                 <AuthorizedRoute path="/contact/:uid/:action" component={Contact} />
                                 <AuthorizedRoute exact path="/reports" component={Reports} />
+                                <AuthorizedRoute exact path="/intake" component={Intake} />
                                 <AuthorizedRoute path="/" component={Contact} />
                             </Switch>
-                            <Footer />
                         </div>
                     </ConnectedRouter>
                 </Provider>
@@ -131,4 +129,3 @@ class App extends Component {
 }
 
 export default App;
-

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ContactIntake from 'components/view/ContactIntake';
+import Intake from 'components/view/Intake';
 
 const mapStateToProps = (state) => {
     return {
@@ -10,4 +10,4 @@ const mapStateToProps = (state) => {
   
 export default connect(
     mapStateToProps
-)(ContactIntake);
+)(Intake);

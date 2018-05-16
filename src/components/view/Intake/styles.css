@@ -1,0 +1,33 @@
+.form {
+  max-width: 80%;
+  margin: auto;
+  display: block;
+}
+
+.checkbox, .radio {
+  display: flex;
+  padding: 1rem;
+}
+
+.checkbox.usedGiven {
+  padding: 0 0 1rem;
+}
+
+.fields {
+  padding: 2rem;
+}
+
+.textAreaContainer {
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem 2rem;
+  box-sizing: border-box;
+}
+
+.submitButtons {
+  padding: 1rem 0;
+}
+
+#syringesGiven, #syringesTaken, #numPeople, #ageOfFirstInjection {
+  /* width: 20rem; */
+}

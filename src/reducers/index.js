@@ -12,6 +12,7 @@ const reducers = {
     contact,
     contacts,
     isLoggedIn,
+    contact,
     user,
 };
 
