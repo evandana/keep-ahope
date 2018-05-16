@@ -26,7 +26,7 @@ import Messages from 'components/controller/Messages';
 
 import Navigation from 'components/controller/Navigation';
 import Footer from 'components/view/common/Footer';
-import { getUser, fetchEvents, fetchConfig, showLoginSpinner, fetchContacts, getContact, searchContacts } from './actions';
+import { getUser, fetchConfig, showLoginSpinner } from './actions';
 
 import './app.css';
 

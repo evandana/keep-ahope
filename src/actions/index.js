@@ -17,7 +17,6 @@ import {
     UPDATE_CURRENT_CONTACT,
 
     // CONTACTS
-    FETCH_CONTACTS,
     REFRESH_CONTACTS,
     SET_CONTACT_SEARCH_RESULTS,
     SET_CURRENT_SEARCH_QUERY,
@@ -116,13 +115,6 @@ export function updateCurrentContact(contact) {
 }
 
 /** CONTACTS */
-export function fetchContacts() {
-    return {
-        type: FETCH_CONTACTS,
-    }
-}
-
-
 export function refreshContacts(contacts) {
     return {
         type: REFRESH_CONTACTS,
