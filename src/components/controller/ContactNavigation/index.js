@@ -17,11 +17,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const ContactNavigationViewWithRouter = withRouter(ContactNavigationView);
-
-const NavigationController = connect(
+const NavigationController = withRouter(connect(
     mapStateToProps,
     mapDispatchToProps,
-)(ContactNavigationViewWithRouter);
+)(ContactNavigationView));
 
 export default NavigationController;

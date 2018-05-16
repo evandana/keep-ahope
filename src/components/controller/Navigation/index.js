@@ -17,11 +17,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const NavigationViewWithRouter = withRouter(NavigationView);
-
-const NavigationController = connect(
+const NavigationController = withRouter(connect(
     mapStateToProps,
     mapDispatchToProps,
-)(NavigationViewWithRouter);
+)(NavigationView));
 
 export default NavigationController;

@@ -9,16 +9,13 @@ class Contact extends Component {
 
     render() {
 
-        const { user, match, contact } = this.props;
+        const { match, contact } = this.props;
 
         const urlPathUid = match && match.params && match.params.uid && match.params.uid.toLowerCase();
         const urlPathAction = match && match.params && match.params.action && match.params.action.toLowerCase();
 
         return (
             <div>
-                <ContactNavigation
-                    >
-                </ContactNavigation>
                 <div>
                     {!urlPathAction && (
                         <ContactSearchResults
@@ -26,17 +23,23 @@ class Contact extends Component {
                         </ContactSearchResults>
                     )}
                     {urlPathAction === 'intake' && (
+                        <div>
+                        <ContactNavigation/>
                         <ContactIntake
                             uid={urlPathUid}
                             >
                         </ContactIntake>
+                        </div>
                     )}
                     {urlPathAction === 'info' && (
+                        <div>
+                        <ContactNavigation/>
                         <ContactInfo
                             uid={urlPathUid}
                             contact={contact}
                             >
                         </ContactInfo>
+                        </div>
                     )}
                 </div>
             </div>

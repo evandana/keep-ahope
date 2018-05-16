@@ -9,7 +9,8 @@ import { updateCurrentContact } from 'actions';
 function* getContact({ uid }) {
     window._FIREBASE_DB_.ref('/contacts/' + (uid || ''))
         .once('value', (snapshot) => {
-            window._UI_STORE_.dispatch(updateCurrentContact(snapshot.val()))
+            let contactDataPlusUid = Object.assign({}, snapshot.val(), { uid: uid });
+            window._UI_STORE_.dispatch(updateCurrentContact(contactDataPlusUid))
         })
     yield;
 }

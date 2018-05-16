@@ -15,9 +15,8 @@ const mapDispatchToProps = {
     setCurrentSearchQuery,
 };
 
-const ContactTypeaheadSearchWithRouter = withRouter(ContactTypeaheadSearch);
-
-export default connect(
+// https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/blocked-updates.md
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps,
-)(ContactTypeaheadSearchWithRouter);
+)(ContactTypeaheadSearch));

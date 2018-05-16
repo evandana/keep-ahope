@@ -11,21 +11,13 @@ class ContactInfo extends Component {
 
     render() {
 
-        const { user, uid, contact, muiTheme: {palette} } = this.props;
+        const { contact, muiTheme: {palette} } = this.props;
 
         return (
             <div>
-
-                <h2>Contacts</h2>
-                {contact.birthCountry}
-                <pre>UID from URL: <span style={{color:'red'}}>{uid}</span></pre>
-
-                <div>
-                    <ContactInfoProfileCard palette={palette} contact={contact} />
-                    <ContactInfoEventsCard palette={palette} events={contact.events} />
-                    <ContactInfoNotesCard palette={palette} />
-                </div>
-
+                <ContactInfoProfileCard palette={palette} contact={contact} />
+                <ContactInfoEventsCard palette={palette} events={contact.events} />
+                <ContactInfoNotesCard palette={palette} />
             </div>
         );
     }

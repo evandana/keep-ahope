@@ -5,7 +5,7 @@ const Footer = () => {
 
     return (
         <footer>
-            Some footer
+            AHOPE 2018
         </footer>
     )
 }

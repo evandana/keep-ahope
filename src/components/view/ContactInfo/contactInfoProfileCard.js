@@ -1,7 +1,7 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 
 class ContactProfileCard extends React.Component {
 
@@ -19,9 +19,12 @@ class ContactProfileCard extends React.Component {
           <CardHeader
               title='Profile'
               titleColor={palette.primary1Color}
+              subtitle={contact.uid}
+              subtitleColor={palette.titleColor}
               actAsExpander={true}
               showExpandableButton={true}
           />
+
           <CardText expandable={true}>
             <div className="row">
               <div className="col-xs-6">

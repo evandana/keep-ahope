@@ -11,9 +11,10 @@ class ContactTypeaheadSearch extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.validate.bind(this);
     }
 
-    handleUpdateInput = (value) => {
+    handleUpdateInput(value) {
         this.validate(value);
 
         this.props.typeaheadSearch(value);
@@ -23,6 +24,12 @@ class ContactTypeaheadSearch extends Component {
             this.props.history.push('/contact');
         }
     };
+
+    handleCancelClick() {
+        if (this.props.contactSearchQuery.length > 0) {
+            this.handleUpdateInput('')
+        }
+    }
 
     validate(value) {
         let regex;
@@ -47,7 +54,6 @@ class ContactTypeaheadSearch extends Component {
         const {
             dataSource,
             contactSearchQuery,
-            setCurrentSearchQuery,
             muiTheme: {palette},
         } = this.props;
 
@@ -69,8 +75,8 @@ class ContactTypeaheadSearch extends Component {
                     hintText            = "AA BB 01 01 2018 AAA"
                     errorText           = { this.state.errorMessage }
                     menuStyle           = {{ display: 'none' }}
-                    onUpdateInput       = { this.handleUpdateInput }
-                    searchText          = {contactSearchQuery}
+                    onUpdateInput       = { this.handleUpdateInput.bind(this) }
+                    searchText          = { contactSearchQuery }
                 />
                 <CancelIcon
                     color = {palette.accent3Color}
@@ -81,7 +87,7 @@ class ContactTypeaheadSearch extends Component {
                         cursor: 'pointer',
                         zIndex: 1101, // appBar is 1100
                     }}
-                    onClick = {() => this.handleUpdateInput('')}
+                    onClick={this.handleCancelClick.bind(this)}
                 />
                 <div style={{
                     position: 'absolute',
