@@ -18,7 +18,7 @@ function* loginGoogleRequest() {
             window._UI_STORE_.dispatch( setCurrentUser({permissions: {}}) );
     });
     console.log('You have been logged in');
-    
+
     yield;
 }
 
@@ -26,7 +26,7 @@ function* logoutUserRequest() {
     window._FIREBASE_.auth().signOut();
     window._UI_STORE_.dispatch( setCurrentUser({permissions: {}}) );
     console.log('You have been logged out');
-    console.log('TODO: refresh the page')
+    window.location.reload();
     yield;
 }
 
