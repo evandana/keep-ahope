@@ -24,21 +24,21 @@ class Contact extends Component {
                     )}
                     {urlPathAction === 'intake' && (
                         <div>
-                        <ContactNavigation/>
-                        <ContactIntake
-                            uid={urlPathUid}
-                            >
-                        </ContactIntake>
+                            <ContactNavigation/>
+                            <ContactIntake
+                                uid={urlPathUid}
+                                >
+                            </ContactIntake>
                         </div>
                     )}
                     {urlPathAction === 'info' && (
                         <div>
-                        <ContactNavigation/>
-                        <ContactInfo
-                            uid={urlPathUid}
-                            contact={contact}
-                            >
-                        </ContactInfo>
+                            <ContactNavigation/>
+                            <ContactInfo
+                                uid={urlPathUid}
+                                contact={contact}
+                                >
+                            </ContactInfo>
                         </div>
                     )}
                 </div>
