@@ -1,17 +1,9 @@
-import React from 'react';
+import Reports from './Reports';
 
-import { getImageForEnv } from 'static/images/index'
+import ReportsCard from './ReportsCard';
 
-const Results = (props) => {
+export default Reports;
 
-    const { user, userPermissions } = props;
-
-    return (
-        <div className='page'>
-            
-            <h2>Reports</h2>
-        </div>
-    );
-}
-
-export default Results;
+export {
+    ReportsCard,
+};

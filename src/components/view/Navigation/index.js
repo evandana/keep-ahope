@@ -71,7 +71,7 @@ class Navigation extends React.Component {
             <div>
                 <AppBar
                     onLeftIconButtonTouchTap={this.handleToggle}
-                    title={<ContactTypeaheadSearch/>}
+                    title={this.props.location.pathname === '/contact' ? <ContactTypeaheadSearch/> : 'Reports'}
                     titleStyle={{
                         paddingTop: '0.5rem',
                         paddingBottom: '1rem',
@@ -89,7 +89,7 @@ class Navigation extends React.Component {
                             />
                         </div>
                         <MenuItem onTouchTap={this.getMenuItemHandler('/contact')} primaryText='Contact' leftIcon={<PersonIcon/>}/>
-                        <MenuItem onTouchTap={this.getMenuItemHandler('/reports')} primaryText='Report' leftIcon={<EventNoteIcon/>}/>
+                        <MenuItem onTouchTap={this.getMenuItemHandler('/reports')} primaryText='Reports' leftIcon={<EventNoteIcon/>}/>
                         <div style={{marginTop: 'auto'}}>
                             <MenuItem
                                 onTouchTap={this.handleLogout}
