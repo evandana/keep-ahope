@@ -41,5 +41,5 @@ firebase login
 
 ## DEPLOY
 
-`firebase deploy`
+`firebase deploy` - This will deploy the hosted UI and the cloud functions
 

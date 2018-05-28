@@ -7,6 +7,8 @@ import ReportsCard from './ReportsCard'
 
 import { getImageForEnv } from 'static/images/index'
 
+import { fetchReportsData } from 'actions'
+
 class Results extends React.Component {
 
     constructor(props) {
@@ -18,6 +20,8 @@ class Results extends React.Component {
             dateRange: 1,
             fetchingInProgress: ''
         };
+
+        window._UI_STORE_.dispatch(fetchReportsData());
     }
 
     dateRangeChange = (event, index, value) => {

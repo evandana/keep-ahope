@@ -1,0 +1,13 @@
+{
+  "name": "keep-ahope-cloud-functions",
+  "version": "1.0.0",
+  "description": "Cloud Functions for Keep AHOPE",
+  "main": "index.js",
+  "author": "Evan Dana",
+  "license": "GNU Affero General Public License v3.0",
+  "dependencies": {
+    "firebase-admin": "~5.12.1",
+    "firebase-functions": "^1.0.3",
+    "promise": "^7.1.1"
+  }
+}

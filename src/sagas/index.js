@@ -3,6 +3,7 @@ import authentication from './authentication';
 import config from './config';
 import contact from './contact';
 import events from './events';
+import reports from './reports';
 import searchContacts from './searchContacts';
 import user from './user';
 
@@ -15,6 +16,7 @@ function* sagas() {
         fork(config),
         fork(contact),
         fork(events),
+        fork(reports),
         fork(searchContacts),
         fork(user),
     ];

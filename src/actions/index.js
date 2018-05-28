@@ -28,9 +28,13 @@ import {
     // EVENTS
     ASYNC_FORM_STATUS_UPDATE,
     FETCH_EVENTS,
-    GET_EVENTS,
+    GET_EVENTS, // why set and get?
     REFRESH_EVENTS,
     CREATE_EVENT,
+    
+    // REPORTS
+    FETCH_REPORTS_DATA,
+    SET_REPORTS_DATA,
 
 } from '../constants';
 
@@ -167,4 +171,19 @@ export function createEvent(userInputData, user) {
         eventData,
     }
 
+}
+
+/** REPORTS PAGE */
+
+export function fetchReportsData() {
+    return {
+        type: FETCH_REPORTS_DATA,
+    };
+}
+
+export function setReportsData({reportsData}) {
+    return {
+        type: SET_REPORTS_DATA,
+        reportsData,
+    }
 }
