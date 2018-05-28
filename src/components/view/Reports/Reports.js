@@ -35,11 +35,18 @@ class Results extends React.Component {
 
         const { reportsData } = this.props;
 
+        // For chart KPIs
+        // const breakdownKpis = [
+        //     'birthCountry',
+        //     'ethnicity',
+        //     'firstInjectionAge',
+        //     'genderIdentity',
+        //     'hispanic'
+        // ]
+
         return (
             <div className="page">
                 <div className="text-content">
-
-                    <pre>reportsData: {JSON.stringify(reportsData)}</pre>
                 
                     <div style={{display:'flex', alignItems:'center'}}>
                         Metrics from: 
@@ -56,19 +63,19 @@ class Results extends React.Component {
 
                         <ReportsCard
                             size={1}
-                            priority={1}
-                            label='Shorty'
-                            value='12'
+                            label='Contacts Served'
+                            path='contacts._meta.count'
+                            data={reportsData}
                             />
 
                         <ReportsCard
                             size={1}
-                            priority={1}
-                            label='Shorty'
-                            value='12'
+                            label='Total Contacts Served (All Time)'
+                            path='contacts._meta.unfilteredCount'
+                            data={reportsData}
                             />
 
-                        <ReportsCard
+                        {/* <ReportsCard
                             size={2}
                             priority={1}
                             label='Much Longer Name'
@@ -87,7 +94,7 @@ class Results extends React.Component {
                             priority={1}
                             label='Shorty'
                             value='12'
-                            />
+                            /> */}
 
                     </section>
 

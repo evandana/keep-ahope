@@ -108,8 +108,9 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
                         },
                         contacts: Object.assign(
                             {
-                                meta: {
-                                    total: contacts.length
+                                '_meta': {
+                                    count: filteredContacts.length,
+                                    unfilteredCount: Object.keys(contacts).length,
                                 },
                             },
                             contactBreakdownData
@@ -139,7 +140,7 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
                         //     ]
                         // }
                     }));
-                    
+
             })
             .catch(err => {
                 console.log('Error fetching contacts or events', err);
