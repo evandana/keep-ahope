@@ -31,7 +31,6 @@ function* logoutUserRequest() {
         uid: null
     }) );
     console.log('You have been logged out');
-    console.log('TODO: refresh the page')
     yield;
 }
 
