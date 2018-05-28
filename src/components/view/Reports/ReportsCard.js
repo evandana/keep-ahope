@@ -113,6 +113,7 @@ class Results extends React.Component {
                                         fill: '#F4F4F4',
                                         opacity: 100
                                     },
+                                    colors: ['#888', '#aaa']
                                 }}
                                 graph_id={'BarChart'+label.replace(' ','')}
                                 width="100%"
