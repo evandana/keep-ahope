@@ -34,7 +34,7 @@ import {
     
     // REPORTS
     FETCH_REPORTS_DATA,
-    SET_REPORTS_DATA,
+    UPDATE_REPORTS_DATA,
 
 } from '../constants';
 
@@ -181,9 +181,9 @@ export function fetchReportsData() {
     };
 }
 
-export function setReportsData({reportsData}) {
+export function updateReportsData({reportsData}) {
     return {
-        type: SET_REPORTS_DATA,
+        type: UPDATE_REPORTS_DATA,
         reportsData,
     }
 }

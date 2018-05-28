@@ -5,21 +5,24 @@ import {
     FETCH_REPORTS_DATA,
 } from '../constants';
 
-import { setReportsData } from '../actions';
+import { updateReportsData } from '../actions';
 
 
 function* fetchReportsData() {
 
-    window._FIREBASE_DB_.ref('reportsdata?range=1')
-        .once('value', (snapshot) => {
-            const reportsData = snapshot.val();
+    const functionsRootUrl = window.location.host.indexOf('localhost') !== 0 ? 
+        'https://us-central1-keep-ahopecloudfunctions.net' : 
+        'http://localhost:5000/keep-ahope/us-central1';
 
-            if (!!reportsData) {
-                window._UI_STORE_.dispatch(setReportsData(reportsData));
-            }
+    fetch(functionsRootUrl + '/reportsdata?range=1')
+        .then( response => response.json() )
+        .then( responseJson => {
+
+            window._UI_STORE_.dispatch(updateReportsData({ reportsData: responseJson }));
         })
-        .catch(err => {
-            console.log('Error fetching Reports Data: ', err);
+        .catch( err => {
+            //throw error
+            console.log('Error getting reports data', err);
         });
 
     yield;

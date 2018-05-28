@@ -4,8 +4,9 @@ import Results from 'components/view/Reports';
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        contacts: state.contacts,
-        events: state.events,
+        // contacts: state.contacts,
+        // events: state.events,
+        reportsData: state.reportsData,
     };
 };
 

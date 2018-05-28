@@ -10,7 +10,7 @@ function* getContact({ uid }) {
     window._FIREBASE_DB_.ref('/contacts/' + (uid || ''))
         .once('value', (snapshot) => {
             let contactDataPlusUid = Object.assign({}, snapshot.val(), { uid: uid });
-            window._UI_STORE_.dispatch(updateCurrentContact(contactDataPlusUid))
+            window._UI_STORE_.dispatch(updateCurrentContact(contactDataPlusUid));
         })
     yield;
 }

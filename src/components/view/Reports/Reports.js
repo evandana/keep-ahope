@@ -8,6 +8,7 @@ import ReportsCard from './ReportsCard'
 import { getImageForEnv } from 'static/images/index'
 
 import { fetchReportsData } from 'actions'
+import reports from '../../../sagas/reports';
 
 class Results extends React.Component {
 
@@ -37,6 +38,8 @@ class Results extends React.Component {
         return (
             <div className="page">
                 <div className="text-content">
+
+                    <pre>reportsData: {JSON.stringify(reportsData)}</pre>
                 
                     <div style={{display:'flex', alignItems:'center'}}>
                         Metrics from: 

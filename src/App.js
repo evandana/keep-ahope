@@ -16,6 +16,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
+import 'firebase/functions';
 /** APP **/
 import config from 'config';
 import AuthorizedRoute from 'components/controller/AuthorizedRoute';
@@ -42,6 +43,7 @@ class App extends Component {
         window._FIREBASE_PROVIDER_ = new firebase.auth.GoogleAuthProvider();
         window._FIREBASE_PROVIDER_.addScope('https://www.googleapis.com/auth/userinfo.email');
         window._FIREBASE_DB_ = firebase.database();
+        window._FIREBASE_FUNCTIONS_ = firebase.functions();
         window._FIREBASE_STORAGE_ = firebase.storage().ref();
         window._FIREBASE_.auth().onAuthStateChanged(
             (googleUser) => {

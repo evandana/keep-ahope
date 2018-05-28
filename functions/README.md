@@ -1,6 +1,3 @@
-# Email Server
-
-
 ## Deploy
 
 1. *Start the server* `firebase deploy --only functions`
@@ -10,7 +7,7 @@
 
 1. `npm install -g firebase-tools`
 1. `npm install`
-1. `node index.js`
+1. `firebase serve --only functions`
 
 
 ## Setting Up Private Keys
