@@ -80,7 +80,7 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
         }, {});
         
 
-        res.status(200)
+        return res.status(200)
             .send( JSON.stringify({
                 events: {
                     meta: {
