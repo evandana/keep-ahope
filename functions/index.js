@@ -28,7 +28,7 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
 
         const filteredEvents = events.filter( event => {
             
-            if ( !!event.contactUid ) {
+            if ( event.contactUid ) {
 
                 // add contact uid to object prop (automatic unique filter)
                 contactUidsForFilteredEvents[ event.contactUid ] = true;
@@ -40,10 +40,10 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
         console.log('contactUidsForFilteredEvents', contactUidsForFilteredEvents);
         
         const filteredContacts = Object.keys(contactUidsForFilteredEvents).map( contactUid => {
-            return {
-                ...contacts[contactUid],
-                uid: contactUid,
-            };
+            return Object.assign(
+                contacts[contactUid],
+                { uid: contactUid }
+            );
         });
 
         console.log('filteredContacts', filteredContacts);
@@ -88,12 +88,14 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
                     },
                     total: 0
                 },
-                contacts: {
-                    meta: {
-                        total: contacts.length
+                contacts: Object.assign(
+                    {
+                        meta: {
+                            total: contacts.length
+                        },
                     },
-                    ...contactBreakdownData,
-                }
+                    contactBreakdownData
+                )
                 // contacts: {
                 //     meta: {
                 //         total: 100,
@@ -120,6 +122,9 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
                 // }
             }
         ));
+    })
+    .catch( err => {
+        console.log('Error fetching contacts or events', err);
     });
         
 });
@@ -144,7 +149,7 @@ function flattenEventNodes (node) {
 
         }, []);
     }
-};
+}
         
 
 function convertObjToArray(obj) {
