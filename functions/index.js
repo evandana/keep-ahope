@@ -13,6 +13,10 @@ const cors = require('cors')({
     origin: true,
 });
 
+const Moment = require('moment');
+const MomentRange = require('moment-range');
+const moment = MomentRange.extendMoment(Moment);
+
 admin.initializeApp();
 
 exports.reportsdata = functions.https.onRequest((req, res) => {
@@ -28,7 +32,13 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
     // Enable CORS using the `cors` express middleware.
     return cors(req, res, () => {
 
-        console.log('req.query.range', req.query.range);
+        console.log('req.query.daterange', req.query.daterange);
+        
+        const dateBounds = getDateBoundsFromRangeKey(req.query.daterange);
+        
+        console.log('dateBounds', dateBounds);
+
+        const dateRange = moment().range( dateBounds.min, dateBounds.max );
 
         const dbRef = admin.database(),
             contactsRef = dbRef.ref('/contacts'),
@@ -46,8 +56,11 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
 
                 const filteredEvents = events.filter(event => {
 
-                    if (event.contactUid) {
+                    return event.date ? dateRange.contains(event.date) : false;
 
+                }).map(event => { // only need `map` so filteredEvents is an array
+
+                    if (event.contactUid) {
                         // add contact uid to object prop (automatic unique filter)
                         contactUidsForFilteredEvents[event.contactUid] = true;
                     }
@@ -177,4 +190,38 @@ function convertObjToArray(obj) {
     return Object.keys(obj).map(key => {
         return obj[key];
     })
+}
+
+function getDateBoundsFromRangeKey( rangeKey ) {
+    const now = new Date();
+    let min, max;
+
+    // note isoWeek starts on Monday
+
+    switch ( rangeKey ) {
+        case 'currentweek':
+            min = moment().startOf('isoWeek');
+            max = moment(now);
+            break;
+
+        case 'previousweek':
+            min = moment().startOf('isoWeek').subtract(1, 'week');
+            max = moment().startOf('isoWeek').subtract(1, 'day');
+            break;
+
+        case 'currentyear':
+            min = moment().startOf('year');
+            max = moment(now);
+            break;
+
+        case 'previousyear':
+            min = moment().startOf('year').subtract(1, 'year');
+            max = moment().startOf('year').subtract(1, 'day');
+            break;
+    }
+
+    return {
+        min,
+        max,
+    };
 }

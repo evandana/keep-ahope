@@ -175,9 +175,10 @@ export function createEvent(userInputData, user) {
 
 /** REPORTS PAGE */
 
-export function fetchReportsData() {
+export function fetchReportsData({dateRange}) {
     return {
         type: FETCH_REPORTS_DATA,
+        dateRange,
     };
 }
 

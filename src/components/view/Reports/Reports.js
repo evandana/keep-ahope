@@ -8,27 +8,46 @@ import ReportsCard from './ReportsCard'
 import { getImageForEnv } from 'static/images/index'
 
 import { fetchReportsData } from 'actions'
-import reports from '../../../sagas/reports';
+import reports from 'sagas/reports';
+
+// import {
+//     RANGE_CURRENT_WEEK,
+//     RANGE_PREVIOUS_WEEK,
+//     RANGE_CURRENT_YEAR,
+//     RANGE_PREVIOUS_YEAR,
+// } from 'constants'
+
+const RANGE_CURRENT_WEEK = 'currentweek';
+const RANGE_PREVIOUS_WEEK = 'previousweek';
+const RANGE_CURRENT_YEAR = 'currentyear';
+const RANGE_PREVIOUS_YEAR = 'previousyear';
 
 class Results extends React.Component {
 
     constructor(props) {
         super(props);
 
+        const { dispatch } = props;
+        
         this.dateRangeChange = this.dateRangeChange.bind(this);
 
         this.state = {
-            dateRange: 1,
+            dateRange: RANGE_CURRENT_WEEK,
             fetchingInProgress: ''
         };
 
-        window._UI_STORE_.dispatch(fetchReportsData());
+        dispatch(fetchReportsData({ dateRange: this.state.dateRange }));
     }
+    
+    dateRangeChange = (event, index, dateRange) => {
 
-    dateRangeChange = (event, index, value) => {
+        const { dispatch } = this.props;
+
         this.setState({
-            dateRange: value
+            dateRange
         });
+
+        dispatch(fetchReportsData({ dateRange }));
     }
 
     render () {
@@ -52,10 +71,10 @@ class Results extends React.Component {
                         Metrics from: 
                         &nbsp;
                         <SelectField value={this.state.dateRange} onChange={this.dateRangeChange}>
-                            <MenuItem value={1} label="Current Week" primaryText="Current Week" />
-                            <MenuItem value={2} label="Previous Week" primaryText="Previous Week" />
-                            <MenuItem value={3} label="Current Year" primaryText="Current Year" />
-                            <MenuItem value={4} label="Previous Year" primaryText="Previous Year" />
+                            <MenuItem value={RANGE_CURRENT_WEEK} label="Current Week" primaryText="Current Week" />
+                            <MenuItem value={RANGE_PREVIOUS_WEEK} label="Previous Week" primaryText="Previous Week" />
+                            <MenuItem value={RANGE_CURRENT_YEAR} label="Current Year" primaryText="Current Year" />
+                            <MenuItem value={RANGE_PREVIOUS_YEAR} label="Previous Year" primaryText="Previous Year" />
                         </SelectField>
                     </div>
 
