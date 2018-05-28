@@ -62,16 +62,34 @@ class Results extends React.Component {
                     <section className="row" style={{marginTop:'2em'}}>
 
                         <ReportsCard
-                            size={1}
+                            type='simple'
+                            hSize={1}
                             label='Contacts Served'
                             path='contacts._meta.count'
                             data={reportsData}
                             />
 
                         <ReportsCard
-                            size={1}
+                            type='simple'
+                            hSize={1}
                             label='Total Contacts Served (All Time)'
                             path='contacts._meta.unfilteredCount'
+                            data={reportsData}
+                            />
+
+                        <ReportsCard
+                            type='breakdown'
+                            hSize={2}
+                            label='Country of Birth'
+                            path='contacts.birthCountry'
+                            data={reportsData}
+                            />
+
+                        <ReportsCard
+                            type='breakdown'
+                            hSize={2}
+                            label='Gender Identity'
+                            path='contacts.genderIdentity'
                             data={reportsData}
                             />
 
