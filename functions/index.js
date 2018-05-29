@@ -16,6 +16,7 @@ const cors = require('cors')({
 const Moment = require('moment');
 const MomentRange = require('moment-range');
 const moment = MomentRange.extendMoment(Moment);
+// cons = 'yyyy-mm-ddThh:mm:ss'; // 2018-01-01T00:00:00.000
 
 admin.initializeApp();
 
@@ -36,9 +37,9 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
         
         const dateBounds = getDateBoundsFromRangeKey(req.query.daterange);
         
-        console.log('dateBounds', dateBounds);
+        // console.log('dateBounds', dateBounds);
 
-        const dateRange = moment().range( dateBounds.min, dateBounds.max );
+        // const dateRange = moment().range( dateBounds.min + '/' + dateBounds.max );
 
         const dbRef = admin.database(),
             contactsRef = dbRef.ref('/contacts'),
@@ -53,16 +54,37 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
                 const events = flattenEventNodes(convertObjToArray(eventsSnapshot.val()));
 
                 var contactUidsForFilteredEvents = {};
+                var eventAggregations = {
+                    narcanWasOffered: 0,
+                    narcanWasTaken: 0,
+                    syringesGiven: 0,
+                    syringesTaken: 0,
+                };
+
+                const contactBreakdowns = [
+                    'birthCountry',
+                    'ethnicity', // from contact
+                    'hispanic', // from contact
+                    'firstInjectionAge',
+                    'genderIdentity',
+                ];
 
                 const filteredEvents = events.filter(event => {
 
-                    return event.date ? dateRange.contains(event.date) : false;
+                    return event.date ? ( moment(event.date).isAfter(dateBounds.min) && moment(event.date).isBefore(dateBounds.max) ) : false;
 
                 }).map(event => { // only need `map` so filteredEvents is an array
 
                     if (event.contactUid) {
                         // add contact uid to object prop (automatic unique filter)
                         contactUidsForFilteredEvents[event.contactUid] = true;
+
+                        eventAggregations = {
+                            narcanWasOffered: eventAggregations.narcanWasOffered + parseInt( event.narcanWasOffered || 0, 10),
+                            narcanWasTaken: eventAggregations.narcanWasTaken + parseInt( event.narcanWasTaken || 0, 10),
+                            syringesGiven: eventAggregations.syringesGiven + parseInt( event.syringesGiven || 0, 10),
+                            syringesTaken: eventAggregations.syringesTaken + parseInt( event.syringesTaken || 0, 10),
+                        };
                     }
 
                     return event;
@@ -77,15 +99,8 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
                     );
                 });
 
-                console.log('filteredContacts', filteredContacts);
+                // console.log('filteredContacts', filteredContacts);
 
-                const contactBreakdowns = [
-                    'birthCountry',
-                    'ethnicity',
-                    'firstInjectionAge',
-                    'genderIdentity',
-                    'hispanic'
-                ];
 
                 const contactBreakdownData = contactBreakdowns.reduce((agg, breakdownField) => {
 
@@ -113,12 +128,15 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
 
                 return res.status(200)
                     .send(JSON.stringify({
-                        events: {
-                            meta: {
-                                total: 100,
+                        events: Object.assign(
+                            {
+                                '_meta': {
+                                    count: filteredEvents.length,
+                                    unfilteredCount: Object.keys(events).length,
+                                }
                             },
-                            total: 0
-                        },
+                            eventAggregations,
+                        ),
                         contacts: Object.assign(
                             {
                                 '_meta': {
@@ -128,6 +146,7 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
                             },
                             contactBreakdownData
                         )
+                        /** Example: */
                         // contacts: {
                         //     meta: {
                         //         total: 100,
@@ -139,18 +158,6 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
                         //             count: 0
                         //         }
                         //     ],
-                        //     ethnicity: [
-                        //         {
-                        //             label: 'Hawaiian/Pacific Islander',
-                        //             count: 0,
-                        //         }
-                        //     ],
-                        //     hiv: [
-                        //         {
-                        //             label: 'confirmed',
-                        //             count: 0
-                        //         }
-                        //     ]
                         // }
                     }));
 
@@ -201,7 +208,7 @@ function getDateBoundsFromRangeKey( rangeKey ) {
     switch ( rangeKey ) {
         case 'currentweek':
             min = moment().startOf('isoWeek');
-            max = moment(now);
+            max = moment(now).add(1, 'day');
             break;
 
         case 'previousweek':
@@ -211,7 +218,7 @@ function getDateBoundsFromRangeKey( rangeKey ) {
 
         case 'currentyear':
             min = moment().startOf('year');
-            max = moment(now);
+            max = moment(now).add(1, 'day');
             break;
 
         case 'previousyear':

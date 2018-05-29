@@ -36,18 +36,14 @@ class Results extends React.Component {
         } = this.props;
 
         const reportsCardCols = [
-            'col-xs-6 col-sm-3 col-md-2 col-lg-1',
-            'col-xs-12 col-sm-6 col-md-4 col-lg-2',
-            'col-xs-12 col-sm-9 col-md-6 col-lg-3',
+            'col-xs-6 col-sm-3 col-md-2 col-lg-2',
+            'col-xs-12 col-sm-6 col-md-4 col-lg-3',
+            'col-xs-12 col-sm-9 col-md-6 col-lg-4',
         ];
 
         const value = path.split('.').reduce((o, i) => {
             return !!o && o[i] !== undefined ? o[i] : null;
         }, data);
-
-        if (!value) {
-            return <span>unable to load KPI</span>;
-        }
 
         return (
             <div
@@ -56,7 +52,7 @@ class Results extends React.Component {
             >
                 <Card
                     className='box'
-                    style={{ background: '#f4f4f4', boxShadow: 'none' }}
+                    style={{ background: '#f4f4f4', boxShadow: 'none', height: '150px' }}
                 >
                     <CardHeader
                         title={label}
@@ -78,7 +74,7 @@ class Results extends React.Component {
                     {type === 'simple' && (
                         <CardText
                             style={{
-                                fontSize: '5em',
+                                fontSize:  value || value === 0 ? '5em' : '1em',
                                 fontWeight: '800',
                                 padding: '4px',
                                 display: 'flex', justifyContent: 'center',
@@ -91,36 +87,58 @@ class Results extends React.Component {
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
                                 }}
-                            >
-                                {value}
+                                >
+                                {value || value === 0 ? value : 'Loading...'}
                             </span>
                         </CardText>
                     )}
                     {type === 'breakdown' && (
-                        <CardMedia
-                            style={{ background: '#f4f4f4' }}
-                        >
-                            <Chart
-                                chartType="BarChart"
-                                data={this.convertDataToGoogleFormat({
-                                    data: value, 
-                                    xLabel: 'Count',
-                                    yLabel: label,
-                                })}
-                                options={{
-                                    legend: {position: 'none'},
-                                    backgroundColor: {
-                                        fill: '#F4F4F4',
-                                        opacity: 100
-                                    },
-                                    colors: ['#888', '#aaa']
+                        value && value.length ? (
+                            <CardMedia
+                                style={{ background: '#f4f4f4' }}
+                            >
+                                <Chart
+                                    chartType="BarChart"
+                                    data={this.convertDataToGoogleFormat({
+                                        data: value, 
+                                        xLabel: 'Count',
+                                        yLabel: label,
+                                    })}
+                                    options={{
+                                        legend: {position: 'none'},
+                                        backgroundColor: {
+                                            fill: '#F4F4F4',
+                                            opacity: 100
+                                        },
+                                        colors: ['#888', '#aaa']
+                                    }}
+                                    graph_id={'BarChart'+label.replace(' ','')}
+                                    width="100%"
+                                    height="110px"
+                                    legend_toggle
+                                    />
+                            </CardMedia>
+                        ) : (
+                            <CardText
+                                style={{
+                                    fontSize: value && value.length === 0 ? '5em' : '1em',
+                                    fontWeight: '800',
+                                    padding: '4px',
+                                    display: 'flex', justifyContent: 'center',
+                                    width: '100%',
                                 }}
-                                graph_id={'BarChart'+label.replace(' ','')}
-                                width="100%"
-                                height="110px"
-                                legend_toggle
-                                />
-                        </CardMedia>
+                            >
+                                <span
+                                    style={{
+                                        whiteSpace: 'nowrap',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                    }}
+                                    >
+                                    {!value ? 'Loading...' : 0 }
+                                </span>
+                            </CardText>
+                        )
                     )}
                 </Card>
             </div>

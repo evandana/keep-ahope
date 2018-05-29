@@ -82,17 +82,65 @@ class Results extends React.Component {
 
                         <ReportsCard
                             type='simple'
-                            hSize={1}
-                            label='Contacts Served'
-                            path='contacts._meta.count'
+                            hSize={2}
+                            label='Total Contacts Served (All Time)'
+                            path='contacts._meta.unfilteredCount'
+                            data={reportsData}
+                            />
+
+                        <ReportsCard
+                            type='simple'
+                            hSize={2}
+                            label='Total Events Served (All Time)'
+                            path='events._meta.unfilteredCount'
                             data={reportsData}
                             />
 
                         <ReportsCard
                             type='simple'
                             hSize={1}
-                            label='Total Contacts Served (All Time)'
-                            path='contacts._meta.unfilteredCount'
+                            label='Contact Events'
+                            path='events._meta.count'
+                            data={reportsData}
+                            />
+
+                        <ReportsCard
+                            type='simple'
+                            hSize={1}
+                            label='Contacts Served'
+                            path='contacts._meta.count'
+                            data={reportsData}
+                            />
+                            
+                        <ReportsCard
+                            type='simple'
+                            hSize={1}
+                            label='Syringes Given'
+                            path='events.syringesGiven'
+                            data={reportsData}
+                            />
+
+                        <ReportsCard
+                            type='simple'
+                            hSize={1}
+                            label='Syringes Taken'
+                            path='events.syringesTaken'
+                            data={reportsData}
+                            />
+
+                        <ReportsCard
+                            type='simple'
+                            hSize={1}
+                            label='Narcan Offered'
+                            path='events.narcanWasOffered'
+                            data={reportsData}
+                            />
+
+                        <ReportsCard
+                            type='simple'
+                            hSize={1}
+                            label='Narcan Taken'
+                            path='events.narcanWasTaken'
                             data={reportsData}
                             />
 
@@ -112,26 +160,21 @@ class Results extends React.Component {
                             data={reportsData}
                             />
 
-                        {/* <ReportsCard
-                            size={2}
-                            priority={1}
-                            label='Much Longer Name'
-                            value='23423'
+                        <ReportsCard
+                            type='breakdown'
+                            hSize={2}
+                            label='Ethnicity'
+                            path='contacts.ethnicity'
+                            data={reportsData}
                             />
 
                         <ReportsCard
-                            size={3}
-                            priority={1}
-                            label='Much Longer Name'
-                            value='23423'
+                            type='breakdown'
+                            hSize={2}
+                            label='Is Hispanic'
+                            path='contacts.hispanic'
+                            data={reportsData}
                             />
-
-                        <ReportsCard
-                            size={1}
-                            priority={1}
-                            label='Shorty'
-                            value='12'
-                            /> */}
 
                     </section>
 
