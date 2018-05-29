@@ -135,14 +135,14 @@ exports.reportsdata = functions.https.onRequest((req, res) => {
                                     unfilteredCount: Object.keys(events).length,
                                 }
                             },
-                            eventAggregations,
+                            eventAggregations
                         ),
                         contacts: Object.assign(
                             {
                                 '_meta': {
                                     count: filteredContacts.length,
                                     unfilteredCount: Object.keys(contacts).length,
-                                },
+                                }
                             },
                             contactBreakdownData
                         )
