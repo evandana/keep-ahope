@@ -11,7 +11,7 @@ import { updateReportsData } from '../actions';
 function* fetchReportsData({ dateRange }) {
 
     const functionsRootUrl = window.location.host.indexOf('localhost') !== 0 ? 
-        'https://us-central1-keep-ahopecloudfunctions.net' : 
+        'https://us-central1-keep-ahope.cloudfunctions.net' : 
         'http://localhost:5000/keep-ahope/us-central1';
 
     fetch(functionsRootUrl + '/reportsdata?daterange=' + dateRange )
