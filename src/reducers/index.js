@@ -14,6 +14,7 @@ const reducers = {
     contacts,
     reportsData,
     isLoggedIn,
+    contact,
     user,
 };
 

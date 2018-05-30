@@ -15,26 +15,28 @@ const defaultUserState = {
 
 function user(state = defaultUserState, action) {
 
-    const { 
+    const {
         showLoginSpinner,
         ...rest
     } = action;
 
+    let cleanRest = { ...rest };
+    delete cleanRest.type;
 
     switch (action.type) {
 
-        case SHOW_LOGIN_SPINNER: 
+        case SHOW_LOGIN_SPINNER:
             return {
-                ...state, 
+                ...state,
                 showLoginSpinner,
             };
-        
-        case SET_CURRENT_USER: 
+
+        case SET_CURRENT_USER:
 
             return {
                 ...state,
-                ...rest,
-            };    
+                ...cleanRest,
+            };
 
         default:
             return state

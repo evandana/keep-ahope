@@ -1,8 +1,5 @@
-
-.page {
-    position: relative;
-    overflow-y: scroll;
-    height: 100%;
+body {
+  background: #eee;
 }
 
 .text-content {

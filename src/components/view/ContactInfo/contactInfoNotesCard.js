@@ -1,12 +1,12 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 
-class ContactProfileCard extends React.Component {
+class ContactInfoNotesCard extends React.Component {
 
   render() {
-    const {userInfo, palette} = this.props;
+    const {palette} = this.props;
     return (
       <div>
         <Card initiallyExpanded={true} >
@@ -25,4 +25,4 @@ class ContactProfileCard extends React.Component {
   }
 }
 
-export default ContactProfileCard;
+export default ContactInfoNotesCard;

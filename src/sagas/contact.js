@@ -7,7 +7,8 @@ import {
 import { updateCurrentContact } from 'actions';
 
 function* getContact({ uid }) {
-    window._FIREBASE_DB_.ref('/contacts/' + (uid || ''))
+    const contactRef = `/contacts/${uid}`
+    window._FIREBASE_DB_.ref(contactRef)
         .once('value', (snapshot) => {
             let contactDataPlusUid = Object.assign({}, snapshot.val(), { uid: uid });
             window._UI_STORE_.dispatch(updateCurrentContact(contactDataPlusUid));

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
-
-import { getImageForEnv } from 'static/images/index'
 
 class ContactInfoEventsCard extends Component {
 

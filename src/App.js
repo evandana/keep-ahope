@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 /** MATERIAL UI **/
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {cyan50,blueGrey200,cyan500,cyan900,limeA200,yellow800,pink800,green400} from 'material-ui/styles/colors';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 /** ROUTER **/
 import { Route } from 'react-router-dom';
@@ -26,7 +25,6 @@ import Reports from 'components/controller/Reports';
 import Messages from 'components/controller/Messages';
 
 import Navigation from 'components/controller/Navigation';
-import Footer from 'components/view/common/Footer';
 import { getUser, fetchConfig, showLoginSpinner } from './actions';
 
 import './app.css';
@@ -71,17 +69,17 @@ class App extends Component {
 
         const muiTheme = getMuiTheme({
             palette: {
-                primary1Color: '#1DAFEC',
-                accent1Color: '#8EC449',
-                highlight1Color: '#E8448B',
-                ternaryTextColor: '#8DC3DB', // TODO: rename
-                fadedPrimary1Color: '#4FDFFF',
-                primaryLinkColor: '#1DAFEC',
-                secondaryLinkColor: '#8AC9EC',
-                primary2Color: '#47B4E0',
-                errorColor: '#E8448B',
-                warningColor: '#FF953F',
-                successColor: '#8EC449',
+                primary1Color: '#1DAFEC', // override
+                fadedPrimary1Color: '#4FDFFF', // additional
+                primary2Color: '#47B4E0', // overrides the default
+                tertiaryTextColor: '#8DC3DB', // additional
+                accent1Color: '#8EC449', // override
+                primaryLinkColor: '#1DAFEC', // additional
+                secondaryLinkColor: '#8AC9EC', // additional
+                highlight1Color: '#E8448B', // additional
+                errorColor: '#E8448B', // additional
+                warningColor: '#FF953F', // additional
+                successColor: '#8EC449', // additional
                 // DEFAULTS
                 // primary1Color: cyan500,
                 // primary2Color: cyan700,
@@ -115,7 +113,6 @@ class App extends Component {
                                 <AuthorizedRoute exact path="/reports" component={Reports} />
                                 <AuthorizedRoute path="/" component={Contact} />
                             </Switch>
-                            <Footer />
                         </div>
                     </ConnectedRouter>
                 </Provider>
@@ -125,4 +122,3 @@ class App extends Component {
 }
 
 export default App;
-

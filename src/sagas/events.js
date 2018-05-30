@@ -1,6 +1,8 @@
 import { takeEvery, take, cancel, call, fork } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 
+import * as moment from 'moment';
+
 import {
     CREATE_EVENT,
     DEBOUNCE_REFRESH_EVENTS,
@@ -13,12 +15,14 @@ import { refreshEvents } from '../actions';
 
 
 function* createEvent({ eventData }) {
-
     const updates = {};
-    const eventUid = '2018/03/'+ Math.round(Math.random()*1000000);
+    const year = moment().format('YYYY');
+    const month = moment().format('MM');
+    const id = Math.round(Math.random()*1000000)
+    const eventUid = `${year}/${month}/${id}`;
+
     updates['events/' + eventUid] = {
         ...eventData,
-        // add timestamp?
     };
 
     window._FIREBASE_DB_.ref()

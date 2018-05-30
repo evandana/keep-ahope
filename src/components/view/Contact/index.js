@@ -27,8 +27,8 @@ class Contact extends Component {
                             <ContactNavigation/>
                             <ContactIntake
                                 uid={urlPathUid}
-                                >
-                            </ContactIntake>
+                                contact={contact}
+                            />
                         </div>
                     )}
                     {urlPathAction === 'info' && (
@@ -37,8 +37,7 @@ class Contact extends Component {
                             <ContactInfo
                                 uid={urlPathUid}
                                 contact={contact}
-                                >
-                            </ContactInfo>
+                            />
                         </div>
                     )}
                 </div>

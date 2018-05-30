@@ -34,7 +34,6 @@ export const GET_EVENTS = 'GET_EVENTS';
 export const REFRESH_EVENTS = 'REFRESH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
 
-
 /* ASYNC */
 // TODO: cleanup (delete) this leftover code from PMC app
 export const SUBMIT_DONOR_CODE = 'SUBMIT_DONOR_CODE';

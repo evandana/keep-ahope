@@ -3,7 +3,7 @@ import React from 'react';
 
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 
-class ContactProfileCard extends React.Component {
+class ContactInfo extends React.Component {
 
   render() {
     const { contact, palette } = this.props;
@@ -65,4 +65,4 @@ class ContactProfileCard extends React.Component {
   }
 }
 
-export default ContactProfileCard;
+export default ContactInfo;

@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import ContactIntake from 'components/view/ContactIntake';
 
 const mapStateToProps = (state) => {
@@ -7,7 +8,7 @@ const mapStateToProps = (state) => {
         form: state.intakeForm,
     }
 };
-  
-export default connect(
+
+export default withRouter(connect(
     mapStateToProps
-)(ContactIntake);
+)(ContactIntake));

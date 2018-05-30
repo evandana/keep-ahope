@@ -25,6 +25,9 @@ import {
     FETCH_CONFIG,
     REFRESH_CONFIG,
 
+    // INTAKE
+    CREATE_INTAKE,
+
     // EVENTS
     ASYNC_FORM_STATUS_UPDATE,
     FETCH_EVENTS,
@@ -80,7 +83,6 @@ export function showLoginSpinner(showLoginSpinner) {
 
 
 /** ASYNC FORM */
-
 export function asyncFormStatusUpdate({status, success}) {
     return {
         type: ASYNC_FORM_STATUS_UPDATE,
@@ -138,7 +140,6 @@ export function setCurrentSearchQuery(searchQuery) {
         searchQuery,
     }
 }
-
 
 /** EVENTS */
 export function fetchEvents() {
