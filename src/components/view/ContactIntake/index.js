@@ -18,8 +18,7 @@ import { createEvent } from 'actions';
 
 import PeriodicQuestionsForm from 'components/view/ContactIntake/periodicQuestions.form';
 import NewContactQuestionsForm from 'components/view/ContactIntake/newContactQuestions.form';
-import OutreachQuestionsForm from 'components/view/ContactIntake/outreachQuestions.form';
-import StandardQuestionsForm from 'components/view/ContactIntake/standardQuestions.form';
+import VisitOrOutreachQuestions from 'components/view/ContactIntake/visitOrOutreachQuestions.form';
 
 import * as moment from 'moment';
 
@@ -45,14 +44,12 @@ class IntakeForm extends Component {
         this.state = {
 
             showPeriodic: false,
-            showOutreach: false,
             showNewContactQuestions: false,
 
             eventNotes: '',
 
             // form
             eventDate: todayDate,
-
 
             // periodic
             housingStatus: 'homeless',
@@ -76,17 +73,16 @@ class IntakeForm extends Component {
             contactCountryOfBirth: '',
             contactAgeOfFirstInjection: 0,
 
-            // outreach
+            // visit or outreach
+            uid: params.uid,
+            outreach: false,
+            referral: null,
             syringesGiven: 0,
             syringesTaken: 0,
             narcanWasOffered: false,
             narcanWasTaken: false,
             enrollment: '',
             numberOfOthersHelping: 0,
-
-            // standard
-            uid: params.uid,
-            referral: null,
         }
 
         this.initialState = this.state;
@@ -97,20 +93,18 @@ class IntakeForm extends Component {
     // or locally within state. so I'm abstracting this call to make it clear what data
     // we send in event creation
     packageFormDataForSubmission() {
-        const outreach = this.state.showOutreach ? {
+        const visitOrOutreach = {
+            outreach: this.state.outreach,
+            referral: this.state.referral,
             syringesGiven: this.state.syringesGiven,
             syringesTaken: this.state.syringesTaken,
             narcanWasOffered: this.state.narcanWasOffered,
             narcanWasTaken: this.state.narcanWasTaken,
             enrollment: this.state.enrollment,
             numberOfOthersHelping: this.state.numberOfOthersHelping,
-        } : null;
-
-         const standard = {
-             referral: this.state.referral,
-             location: this.state.eventLocation,
-             contactUid: this.state.uid,
-         }
+            location: this.state.eventLocation,
+            contactUid: this.state.uid,
+        }
 
         const periodic = this.state.showPeriodic ? {
             date: this.state.eventDate,
@@ -139,8 +133,7 @@ class IntakeForm extends Component {
 
         // dirty check to only submit data for visible forms
         let prunedEventData = {
-           ...outreach,
-           ...standard,
+           ...visitOrOutreach,
            ...periodic,
            ...contactData,
         };
@@ -259,9 +252,9 @@ class IntakeForm extends Component {
         }
         const options = {
             defaultValue: overrides.defaultValue || 0,
-            step: overrides.step || 1,
+            step: overrides.step || 10,
             min: overrides.min || 0,
-            max: overrides.max || 15,
+            max: overrides.max || 50,
         }
         return (
             <div id={sliderName}>
@@ -321,7 +314,7 @@ class IntakeForm extends Component {
         // checkboxes to select which forms to show
         const formCheckboxOptionsArray = [
             {
-                label: 'Standard Questions',
+                label: 'Visit or Outreach',
                 defaultChecked: true, disabled: true
             },
             {
@@ -331,10 +324,6 @@ class IntakeForm extends Component {
             {
                 label: 'Periodic',
                 defaultChecked: false, disabled: false, onCheckCallback: () => this.setState({showPeriodic: !this.state.showPeriodic})
-            },
-            {
-                label: 'Outreach',
-                defaultChecked: false, disabled: false, onCheckCallback: () => this.setState({showOutreach: !this.state.showOutreach})
             },
         ];
 
@@ -373,12 +362,26 @@ class IntakeForm extends Component {
                 </Card>
 
 
-                <StandardQuestionsForm
-                    handleSelectChange={this.handleChildSelectChange.bind(this)}
-                    buildSelectField={this.buildSelectField}
+                <VisitOrOutreachQuestions
+                    // helpers
                     palette={palette}
+                    handleSelectChange={this.handleChildSelectChange.bind(this)}
+                    handleChange={this.handleChildInputChange.bind(this)}
+                    handleChildToggleChange={this.handleChildToggleChange.bind(this)}
+                    handleSliderChange={this.handleSliderChange.bind(this)}
+                    buildSelectField={this.buildSelectField}
+                    buildToggle={this.buildToggle}
+                    buildRadio={this.buildRadio}
+                    buildSlider={this.buildSlider}
                     // form data
+                    outreach={this.state.outreach}
                     referral={this.state.referral}
+                    syringesGiven={this.state.syringesGiven}
+                    syringesTaken={this.state.syringesTaken}
+                    narcanWasOffered={this.state.narcanWasOffered}
+                    narcanWasTaken={this.state.narcanWasTaken}
+                    enrollment={this.state.enrollment}
+                    numberOfOthersHelping={this.state.numberOfOthersHelping}
                 />
 
                 {this.state.showNewContactQuestions && <NewContactQuestionsForm
@@ -422,24 +425,6 @@ class IntakeForm extends Component {
                     otherDrugs={this.state.otherDrugs}
                     odLastYear={this.state.didOdLastYear}
                     sawOdLastYear={this.state.didSeeOdLastYear}
-                />}
-
-                {this.state.showOutreach && <OutreachQuestionsForm
-                    // helpers
-                    handleChange={this.handleChildInputChange.bind(this)}
-                    handleChildToggleChange={this.handleChildToggleChange.bind(this)}
-                    handleSliderChange={this.handleSliderChange.bind(this)}
-                    buildToggle={this.buildToggle}
-                    buildRadio={this.buildRadio}
-                    buildSlider={this.buildSlider}
-                    palette={palette}
-                    // form data
-                    syringesGiven={this.state.syringesGiven}
-                    syringesTaken={this.state.syringesTaken}
-                    narcanWasOffered={this.state.narcanWasOffered}
-                    narcanWasTaken={this.state.narcanWasTaken}
-                    enrollment={this.state.enrollment}
-                    numberOfOthersHelping={this.state.numberOfOthersHelping}
                 />}
 
                 <Card>

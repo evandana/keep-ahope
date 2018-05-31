@@ -1,31 +1,42 @@
 import React, { Component } from 'react'
 
-import { Card, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardTitle } from 'material-ui/Card';
 
 
-class OutreachQuestionsForm extends Component {
+class NewVisitAndOutreachQuestions extends Component {
 
     constructor(props) {
         super(props);
-
+        this.buildSelectField = this.props.buildSelectField.bind(this);
         this.buildRadio = this.props.buildRadio.bind(this);
         this.buildToggle = this.props.buildToggle.bind(this);
         this.buildSlider = this.props.buildSlider.bind(this);
     };
 
-
-
     render() {
-
+        const referralSelectOptionsList = [
+            {primaryText: 'No Referrals', value: null},
+            {primaryText: 'Referrals', value: 'some list of referrals'},
+        ];
         const enrollmentRadioOptions = [
             { name: 'enrollment', label: 'Enrollment', value: 'enrolled' },
             { name: 'refill', label: 'Refill', value: 'refill' },
         ];
-        // rest of the stuff for this form
+        const options = {
+            defaultValue: 0,
+            step: 1,
+            min: 1,
+            max: 100,
+        }
         return (
             <Card>
-                <CardTitle title='Outreach' titleColor={this.props.palette.primary1Color}/>
-
+                <CardTitle title='Visit or Outreach' titleColor={this.props.palette.primary1Color}/>
+                <div style={{padding: '2rem'}}>
+                    {this.buildToggle('Outreach', 'outreach', this.props.handleChildToggleChange)}
+                </div>
+                <div style={{padding: '2rem'}}>
+                    {this.buildSelectField('Referral', referralSelectOptionsList, 'referral', this.props.handleSelectChange)}
+                </div>
                 <div style={{padding: '2rem 2rem 0rem 2rem'}}>
                     {this.buildSlider('syringesGiven', 'Syringes Given', this.props.syringesGiven, this.props.handleSliderChange)}
                 </div>
@@ -42,12 +53,11 @@ class OutreachQuestionsForm extends Component {
                     {this.buildRadio('Enrollment', enrollmentRadioOptions, 'enrollment', this.props.handleChange)}
                 </div>
                 <div style={{padding: '2rem'}}>
-                    {this.buildSlider('numberOfOthersHelping', 'Number of others helping', this.props.numberOfOthersHelping, this.props.handleSliderChange)}
+                    {this.buildSlider('numberOfOthersHelping', 'Number of others helping', this.props.numberOfOthersHelping, this.props.handleSliderChange, options)}
                 </div>
             </Card>
         )
     }
-
 }
 
-export default OutreachQuestionsForm;
+export default NewVisitAndOutreachQuestions;

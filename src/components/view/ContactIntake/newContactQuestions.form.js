@@ -44,6 +44,13 @@ class NewContactQuestionsForm extends Component {
             {label: 'Other', value: 'Other'},
         ];
 
+        const options = {
+            defaultValue: 0,
+            step: 1,
+            min: 1,
+            max: 100,
+        }
+
         // rest of the stuff for this form
         return (
             <Card>
@@ -62,7 +69,7 @@ class NewContactQuestionsForm extends Component {
                 </div>
 
                 <div style={{padding: '2rem 2rem 0rem 2rem'}}>
-                    {this.buildSlider('contactAgeOfFirstInjection', 'Age of First Injection', this.props.contactAgeOfFirstInjection, this.props.handleSliderChange, {max: 80})}
+                    {this.buildSlider('contactAgeOfFirstInjection', 'Age of First Injection', this.props.contactAgeOfFirstInjection, this.props.handleSliderChange, options)}
                 </div>
                 <div style={{padding: '2rem'}}>
                     {this.buildRadio('Gender Identity', radioButtonGenderList, 'contactGenderIdentity', this.props.handleChange)}
