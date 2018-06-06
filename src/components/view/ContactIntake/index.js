@@ -73,9 +73,9 @@ class IntakeForm extends Component {
             contactCountryOfBirth: '',
             contactAgeOfFirstInjection: 0,
 
-            // visit or outreach
+            // visit or isOutreach
             uid: params.uid,
-            outreach: false,
+            isOutreach: false,
             referral: null,
             syringesGiven: 0,
             syringesTaken: 0,
@@ -94,7 +94,7 @@ class IntakeForm extends Component {
     // we send in event creation
     packageFormDataForSubmission() {
         const visitOrOutreach = {
-            outreach: this.state.outreach,
+            isOutreach: this.state.isOutreach,
             referral: this.state.referral,
             syringesGiven: this.state.syringesGiven,
             syringesTaken: this.state.syringesTaken,
@@ -102,7 +102,6 @@ class IntakeForm extends Component {
             narcanWasTaken: this.state.narcanWasTaken,
             enrollment: this.state.enrollment,
             numberOfOthersHelping: this.state.numberOfOthersHelping,
-            location: this.state.eventLocation,
             contactUid: this.state.uid,
         }
 
@@ -374,7 +373,7 @@ class IntakeForm extends Component {
                     buildRadio={this.buildRadio}
                     buildSlider={this.buildSlider}
                     // form data
-                    outreach={this.state.outreach}
+                    isOutreach={this.state.isOutreach}
                     referral={this.state.referral}
                     syringesGiven={this.state.syringesGiven}
                     syringesTaken={this.state.syringesTaken}

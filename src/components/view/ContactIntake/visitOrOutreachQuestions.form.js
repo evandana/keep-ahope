@@ -32,7 +32,7 @@ class NewVisitAndOutreachQuestions extends Component {
             <Card>
                 <CardTitle title='Visit or Outreach' titleColor={this.props.palette.primary1Color}/>
                 <div style={{padding: '2rem'}}>
-                    {this.buildToggle('Outreach', 'outreach', this.props.handleChildToggleChange)}
+                    {this.buildToggle('Outreach', 'isOutreach', this.props.handleChildToggleChange)}
                 </div>
                 <div style={{padding: '2rem'}}>
                     {this.buildSelectField('Referral', referralSelectOptionsList, 'referral', this.props.handleSelectChange)}
