@@ -35,10 +35,29 @@ class Login extends Component {
         return true// isChrome //|| !isMobile;
     }
 
+    
     render () {
         const { loginGoogleRequest, showLoginSpinner } = this.props;
         
         const isBrowserSupported = this.isBrowserSupported();
+        
+        console.log('gapi: ', window.gapi);
+
+
+
+        window.gapi.load('auth2', function() {
+            window.gapi.auth2.init({
+                client_id: "888227269181-14qpprrki7r8l9b6gaknd9fle8gkas9k.apps.googleusercontent.com",
+                scope: "profile email" // this isn't required
+            }).then(function(auth2) {
+                console.log( "signed in: " + auth2.isSignedIn.get() );  
+                auth2.isSignedIn.listen(onSignIn);
+                var button = document.querySelector('#signInButton');
+                button.addEventListener('click', function() {
+                  auth2.signIn();
+                });
+            });
+        });
 
         return (
             <div>
@@ -76,6 +95,8 @@ class Login extends Component {
                 ) : (
                     <div>
                     Please sign in.
+                    <div id="signInButton">amazing image</div>
+                    <div className="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                         <div className="login-menu">
                             <img 
                                 className='login-btn' 
@@ -89,6 +110,27 @@ class Login extends Component {
                 )}
             </div>
         );
+
+        function onSignIn(googleUser) {
+            console.log( "signedin");
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            console.log("Name: " + profile.getName());
+        };
+        // function onSignIn (googleUser) {
+        //     // Useful data for your client-side scripts:
+        //     var profile = googleUser.getBasicProfile();
+        //     console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        //     console.log('Full Name: ' + profile.getName());
+        //     console.log('Given Name: ' + profile.getGivenName());
+        //     console.log('Family Name: ' + profile.getFamilyName());
+        //     console.log("Image URL: " + profile.getImageUrl());
+        //     console.log("Email: " + profile.getEmail());
+
+        //     // The ID token you need to pass to your backend:
+        //     var id_token = googleUser.getAuthResponse().id_token;
+        //     console.log("ID Token: " + id_token);
+        // };
     }
 };
 
