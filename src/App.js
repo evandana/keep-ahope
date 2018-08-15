@@ -36,6 +36,16 @@ class App extends Component {
 
         injectTapEventPlugin();
 
+        window.gapi.load('auth2', function() {
+            window.gapi.auth2.init({
+                client_id: "888227269181-14qpprrki7r8l9b6gaknd9fle8gkas9k.apps.googleusercontent.com",
+                scope: "profile email" // this isn't required
+            }).then(function(auth2) {
+                window._GOOGLE_CLOUD_AUTH2_ = auth2;
+                console.log( "signed in: " + auth2.isSignedIn.get() );
+            });
+        });
+
         /** Firebase Setup **/
         window._FIREBASE_ = firebase.initializeApp(config.firebase);
         window._FIREBASE_PROVIDER_ = new firebase.auth.GoogleAuthProvider();
