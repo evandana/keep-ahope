@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// import { getImageForEnv } from 'static/images/index'
+import { getImageForEnv } from 'static/images/index'
 import googleLoginImg from 'static/images/google_signin/btn_google_signin_light_normal_web.png';
 import './styles.css';
 
@@ -13,12 +13,14 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 
 class Login extends Component {
 
-	constructor(props) {
-		super(props)
-		this.state = Object.assign(false, {}, {
-			hideUnsupportedBrowserText: false
-		});
+    constructor(props) {
+        super(props)
+        this.state = Object.assign(false, {}, {
+            hideUnsupportedBrowserText: false
+        });
         this.themePalette = this.props.muiTheme.palette;
+        this.onSignIn = this.onSignIn.bind(this);
+        this.signIn = this.signIn.bind(this);
     }
 
     isBrowserSupported () {
@@ -37,7 +39,9 @@ class Login extends Component {
 
     signIn(){
         console.log('log in with callback')
-        // window._GOOGLE_CLOUD_AUTH2_.signIn()
+        window._GOOGLE_CLOUD_AUTH2_.signIn().then((user) => {
+            this.onSignIn(user)
+        })
     }
 
     onSignIn(googleUser) {
@@ -60,8 +64,6 @@ class Login extends Component {
         const { loginGoogleRequest, showLoginSpinner } = this.props;
 
         const isBrowserSupported = this.isBrowserSupported();
-
-        console.log('gapi: ', window.gapi);
 
         return (
             <div>
@@ -99,16 +101,15 @@ class Login extends Component {
                 ) : (
                     <div>
                     Please sign in.
-                    <div className="g-signin2" onClick={this.signIn} data-onsuccess={this.onSignIn} data-theme="dark"></div>
-                        {/* <div className="login-menu">
+                        <div onClick={this.signIn}>
                             <img
                                 className='login-btn'
-                                onClick={loginGoogleRequest}
+                                onClick={this.signIn}
                                 src={getImageForEnv('google_signin/btn_google_signin_light_normal_web.png')}
                                 src={googleLoginImg}
                                 alt="Google login"
                                 />
-                        </div> */}
+                        </div>
                     </div>
                 )}
             </div>
