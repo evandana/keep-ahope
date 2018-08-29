@@ -38,14 +38,13 @@ class Login extends Component {
     }
 
     signIn(){
-        console.log('log in with callback')
         window._GOOGLE_CLOUD_AUTH2_.signIn().then((user) => {
             this.onSignIn(user)
         })
     }
 
     onSignIn(googleUser) {
-        console.log( "signedin");
+        // TODO: hook up to redux
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
         console.log("Name: " + profile.getName());
@@ -100,6 +99,7 @@ class Login extends Component {
                     </div>
                 ) : (
                     <div>
+                    {/* TODO: do not show this when user is logged in */}
                     Please sign in.
                         <div onClick={this.signIn}>
                             <img
