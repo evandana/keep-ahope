@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { getImageForEnv } from 'static/images/index'
-// import googleLoginImg from 'static/images/google_signin/btn_google_signin_light_normal_web@2x.png';
 import './styles.css';
 
 import IconButton from 'material-ui/IconButton';
@@ -105,8 +104,7 @@ class Login extends Component {
                             <img
                                 className='login-btn'
                                 onClick={this.signIn}
-                                src={getImageForEnv('google_signin/btn_google_signin_light_normal_web.png')}
-                                // src={googleLoginImg}
+                                src={getImageForEnv('google_signin/btn_google_signin_light_normal_web@2x.png')}
                                 alt="Google login"
                                 />
                         </div>
