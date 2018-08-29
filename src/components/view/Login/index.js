@@ -103,7 +103,8 @@ class Login extends Component {
                         <div onClick={this.signIn}>
                             <img
                                 className='login-btn'
-                                srcSet={getImageForEnv('google_signin/btn_google_signin_light_normal_web.png') + ' 1x, ' + getImageForEnv('google_signin/btn_google_signin_light_normal_web@2x.png') + ' 2x' }
+                                srcSet={ getImageForEnv('google_signin/btn_google_signin_light_normal_web.png') + ' 1x, ' 
+                                    + getImageForEnv('google_signin/btn_google_signin_light_normal_web@2x.png') + ' 2x' }
                                 onClick={this.signIn}
                                 src={getImageForEnv('google_signin/btn_google_signin_light_normal_web@2x.png')}
                                 alt="Google login"
