@@ -42,8 +42,11 @@ import {
 } from '../constants';
 
 /** AUTHENTICATION **/
-export function loginGoogleRequest() {
-    return { type: LOGIN_GOOGLE_REQUEST };
+export function loginGoogleRequest( { signInOverride } ) {
+    return { 
+        type: LOGIN_GOOGLE_REQUEST,
+        signInOverride
+     };
 }
 
 /** USER **/

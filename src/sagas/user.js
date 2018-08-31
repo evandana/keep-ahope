@@ -13,31 +13,38 @@ function* getUser({ googleUserData }) {
 
     window._UI_STORE_.dispatch(showLoginSpinner(true));
 
-    // add user into db, if not already
-    window._FIREBASE_DB_.ref('/users/')
-        .once('value', (snapshot) => {
-            const users = snapshot.val();
+    console.log('TODO: hook up to Parse to do the same fetches and changes to users table');
+    // TODO: REMOVE THIS ONCE PARSE IS SET UP
+    window._UI_STORE_.dispatch( setCurrentUser( {
+        ...{ permissions: { basic: true } },
+        ...googleUserData,
+    } ) ); 
 
-            if (!Object.keys(users).includes(googleUserData.uid)) {
-                // add user into db
-                window._UI_STORE_.dispatch(updateUserAction({
-                    ...{ permissions: {basic: false} },
-                    ...googleUserData, // uid, displayName, email
-                }));
-            }
-        });
+    // // add user into db, if not already
+    // window._FIREBASE_DB_.ref('/users/')
+    //     .once('value', (snapshot) => {
+    //         const users = snapshot.val();
+
+    //         if (!Object.keys(users).includes(googleUserData.uid)) {
+    //             // add user into db
+    //             window._UI_STORE_.dispatch(updateUserAction({
+    //                 ...{ permissions: {basic: false} },
+    //                 ...googleUserData, // uid, displayName, email
+    //             }));
+    //         }
+    //     });
 
 
-    // hook up listener for changes to user until they log in again
-    window._FIREBASE_DB_.ref('/users/' + googleUserData.uid)
-    .on('value', (snapshot) => {
-        const user = snapshot.val();
+    // // hook up listener for changes to user until they log in again
+    // window._FIREBASE_DB_.ref('/users/' + googleUserData.uid)
+    // .on('value', (snapshot) => {
+    //     const user = snapshot.val();
 
-        if (!!user) {
-            window._UI_STORE_.dispatch(setCurrentUser(user));
-            window._UI_STORE_.dispatch(showLoginSpinner(false));
-        }
-    });
+    //     if (!!user) {
+    //         window._UI_STORE_.dispatch(setCurrentUser(user));
+    //         window._UI_STORE_.dispatch(showLoginSpinner(false));
+    //     }
+    // });
 
     yield;
 }

@@ -18,8 +18,6 @@ class Login extends Component {
             hideUnsupportedBrowserText: false
         });
         this.themePalette = this.props.muiTheme.palette;
-        this.onSignIn = this.onSignIn.bind(this);
-        this.signIn = this.signIn.bind(this);
     }
 
     isBrowserSupported () {
@@ -35,28 +33,6 @@ class Login extends Component {
         // if not on mobile or is on Chrome
         return true// isChrome //|| !isMobile;
     }
-
-    signIn(){
-        window._GOOGLE_CLOUD_AUTH2_.signIn().then((user) => {
-            this.onSignIn(user)
-        })
-    }
-
-    onSignIn(googleUser) {
-        // TODO: hook up to redux
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("Name: " + profile.getName());
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-    };
 
     render () {
         const { loginGoogleRequest, showLoginSpinner } = this.props;
@@ -98,14 +74,12 @@ class Login extends Component {
                     </div>
                 ) : (
                     <div>
-                    {/* TODO: do not show this when user is logged in */}
                     Please sign in.
-                        <div onClick={this.signIn}>
+                        <div onClick={loginGoogleRequest}>
                             <img
                                 className='login-btn'
                                 srcSet={ getImageForEnv('google_signin/btn_google_signin_light_normal_web.png') + ' 1x, ' 
                                     + getImageForEnv('google_signin/btn_google_signin_light_normal_web@2x.png') + ' 2x' }
-                                onClick={this.signIn}
                                 src={getImageForEnv('google_signin/btn_google_signin_light_normal_web@2x.png')}
                                 alt="Google login"
                                 />

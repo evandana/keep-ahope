@@ -25,7 +25,7 @@ import Reports from 'components/controller/Reports';
 import Messages from 'components/controller/Messages';
 
 import Navigation from 'components/controller/Navigation';
-import { getUser, fetchConfig, showLoginSpinner } from './actions';
+import { getUser, fetchConfig, showLoginSpinner, loginGoogleRequest } from './actions';
 
 import './app.css';
 
@@ -35,43 +35,16 @@ class App extends Component {
         super(props);
 
         injectTapEventPlugin();
-
-        window.gapi.load('auth2', function() {
-            window.gapi.auth2.init({
-                client_id: "888227269181-14qpprrki7r8l9b6gaknd9fle8gkas9k.apps.googleusercontent.com",
-                scope: "profile email" // this isn't required
-            }).then(function(auth2) {
-                window._GOOGLE_CLOUD_AUTH2_ = auth2;
-                console.log( "signed in: " + auth2.isSignedIn.get() );
-            });
-        });
+        
+        window._UI_STORE_.dispatch( loginGoogleRequest( { signInOverride: false } ) );
 
         /** Firebase Setup **/
-        window._FIREBASE_ = firebase.initializeApp(config.firebase);
-        window._FIREBASE_PROVIDER_ = new firebase.auth.GoogleAuthProvider();
-        window._FIREBASE_PROVIDER_.addScope('https://www.googleapis.com/auth/userinfo.email');
-        window._FIREBASE_DB_ = firebase.database();
-        window._FIREBASE_FUNCTIONS_ = firebase.functions();
-        window._FIREBASE_STORAGE_ = firebase.storage().ref();
-        window._FIREBASE_.auth().onAuthStateChanged(
-            (googleUser) => {
-
-                window._UI_STORE_.dispatch(showLoginSpinner(false));
-
-                // user data from Google Auth
-                if (googleUser && googleUser.uid) {
-                    const googleUserData = {
-                        uid: googleUser.uid, // Google UID
-                        displayName: googleUser.displayName,
-                        email: googleUser.email,
-                    };
-
-                    // fetch initial state
-                    window._UI_STORE_.dispatch(fetchConfig());
-                    window._UI_STORE_.dispatch(getUser(googleUserData));
-                }
-            }
-        );
+        // window._FIREBASE_ = firebase.initializeApp(config.firebase);
+        // window._FIREBASE_PROVIDER_ = new firebase.auth.GoogleAuthProvider();
+        // window._FIREBASE_PROVIDER_.addScope('https://www.googleapis.com/auth/userinfo.email');
+        // window._FIREBASE_DB_ = firebase.database();
+        // window._FIREBASE_FUNCTIONS_ = firebase.functions();
+        // window._FIREBASE_STORAGE_ = firebase.storage().ref();
     }
 
 
