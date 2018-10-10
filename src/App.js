@@ -42,7 +42,7 @@ class App extends Component {
         window._UI_STORE_.dispatch(loginGoogleRequest());
 
 
-        const Contacts = Parse.Object.extend("Contact");
+        const Contacts = Parse.Object.extend("contacts");
         const contact = new Contacts();
 
         contact.set("Race", 'white');

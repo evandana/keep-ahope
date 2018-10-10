@@ -40,12 +40,16 @@ function* loginGoogleRequest() {
                         // for now we can equate Admin role with basic permissions
                         window._UI_STORE_.dispatch(setCurrentUser({
                             permissions: { basic: true },
-                            ...loggedInUser
+                            email: loggedInUser.attributes.email,
+                            name: loggedInUser.attributes.email,
+                            uid: loggedInUser.id,
                         }));
                     } else {
                         window._UI_STORE_.dispatch(setCurrentUser({
                             permissions: { basic: false },
-                            ...loggedInUser
+                            email: loggedInUser.attributes.email,
+                            name: loggedInUser.attributes.email,
+                            uid: loggedInUser.id,
                         }));
                     }
                 }).catch(e => {

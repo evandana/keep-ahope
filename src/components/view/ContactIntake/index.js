@@ -59,17 +59,17 @@ class IntakeForm extends Component {
             isInCareForHepC: false,
             healthInsurer: null,
             primaryDrug: 'heroin',
-            didOdLastYear: false,
-            didSeeOdLastYear: false,
+            didOdLastYear: true,
+            didSeeOdLastYear: true,
             hasHealthInsurance: false,
             otherDrugs: null,
 
             // new contact
-            newContactDate: '',
+            newContactDate: todayDate,
             contactDateOfBirth: initDateOfBirth,
             contactGenderIdentity: 'male',
             contactEthnicity: 'White',
-            contactIsHispanic: false,
+            contactIsHispanic: true,
             contactCountryOfBirth: '',
             contactAgeOfFirstInjection: 0,
 
@@ -198,6 +198,7 @@ class IntakeForm extends Component {
     };
 
     buildToggle(toggleName, stateName, updateCallback) {
+        console.log(toggleName, stateName)
         return (
             <Toggle
                 label={toggleName}
@@ -422,8 +423,8 @@ class IntakeForm extends Component {
                     healthInsurer={this.state.healthInsurer}
                     primaryDrug={this.state.primaryDrug}
                     otherDrugs={this.state.otherDrugs}
-                    odLastYear={this.state.didOdLastYear}
-                    sawOdLastYear={this.state.didSeeOdLastYear}
+                    didOdLastYear={this.state.didOdLastYear}
+                    didSeeOdLastYear={this.state.didSeeOdLastYear}
                 />}
 
                 <Card>

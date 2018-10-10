@@ -15,19 +15,41 @@ import { refreshEvents } from '../actions';
 
 
 function* createEvent({ eventData }) {
-    const updates = {};
-    const year = moment().format('YYYY');
-    const month = moment().format('MM');
-    const id = Math.round(Math.random()*1000000)
-    const eventUid = `${year}/${month}/${id}`;
+    const Event = window._Parse_.Object.extend("event");
+    var event = new Event();
 
-    updates['events/' + eventUid] = {
-        ...eventData,
-    };
-
-    window._FIREBASE_DB_.ref()
-        .update(updates);
-
+    const contact = window._Parse_.Object.extend("contacts")
+    const query = new window._Parse_.Query(contact);
+    query.equalTo('uid', eventData.contactUid)
+    query.first().then(result => {
+        event.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection)
+        event.set('numberOfOthersHelping', eventData.numberOfOthersHelping)
+        event.set('syringesGiven', eventData.syringesGiven)
+        event.set('syringesTaken', eventData.syringesTaken)
+        event.set('countryOfBirth', eventData.contactCountryOfBirth)
+        event.set('otherDrugs', eventData.otherDrugs)
+        event.set('dateOfBirth', eventData.contactDateOfBirth)
+        event.set('date', eventData.date)
+        event.set('newContactDate', eventData.newContactDate)
+        event.set('ethnicity', eventData.contactEthnicity)
+        event.set('primaryDrug', eventData.primaryDrug)
+        event.set('genderIdentity', eventData.contactGenderIdentity)
+        event.set('hivStatus', eventData.hivStatus)
+        event.set('hepCStatus', eventData.hepCStatus)
+        event.set('housingStatus', eventData.houingStatus)
+        event.set('isEnrolled', eventData.hasHealthInsurance)
+        event.set('isInCareForHepC', eventData.isInCareForHepC)
+        event.set('isInCareForHiv', eventData.inInCareForHiv)
+        event.set('isOutreach', eventData.isOutreach)
+        event.set('narcanWasOffered', eventData.narcanWasOffered)
+        event.set('narcanWasTaken', eventData.narcanWasTaken)
+        event.set('didOdLastYear', eventData.didOdLastYear)
+        event.set('hasHealthInsurance', eventData.hasHealthInsurance)
+        event.set('hispanic', eventData.contactIsHispanic)
+        event.set('uid', 'contacts', result)
+    
+        event.save()
+    })
     yield;
 }
 

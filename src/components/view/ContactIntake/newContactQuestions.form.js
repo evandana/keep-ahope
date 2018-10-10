@@ -47,7 +47,7 @@ class NewContactQuestionsForm extends Component {
         const options = {
             defaultValue: 0,
             step: 1,
-            min: 1,
+            min: 0,
             max: 100,
         }
 
