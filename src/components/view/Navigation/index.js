@@ -60,6 +60,29 @@ class Navigation extends React.Component {
         this.props.logout();
     }
 
+    displayForAppBarTitle() {
+        const path = this.props.location.pathname;
+        // TODO: see https://github.com/ReactTraining/react-router/issues/5870
+        // so that we can use match instead of includes
+        if(path.startsWith('/contact')) {
+            if(path.includes('/intake') || path.includes('/info')) {
+                return this.props.contactUid;
+            }
+            return (<ContactTypeaheadSearch/>);
+        }  else if (path.startsWith('/reports')) {
+            return 'Reports';
+        } else if (path === '/') {
+            return (<ContactTypeaheadSearch/>);
+        }
+    };
+
+    displayContactSearchEditButton() {
+        if(this.props.location.pathname.includes('/intake') || this.props.location.pathname.includes('info')){
+            return true;
+        }
+        return false;
+    }
+
     render () {
         const { user, muiTheme } = this.props;
 
@@ -71,7 +94,7 @@ class Navigation extends React.Component {
             <div>
                 <AppBar
                     onLeftIconButtonTouchTap={this.handleToggle}
-                    title={this.props.location.pathname === '/contact' ? <ContactTypeaheadSearch/> : 'Reports'}
+                    title={this.displayForAppBarTitle()}
                     titleStyle={{
                         paddingTop: '0.5rem',
                         paddingBottom: '1rem',

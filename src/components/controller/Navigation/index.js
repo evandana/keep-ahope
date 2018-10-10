@@ -8,6 +8,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.user,
         config: state.config,
+        contactUid: state.contact.uid,
     };
 };
 
