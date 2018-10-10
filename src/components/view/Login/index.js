@@ -9,6 +9,7 @@ import Paper from 'material-ui/Paper';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
+import { getUser, fetchConfig, showLoginSpinner } from '../../../actions';
 
 class Login extends Component {
 
@@ -19,7 +20,6 @@ class Login extends Component {
         });
         this.themePalette = this.props.muiTheme.palette;
         this.onSignIn = this.onSignIn.bind(this);
-        this.signIn = this.signIn.bind(this);
     }
 
     isBrowserSupported () {
@@ -36,12 +36,6 @@ class Login extends Component {
         return true// isChrome //|| !isMobile;
     }
 
-    signIn(){
-        window._GOOGLE_CLOUD_AUTH2_.signIn().then((user) => {
-            this.onSignIn(user)
-        })
-    }
-
     onSignIn(googleUser) {
         // TODO: hook up to redux
         // Useful data for your client-side scripts:
@@ -53,9 +47,26 @@ class Login extends Component {
         console.log('Family Name: ' + profile.getFamilyName());
         console.log("Image URL: " + profile.getImageUrl());
         console.log("Email: " + profile.getEmail());
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
+
+        const google_id = profile.getId();
+        var authResp = googleUser.getAuthResponse();
+        let user = new window._Parse_.User();
+        user.setEmail(profile.getEmail());
+        user._linkWith('google', { authData: {'id': google_id, 'id_token': authResp.id_token, 'access_token': authResp.access_token } });
+
+
+
+        // user data from Google Auth
+        if (profile && profile.getId()) {
+            const googleUserData = {
+                uid: profile.getId(), // Google UID
+                displayName: profile.getName(),
+                email: profile.getEmail(),
+            };
+
+            // fetch initial state
+            window._UI_STORE_.dispatch(getUser(googleUserData));
+        }
     };
 
     render () {
@@ -100,12 +111,11 @@ class Login extends Component {
                     <div>
                     {/* TODO: do not show this when user is logged in */}
                     Please sign in.
-                        <div onClick={this.signIn}>
+                        <div onClick={loginGoogleRequest}>
                             <img
                                 className='login-btn'
                                 srcSet={ getImageForEnv('google_signin/btn_google_signin_light_normal_web.png') + ' 1x, ' 
                                     + getImageForEnv('google_signin/btn_google_signin_light_normal_web@2x.png') + ' 2x' }
-                                onClick={this.signIn}
                                 src={getImageForEnv('google_signin/btn_google_signin_light_normal_web@2x.png')}
                                 alt="Google login"
                                 />

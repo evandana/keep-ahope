@@ -10,12 +10,7 @@ import { Switch } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 /** REDUX **/
 import { Provider } from 'react-redux';
-/** FIREBASE **/
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
-import 'firebase/storage';
-import 'firebase/functions';
+
 /** APP **/
 import config from 'config';
 import AuthorizedRoute from 'components/controller/AuthorizedRoute';
@@ -25,9 +20,11 @@ import Reports from 'components/controller/Reports';
 import Messages from 'components/controller/Messages';
 
 import Navigation from 'components/controller/Navigation';
-import { getUser, fetchConfig, showLoginSpinner } from './actions';
+import { getUser, fetchConfig, showLoginSpinner, loginGoogleRequest } from './actions';
 
 import './app.css';
+
+const Parse = require('parse');
 
 class App extends Component {
 
@@ -36,42 +33,36 @@ class App extends Component {
 
         injectTapEventPlugin();
 
-        window.gapi.load('auth2', function() {
-            window.gapi.auth2.init({
-                client_id: "888227269181-14qpprrki7r8l9b6gaknd9fle8gkas9k.apps.googleusercontent.com",
-                scope: "profile email" // this isn't required
-            }).then(function(auth2) {
-                window._GOOGLE_CLOUD_AUTH2_ = auth2;
-                console.log( "signed in: " + auth2.isSignedIn.get() );
-            });
-        });
+        Parse.initialize("AHOPEPARSESERVER");
 
-        /** Firebase Setup **/
-        window._FIREBASE_ = firebase.initializeApp(config.firebase);
-        window._FIREBASE_PROVIDER_ = new firebase.auth.GoogleAuthProvider();
-        window._FIREBASE_PROVIDER_.addScope('https://www.googleapis.com/auth/userinfo.email');
-        window._FIREBASE_DB_ = firebase.database();
-        window._FIREBASE_FUNCTIONS_ = firebase.functions();
-        window._FIREBASE_STORAGE_ = firebase.storage().ref();
-        window._FIREBASE_.auth().onAuthStateChanged(
-            (googleUser) => {
+        Parse.serverURL = 'https://keep-ahope.appspot.com/parse'
+        window._Parse_ = Parse;
 
-                window._UI_STORE_.dispatch(showLoginSpinner(false));
 
-                // user data from Google Auth
-                if (googleUser && googleUser.uid) {
-                    const googleUserData = {
-                        uid: googleUser.uid, // Google UID
-                        displayName: googleUser.displayName,
-                        email: googleUser.email,
-                    };
+        window._UI_STORE_.dispatch(loginGoogleRequest());
 
-                    // fetch initial state
-                    window._UI_STORE_.dispatch(fetchConfig());
-                    window._UI_STORE_.dispatch(getUser(googleUserData));
-                }
-            }
-        );
+
+        const Contacts = Parse.Object.extend("Contact");
+        const contact = new Contacts();
+
+        contact.set("Race", 'white');
+        contact.set("birthCountry", "US");
+        contact.set("dateOfBirth", new Date());
+        contact.set("ethnicity", 'white');
+        contact.set("firstInjectionAge", new Date());
+        contact.set("genderIdentity", 'Male');
+        contact.set("hispanic", false);
+        contact.set("uid", `aaaa${Math.floor(Math.random() * 1000000)}aaa`)
+
+        // contact.save()
+        //     .then((contact) => {
+        //     // Execute any logic that should take place after the object is saved.
+        //     alert('New object created with objectId: ' + contact.id);
+        //     }, (error) => {
+        //     // Execute any logic that should take place if the save fails.
+        //     // error is a Parse.Error with an error code and message.
+        //     alert('Failed to create new object, with error code: ' + error.message);
+        // });
     }
 
 
