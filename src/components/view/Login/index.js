@@ -19,7 +19,7 @@ class Login extends Component {
             hideUnsupportedBrowserText: false
         });
         this.themePalette = this.props.muiTheme.palette;
-        this.onSignIn = this.onSignIn.bind(this);
+        // this.onSignIn = this.onSignIn.bind(this);
     }
 
     isBrowserSupported () {
@@ -36,38 +36,42 @@ class Login extends Component {
         return true// isChrome //|| !isMobile;
     }
 
-    onSignIn(googleUser) {
-        // TODO: hook up to redux
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("Name: " + profile.getName());
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
+    // onSignIn(googleUser) {
+    //     // TODO: hook up to redux
+    //     // Useful data for your client-side scripts:
+    //     var profile = googleUser.getBasicProfile();
+    //     console.log("Name: " + profile.getName());
+    //     console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+    //     console.log('Full Name: ' + profile.getName());
+    //     console.log('Given Name: ' + profile.getGivenName());
+    //     console.log('Family Name: ' + profile.getFamilyName());
+    //     console.log("Image URL: " + profile.getImageUrl());
+    //     console.log("Email: " + profile.getEmail());
 
-        const google_id = profile.getId();
-        var authResp = googleUser.getAuthResponse();
-        let user = new window._Parse_.User();
-        user.setEmail(profile.getEmail());
-        user._linkWith('google', { authData: {'id': google_id, 'id_token': authResp.id_token, 'access_token': authResp.access_token } });
+    //     const google_id = profile.getId();
+    //     var authResp = googleUser.getAuthResponse();
+    //     let parseUser = new window._Parse_.User();
+    //     parseUser.setEmail(profile.getEmail());
+    //     parseUser._linkWith('google', { 
+    //         authData: {
+    //             'id': google_id, 
+    //             'id_token': authResp.id_token, 
+    //             'access_token': authResp.access_token 
+    //         }
+    //     });
 
+    //     // user data from Google Auth
+    //     if (profile && profile.getId()) {
+    //         const googleUserData = {
+    //             uid: profile.getId(), // Google UID
+    //             displayName: profile.getName(),
+    //             email: profile.getEmail(),
+    //         };
 
-
-        // user data from Google Auth
-        if (profile && profile.getId()) {
-            const googleUserData = {
-                uid: profile.getId(), // Google UID
-                displayName: profile.getName(),
-                email: profile.getEmail(),
-            };
-
-            // fetch initial state
-            window._UI_STORE_.dispatch(getUser(googleUserData));
-        }
-    };
+    //         // fetch initial state
+    //         window._UI_STORE_.dispatch(getUser(googleUserData));
+    //     }
+    // };
 
     render () {
         const { loginGoogleRequest, showLoginSpinner } = this.props;
