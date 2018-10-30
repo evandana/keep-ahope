@@ -14,6 +14,7 @@ import { Provider } from 'react-redux';
 /** APP **/
 import config from 'config';
 import AuthorizedRoute from 'components/controller/AuthorizedRoute';
+import AuthorizedNav from 'components/controller/AuthorizedNav';
 
 import Contact from 'components/controller/Contact';
 import Reports from 'components/controller/Reports';
@@ -38,31 +39,23 @@ class App extends Component {
         Parse.serverURL = 'https://keep-ahope.appspot.com/parse'
         window._Parse_ = Parse;
 
+        // try to login with google (enables re-login on page refresh)
+        window._UI_STORE_.dispatch( loginGoogleRequest() );
 
-        window._UI_STORE_.dispatch(loginGoogleRequest());
+        // TODO: remove this section
+        // NOTE: it's stubbing info for the contact info page when deep linking
+        // _________________________________________________
+        // const Contacts = Parse.Object.extend("contacts");
+        // const contact = new Contacts();
 
-
-        const Contacts = Parse.Object.extend("contacts");
-        const contact = new Contacts();
-
-        contact.set("Race", 'white');
-        contact.set("birthCountry", "US");
-        contact.set("dateOfBirth", new Date());
-        contact.set("ethnicity", 'white');
-        contact.set("firstInjectionAge", new Date());
-        contact.set("genderIdentity", 'Male');
-        contact.set("hispanic", false);
-        contact.set("uid", `aaaa${Math.floor(Math.random() * 1000000)}aaa`)
-
-        // contact.save()
-        //     .then((contact) => {
-        //     // Execute any logic that should take place after the object is saved.
-        //     alert('New object created with objectId: ' + contact.id);
-        //     }, (error) => {
-        //     // Execute any logic that should take place if the save fails.
-        //     // error is a Parse.Error with an error code and message.
-        //     alert('Failed to create new object, with error code: ' + error.message);
-        // });
+        // contact.set("Race", 'white');
+        // contact.set("birthCountry", "US");
+        // contact.set("dateOfBirth", new Date());
+        // contact.set("ethnicity", 'white');
+        // contact.set("firstInjectionAge", new Date());
+        // contact.set("genderIdentity", 'Male');
+        // contact.set("hispanic", false);
+        // contact.set("uid", `aaaa${Math.floor(Math.random() * 1000000)}aaa`)
     }
 
 
@@ -106,7 +99,7 @@ class App extends Component {
                 <Provider store={store}>
                     <ConnectedRouter history={history}>
                         <div className="app">
-                            <Navigation/>
+                            <AuthorizedNav component={Navigation} />
                             <Messages />
                             <Switch>
                                 <AuthorizedRoute exact path="/contact/" component={Contact} />

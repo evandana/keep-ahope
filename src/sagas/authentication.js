@@ -92,6 +92,13 @@ function* loginGoogleRequest() {
                         }
                     });
 
+                })
+                .catch( err => {
+
+                    // TODO: handle 400 response from Parse "{ code: 209, error: 'invalid session token'}"
+
+                    alert('An error occured during login with Parse');
+                    window._UI_STORE_.dispatch(showLoginSpinner(false));
                 });
 
             } else {
@@ -119,7 +126,7 @@ function* logoutUserRequest() {
     window._GOOGLE_CLOUD_AUTH2_.signOut()
         .then( () => {
             window._Parse_.User.logOut()
-                .then(
+                .then( () => {
                     window._UI_STORE_.dispatch( 
                         setCurrentUser({
                             displayName: null,
@@ -128,9 +135,10 @@ function* logoutUserRequest() {
                             uid: null        
                         })
                     )
-                )
+                    console.log('You have been logged out');
+                    window._UI_STORE_.dispatch(showLoginSpinner(false));
+                })
         })
-    console.log('You have been logged out');
     yield;
 }
 

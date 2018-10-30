@@ -9,8 +9,10 @@ const NotAuthorizedView = props => {
 
     return (
         <div className="page">
-            {!user || Object.keys(user.permissions).length < 1 ? <Login /> : 
-                !user.permissions || !user.permissions.basic ? 'Logged in, but basic permissions have not been granted.' : ''}
+            <div className='text-content'>
+                {!user || Object.keys(user.permissions).length < 1 ? <Login /> : 
+                    !user.permissions || !user.permissions.basic ? 'Logged in, but basic permissions have not been granted.' : ''}
+            </div>
         </div>
     );
 };

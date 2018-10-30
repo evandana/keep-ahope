@@ -62,6 +62,8 @@ class Navigation extends React.Component {
 
     displayForAppBarTitle() {
         const path = this.props.location.pathname;
+
+        console.log('path', path);
         // TODO: see https://github.com/ReactTraining/react-router/issues/5870
         // so that we can use match instead of includes
         if(path.startsWith('/contact')) {
