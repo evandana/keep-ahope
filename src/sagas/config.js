@@ -8,12 +8,15 @@ import { refreshConfig } from 'actions';
 
 
 function* fetchConfig({uid, userData}) {
-    window._FIREBASE_DB_.ref('/CONFIG')
-        .on('value', (snapshot) => {
-            const config = snapshot.val();
+
+    console.log('TOOD: replace config fetch with Parse')
+
+    // window._FIREBASE_DB_.ref('/CONFIG')
+    //     .on('value', (snapshot) => {
+    //         const config = snapshot.val();
             
-            window._UI_STORE_.dispatch(refreshConfig(config));
-        });
+    //         window._UI_STORE_.dispatch(refreshConfig(config));
+    //     });
     
     yield;
 }

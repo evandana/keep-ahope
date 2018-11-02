@@ -33,7 +33,7 @@ class App extends Component {
         super(props);
 
         injectTapEventPlugin();
-
+        
         Parse.initialize("AHOPEPARSESERVER");
 
         Parse.serverURL = 'https://keep-ahope.appspot.com/parse'

@@ -5,12 +5,34 @@ import {
     LOGOUT_USER_REQUEST,
 } from '../constants';
 
-import { setCurrentUser, showLoginSpinner } from 'actions';
+import { setCurrentUser, showLoginSpinner, fetchConfig } from 'actions';
 
-function* loginGoogleRequest() {
+function getGoogleUserObj (googleUser) {
+    
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile();
+    // console.log("Name: " + profile.getName());
+    // console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+    console.log('Full Name: ' + profile.getName());
+    // console.log('Given Name: ' + profile.getGivenName());
+    // console.log('Family Name: ' + profile.getFamilyName());
+    // console.log("Image URL: " + profile.getImageUrl());
+    // console.log("Email: " + profile.getEmail()); 
+    // // The ID token you need to pass to your backend:
+    // var id_token = googleUser.getAuthResponse().id_token;
+    // console.log("ID Token: " + id_token);
+
+    return {
+        uid: profile.getId(),
+        displayName: profile.getName(),
+        email: profile.getEmail(),
+    };
+};
+
+function* loginGoogleRequest( { } ) {
 
     window._UI_STORE_.dispatch(showLoginSpinner(true));
-
+    
     window.gapi.load('auth2', function() {
         window.gapi.auth2.init({
             client_id: "888227269181-14qpprrki7r8l9b6gaknd9fle8gkas9k.apps.googleusercontent.com",
@@ -142,8 +164,9 @@ function* logoutUserRequest() {
                     )
                     console.log('You have been logged out');
                     window._UI_STORE_.dispatch(showLoginSpinner(false));
-                })
-        })
+                });
+        });
+
     yield;
 }
 

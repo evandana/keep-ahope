@@ -43,7 +43,9 @@ import {
 
 /** AUTHENTICATION **/
 export function loginGoogleRequest() {
-    return { type: LOGIN_GOOGLE_REQUEST };
+    return { 
+        type: LOGIN_GOOGLE_REQUEST,
+     };
 }
 
 /** USER **/
@@ -57,20 +59,6 @@ export function setCurrentUser(userData) {
 export function logoutUserRequest() {
     return {
         type: LOGOUT_USER_REQUEST,
-    };
-}
-
-export function getUser(googleUserData = null) {
-    return {
-        type: GET_USER,
-        googleUserData,
-    };
-}
-
-export function updateUser(userData) {
-    return {
-        type: UPDATE_USER,
-        userData,
     };
 }
 

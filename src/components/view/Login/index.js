@@ -9,7 +9,7 @@ import Paper from 'material-ui/Paper';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import { getUser, fetchConfig, showLoginSpinner } from '../../../actions';
+import { fetchConfig, showLoginSpinner } from '../../../actions';
 
 class Login extends Component {
 
