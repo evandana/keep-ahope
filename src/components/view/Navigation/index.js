@@ -6,8 +6,6 @@ import AppBar from 'material-ui/AppBar';
 import Avatar from 'material-ui/Avatar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import IconButton from 'material-ui/IconButton';
 
 import ArrowDownIcon from 'material-ui/svg-icons/navigation/arrow-drop-down';
 import ContactTypeaheadSearch from 'components/controller/ContactTypeaheadSearch';
@@ -15,19 +13,6 @@ import EventNoteIcon from 'material-ui/svg-icons/notification/event-note';
 import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
 import PersonOutlineIcon from 'material-ui/svg-icons/social/person-outline';
 import PersonIcon from 'material-ui/svg-icons/social/person';
-
-// Unused icons; some are good candidates if we need more.
-//
-// import AssignmentInd from 'material-ui/svg-icons/action/assignment-ind';
-// import ChromeReaderModeIcon from 'material-ui/svg-icons/action/chrome-reader-mode';
-// import ExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-// import GroupAddIcon from 'material-ui/svg-icons/social/group-add';
-// import GroupIcon from 'material-ui/svg-icons/social/group';
-// import PeopleIcon from 'material-ui/svg-icons/social/people';
-// import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
-
-
-import { getImageForEnv } from 'static/images/index'
 
 import './styles.css';
 
@@ -37,7 +22,12 @@ class Navigation extends React.Component {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
+        this.setCurrentSearchQuery = props.setCurrentSearchQuery.bind(this);
         this.state = { drawerOpen: false };
+
+        console.log('search query', props.match.params.uid)
+        this.setCurrentSearchQuery(props.match.params.uid);
+        props.getContact(props.match.params.uid); // TODO: make sure this isn't called too often
     }
 
     handleToggle () {
@@ -60,15 +50,16 @@ class Navigation extends React.Component {
         this.props.logout();
     }
 
-    displayForAppBarTitle() {
-        const path = this.props.location.pathname;
+    displayForAppBarTitle({match, location}) {
+        const path = location.pathname;
 
         console.log('path', path);
         // TODO: see https://github.com/ReactTraining/react-router/issues/5870
         // so that we can use match instead of includes
         if(path.startsWith('/contact')) {
             if(path.includes('/intake') || path.includes('/info')) {
-                return this.props.contactUid;
+
+                return (<ContactTypeaheadSearch/>);
             }
             return (<ContactTypeaheadSearch/>);
         }  else if (path.startsWith('/reports')) {
@@ -86,7 +77,7 @@ class Navigation extends React.Component {
     }
 
     render () {
-        const { user, muiTheme } = this.props;
+        const { user, muiTheme, match, location } = this.props;
 
         const avatarSize = 60,
             paddingSize = 15,
@@ -96,7 +87,7 @@ class Navigation extends React.Component {
             <div>
                 <AppBar
                     onLeftIconButtonTouchTap={this.handleToggle}
-                    title={this.displayForAppBarTitle()}
+                    title={this.displayForAppBarTitle({match, location})}
                     titleStyle={{
                         paddingTop: '0.5rem',
                         paddingBottom: '1rem',

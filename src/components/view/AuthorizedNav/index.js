@@ -12,9 +12,7 @@ class AuthorizedNav extends Component {
         return (
             <Route {...rest} render={ props => (
                 userPermissions.basic ? (
-                        <div className="test">
-                            <Component {...props}/>
-                        </div>
+                        <Component {...props}/>
                     ) : (
                         <div>
                             <AppBar

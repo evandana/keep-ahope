@@ -24,7 +24,7 @@ function contacts(state = defaultState, action) {
             });
         case SET_CURRENT_SEARCH_QUERY:
             return Object.assign({}, state, {
-                searchQuery,
+                searchQuery: searchQuery || '',
             })
         default:
             return state

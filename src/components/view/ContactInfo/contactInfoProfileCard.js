@@ -30,7 +30,7 @@ class ContactInfo extends React.Component {
               <div className="col-xs-6">
                 <span style={infoKeyStyle}>DOB</span>
                 {/* TODO: add this to the DB */}
-                {contact.dateOfBirth.toDateString()}
+                {contact.dateOfBirth && contact.dateOfBirth.toDateString()}
               </div>
               <div className="col-xs-6">
                 <span style={infoKeyStyle}>Race</span>
@@ -51,7 +51,7 @@ class ContactInfo extends React.Component {
             <div className="row">
               <div className="col-xs-6">
                 <span style={infoKeyStyle}>Age of first injection</span>
-                {contact.firstInjectionAge.toDateString()}
+                {contact.firstInjectionAge && contact.firstInjectionAge.toDateString()}
               </div>
               <div className="col-xs-6">
                 <span style={infoKeyStyle}>Hispanic</span>

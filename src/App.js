@@ -21,7 +21,7 @@ import Reports from 'components/controller/Reports';
 import Messages from 'components/controller/Messages';
 
 import Navigation from 'components/controller/Navigation';
-import { getUser, fetchConfig, showLoginSpinner, loginGoogleRequest } from './actions';
+import { setCurrentSearchQuery, loginGoogleRequest } from './actions';
 
 import './app.css';
 
@@ -42,20 +42,7 @@ class App extends Component {
         // try to login with google (enables re-login on page refresh)
         window._UI_STORE_.dispatch( loginGoogleRequest() );
 
-        // TODO: remove this section
-        // NOTE: it's stubbing info for the contact info page when deep linking
-        // _________________________________________________
-        // const Contacts = Parse.Object.extend("contacts");
-        // const contact = new Contacts();
-
-        // contact.set("Race", 'white');
-        // contact.set("birthCountry", "US");
-        // contact.set("dateOfBirth", new Date());
-        // contact.set("ethnicity", 'white');
-        // contact.set("firstInjectionAge", new Date());
-        // contact.set("genderIdentity", 'Male');
-        // contact.set("hispanic", false);
-        // contact.set("uid", `aaaa${Math.floor(Math.random() * 1000000)}aaa`)
+        window._UI_STORE_.dispatch(setCurrentSearchQuery(''));
     }
 
 
@@ -99,7 +86,8 @@ class App extends Component {
                 <Provider store={store}>
                     <ConnectedRouter history={history}>
                         <div className="app">
-                            <AuthorizedNav component={Navigation} />
+                            <AuthorizedNav path="/:context/:uid/:action/" component={Navigation} />
+                            <AuthorizedNav exact path="/" component={Navigation} />
                             <Messages />
                             <Switch>
                                 <AuthorizedRoute exact path="/contact/" component={Contact} />

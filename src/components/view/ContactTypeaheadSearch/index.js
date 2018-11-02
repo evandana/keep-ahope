@@ -95,7 +95,7 @@ class ContactTypeaheadSearch extends Component {
                     bottom: '-1rem',
                     fontSize: '0.6rem',
                 }}>
-                    {contactSearchQuery.length} / 15
+                    {contactSearchQuery && contactSearchQuery.length} / 15
                 </div>
             </Paper>
         );

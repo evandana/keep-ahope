@@ -8,7 +8,6 @@ class PeriodicIntakeForm extends Component {
     constructor(props) {
         super(props);
 
-        debugger;
         this.buildSelectField = this.props.buildSelectField.bind(this);
         this.buildRadio = this.props.buildRadio.bind(this);
         this.buildToggle = this.props.buildToggle.bind(this);

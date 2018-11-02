@@ -9,7 +9,7 @@ class ContactSearchResults extends Component {
 
     handleNavigationToContact(contactUid) {
         this.props.getContact(contactUid);
-        this.props.setCurrentSearchQuery('');
+        this.props.setCurrentSearchQuery(contactUid || '');
         this.props.history.push(`/contact/${contactUid}/intake`);
     }
 

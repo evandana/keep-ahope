@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { logoutUserRequest } from 'actions';
+import { logoutUserRequest, setCurrentSearchQuery, getContact } from 'actions';
 import NavigationView from 'components/view/Navigation';
 
 const mapStateToProps = (state) => {
@@ -14,7 +14,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logout: () => dispatch(logoutUserRequest()),
+        logout: () => dispatch( logoutUserRequest() ),
+        setCurrentSearchQuery: searchQuery => dispatch( setCurrentSearchQuery(searchQuery) ),
+        getContact: contactUid => dispatch( getContact(contactUid) ),
     }
 };
 
