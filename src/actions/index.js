@@ -149,11 +149,7 @@ export function refreshEvents(eventCollection) {
     }
 }
 
-export function createEvent(userInputData, user) {
-
-    const eventData = {
-        ...userInputData
-    };
+export function createEvent({eventData}) {
 
     return {
         type: CREATE_EVENT,

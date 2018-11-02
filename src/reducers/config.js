@@ -3,9 +3,6 @@ import {
 } from '../constants'
 
 const defaultState = {
-    BIDDING_OPEN: false,
-    CONFIRM_WINNERS: false,
-    CREATE_EVENTS: false,
     LOCKDOWN_MODE: false,
 }
 

@@ -143,23 +143,19 @@ class IntakeForm extends Component {
         // TODO: Ultimately should change these cases to prompts, not alert; but React errors for now
         // TODO: what about validation?
         if (this.initialState == this.state) {
-        alert("Cannot post empty form");
+            alert("Cannot post empty form");
         } else {
             // TODO: should call an action 'SUBMIT_FORM' or something
             // which should take the event and contact info, and call the update contact
             // action from within
-            this.createEvent();
-            this.updateContact();
+            let eventData = this.packageFormDataForSubmission()
+            this.props.dispatch( createEvent( { eventData } ) );
+
+            this.updateContact(); // currently does NOTHING (TODO: should do something or be removed)
             const { match: { params } } = this.props;
             // TODO: 'form submitted successfully' or something dialog
             this.props.history.push(`/contact/${params.uid}/info`)
         }
-    }
-
-    // TODO: dispatch updated contact profile
-    createEvent() {
-        let eventData = this.packageFormDataForSubmission()
-        this.props.dispatch(createEvent(eventData));
     }
 
     updateContact() {

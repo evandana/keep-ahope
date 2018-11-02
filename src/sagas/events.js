@@ -21,7 +21,10 @@ function* createEvent({ eventData }) {
     const contact = window._Parse_.Object.extend("contacts")
     const query = new window._Parse_.Query(contact);
     query.equalTo('uid', eventData.contactUid)
-    query.first().then(result => {
+    query.first().then( parseContact => {
+
+        const uidRelation = event.relation('uid').add( parseContact );
+
         event.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection)
         event.set('numberOfOthersHelping', eventData.numberOfOthersHelping)
         event.set('syringesGiven', eventData.syringesGiven)
@@ -46,7 +49,8 @@ function* createEvent({ eventData }) {
         event.set('didOdLastYear', eventData.didOdLastYear)
         event.set('hasHealthInsurance', eventData.hasHealthInsurance)
         event.set('hispanic', eventData.contactIsHispanic)
-        event.set('uid', 'contacts', result)
+        event.set('uid', uidRelation)
+
     
         event.save()
     })
