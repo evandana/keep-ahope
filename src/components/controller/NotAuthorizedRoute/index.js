@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import NotAuthorizedRoute from 'components/view/NotAuthorizedRoute';
+import { logoutUserRequest } from 'actions';
 
 const mapStateToProps = (state) => {
     return {
@@ -7,6 +8,13 @@ const mapStateToProps = (state) => {
     }
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logout: () => dispatch( logoutUserRequest() ),
+    }
+};
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps,
 )(NotAuthorizedRoute);;

@@ -57,7 +57,8 @@ function* loginGoogleRequest() {
                             linkedParseUser.set('lastName', googleUserProfile.getFamilyName() );
                             linkedParseUser.set('fullName', googleUserProfile.getGivenName() + ' ' + googleUserProfile.getFamilyName() );
                             
-                            linkedParseUser.save( updatedLinkedParseUser => resolve(updatedLinkedParseUser) );
+                            linkedParseUser.save()
+                                .then( updatedLinkedParseUser => resolve(updatedLinkedParseUser) );
                         }
                     });
 
@@ -70,27 +71,31 @@ function* loginGoogleRequest() {
                     const parseRole = window._Parse_.Object.extend('_Role');
                     const roleQuery = new window._Parse_.Query(parseRole).equalTo('users', linkedParseUser);
     
-                    roleQuery.first().then(result => {
-                        if(result) {
-                            console.log('user is logged in and has permissions')
-                            
-                            // for now we can equate Admin role with basic permissions
-                            window._UI_STORE_.dispatch(setCurrentUser({
-                                permissions: { basic: true },
-                                email: linkedParseUser.attributes.email,
-                                name: linkedParseUser.attributes.email,
-                                uid: linkedParseUser.id,
-                            }));
-                        } else {
-                            console.log('user is logged in but doesn\'t have permissions')
-                            window._UI_STORE_.dispatch(setCurrentUser({
-                                permissions: { basic: false },
-                                email: linkedParseUser.attributes.email,
-                                name: linkedParseUser.attributes.email,
-                                uid: linkedParseUser.id,
-                            }));
-                        }
-                    });
+                    roleQuery.first()
+                        .then(result => {
+                            if(result) {
+                                console.log('user is logged in and has permissions')
+                                
+                                // for now we can equate Admin role with basic permissions
+                                window._UI_STORE_.dispatch(setCurrentUser({
+                                    permissions: { basic: true, googleAuth: true },
+                                    email: linkedParseUser.attributes.email,
+                                    name: linkedParseUser.attributes.fullName,
+                                    uid: linkedParseUser.id,
+                                }));
+                            } else {
+                                console.log('user is logged in but doesn\'t have permissions')
+                                window._UI_STORE_.dispatch(setCurrentUser({
+                                    permissions: { basic: false, googleAuth: true },
+                                    email: linkedParseUser.attributes.email,
+                                    name: linkedParseUser.attributes.fullName,
+                                    uid: linkedParseUser.id,
+                                }));
+                            }
+                        })
+                        .catch( err => {
+                            console.log('error performing role query')
+                        });
 
                 })
                 .catch( err => {
