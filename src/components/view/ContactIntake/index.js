@@ -76,7 +76,7 @@ class IntakeForm extends Component {
             // visit or isOutreach
             uid: params.uid,
             isOutreach: false,
-            referral: null,
+            referrals: null,
             syringesGiven: 0,
             syringesTaken: 0,
             narcanWasOffered: false,
@@ -95,7 +95,7 @@ class IntakeForm extends Component {
     packageFormDataForSubmission() {
         const visitOrOutreach = {
             isOutreach: this.state.isOutreach,
-            referral: this.state.referral,
+            referrals: this.state.referrals,
             syringesGiven: this.state.syringesGiven,
             syringesTaken: this.state.syringesTaken,
             narcanWasOffered: this.state.narcanWasOffered,
@@ -371,7 +371,7 @@ class IntakeForm extends Component {
                     buildSlider={this.buildSlider}
                     // form data
                     isOutreach={this.state.isOutreach}
-                    referral={this.state.referral}
+                    referrals={this.state.referrals}
                     syringesGiven={this.state.syringesGiven}
                     syringesTaken={this.state.syringesTaken}
                     narcanWasOffered={this.state.narcanWasOffered}

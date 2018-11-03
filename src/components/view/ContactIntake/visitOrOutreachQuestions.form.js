@@ -14,7 +14,7 @@ class NewVisitAndOutreachQuestions extends Component {
     };
 
     render() {
-        const referralSelectOptionsList = [
+        const referralsSelectOptionsList = [
             {primaryText: 'No Referrals', value: null},
             {primaryText: 'Referrals', value: 'some list of referrals'},
         ];
@@ -35,7 +35,7 @@ class NewVisitAndOutreachQuestions extends Component {
                     {this.buildToggle('Outreach', 'isOutreach', this.props.handleChildToggleChange)}
                 </div>
                 <div style={{padding: '2rem'}}>
-                    {this.buildSelectField('Referral', referralSelectOptionsList, 'referral', this.props.handleSelectChange)}
+                    {this.buildSelectField('Referrals', referralsSelectOptionsList, 'referrals', this.props.handleSelectChange)}
                 </div>
                 <div style={{padding: '2rem 2rem 0rem 2rem'}}>
                     {this.buildSlider('syringesGiven', 'Syringes Given', this.props.syringesGiven, this.props.handleSliderChange)}
