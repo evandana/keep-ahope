@@ -150,16 +150,7 @@ class IntakeForm extends Component {
             // action from within
             let eventData = this.packageFormDataForSubmission()
             this.props.dispatch( createEvent( { eventData } ) );
-
-            this.updateContact(); // currently does NOTHING (TODO: should do something or be removed)
-            const { match: { params } } = this.props;
-            // TODO: 'form submitted successfully' or something dialog
-            this.props.history.push(`/contact/${params.uid}/info`)
         }
-    }
-
-    updateContact() {
-        // this.props.dispatch(getContact(contactData))
     }
 
     // helpers to build controlled input elements

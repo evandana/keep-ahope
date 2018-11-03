@@ -11,7 +11,7 @@ import {
     REFRESH_EVENTS,
 } from '../constants';
 
-import { refreshEvents } from '../actions';
+import { getContact } from '../actions';
 
 
 function* createEvent({ eventData }) {
@@ -25,88 +25,99 @@ function* createEvent({ eventData }) {
 
         // event data with most fields filled out
         eventData = {
-            "isOutreach": true,
-            "referrals": [
-                "Beth Israel"
-              ],
-            "syringesGiven": 20,
-            "syringesTaken": 20,
-            "narcanWasOffered": true,
-            "narcanWasTaken": true,
-            "enrollment": "enrolled",
-            "numberOfOthersHelping": 54,
+            "contactAgeOfFirstInjection": 56,
+            "contactCountryOfBirth": "Other",
+            "contactDateOfBirth": new Date("1980-01-01T05:00:00.000Z"),
+            "contactEthnicity": "Other",
+            "contactGenderIdentity": "mtf",
+            "contactIsHispanic": false,
             "contactUid": "aaaa651945aaa",
-            "date": "2018-11-03T04:00:00.000Z",
-            "housingStatus": "housed",
-            "hivStatus": "positive",
-            "isInCareForHiv": true,
-            "hepCStatus": "positive",
-            "isInCareForHepC": true,
-            "healthInsurer": "NHP",
-            "primaryDrug": "meth",
+            "date": new Date(),
             "didOdLastYear": false,
             "didSeeOdLastYear": false,
+            "enrollment": "enrolled",
             "hasHealthInsurance": true,
-            "otherDrugs": [
-              "meth",
-              "cocaine",
-              "benzos"
-            ],
-            "newContactDate": "2018-11-03T04:00:00.000Z",
-            "contactDateOfBirth": "1980-01-01T05:00:00.000Z",
-            "contactGenderIdentity": "mtf",
-            "contactEthnicity": "Other",
-            "contactIsHispanic": false,
-            "contactCountryOfBirth": "Other",
-            "contactAgeOfFirstInjection": 56
+            "healthInsurer": "NHP",
+            "hepCStatus": "positive",
+            "hivStatus": "positive",
+            "housingStatus": "housed",
+            "isInCareForHepC": true,
+            "isInCareForHiv": true,
+            "isOutreach": true,
+            "narcanWasOffered": true,
+            "narcanWasTaken": true,
+            "newContactDate": new Date("2018-11-03T04:00:00.000Z"),
+            "numberOfOthersHelping": 54,
+            "otherDrugs": [ "meth", "cocaine", "benzos"],
+            "primaryDrug": "meth",
+            "referrals": [ "Beth Israel" ],
+            "syringesGiven": 20,
+            "syringesTaken": 20,
           };
 
         // update contact
-        parseContact.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection)
-        parseContact.set('countryOfBirth', eventData.contactCountryOfBirth)
-        parseContact.set('dateOfBirth', eventData.contactDateOfBirth)
-        parseContact.set('dateOfLastVisit', eventData.date)
-        parseContact.set('ethnicity', eventData.contactEthnicity)
-        parseContact.set('primaryDrug', eventData.primaryDrug)
-        parseContact.set('genderIdentity', eventData.contactGenderIdentity)
-        parseContact.set('hivStatus', eventData.hivStatus)
-        parseContact.set('hepCStatus', eventData.hepCStatus)
-        parseContact.set('housingStatus', eventData.houingStatus)
-        parseContact.set('isEnrolled', eventData.hasHealthInsurance)
-        parseContact.set('isInCareForHepC', eventData.isInCareForHepC)
-        parseContact.set('isInCareForHiv', eventData.inInCareForHiv)
-        parseContact.set('didOdLastYear', eventData.didOdLastYear)
-        parseContact.set('hasHealthInsurance', eventData.hasHealthInsurance)
-        parseContact.set('hispanic', eventData.contactIsHispanic)
+        parseContact.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection); // TODO: on server check if this changes to a LATER date
+        parseContact.set('countryOfBirth', eventData.contactCountryOfBirth); // TODO: on server check if this changes (once no longer null) then flag to user
+        parseContact.set('dateOfBirth', eventData.contactDateOfBirth); // TODO: on server check if this changes (once no longer null) then flag to user
+        parseContact.set('dateOfLastVisit', eventData.date);
+        parseContact.set('ethnicity', eventData.contactEthnicity); // TODO: on server check if this changes (once no longer null) then flag to user
+        parseContact.set('primaryDrug', eventData.primaryDrug); 
+        parseContact.set('genderIdentity', eventData.contactGenderIdentity); 
+        parseContact.set('hivStatus', eventData.hivStatus); // TODO: on server ensure this can't go from `true` to `false`
+        parseContact.set('hepCStatus', eventData.hepCStatus); 
+        parseContact.set('housingStatus', eventData.housingStatus);
+        parseContact.set('isEnrolled', eventData.hasHealthInsurance);
+        parseContact.set('isInCareForHepC', eventData.isInCareForHepC);
+        parseContact.set('isInCareForHiv', eventData.isInCareForHiv);
+        parseContact.set('otherDrugsAggregate', eventData.otherDrugs); // TODO: aggregate all drugs here (or on server)
+        parseContact.set('didOdLastYear', eventData.didOdLastYear);
+        parseContact.set('hasHealthInsurance', eventData.hasHealthInsurance);
+        parseContact.set('hispanic', eventData.contactIsHispanic);
 
         // update event
-        event.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection)
-        event.set('numberOfOthersHelping', eventData.numberOfOthersHelping)
-        event.set('syringesGiven', eventData.syringesGiven)
-        event.set('syringesTaken', eventData.syringesTaken)
-        event.set('countryOfBirth', eventData.contactCountryOfBirth)
-        event.set('otherDrugs', eventData.otherDrugs)
-        event.set('dateOfBirth', eventData.contactDateOfBirth)
-        event.set('date', eventData.date)
-        event.set('newContactDate', eventData.newContactDate)
-        event.set('ethnicity', eventData.contactEthnicity)
-        event.set('primaryDrug', eventData.primaryDrug)
-        event.set('genderIdentity', eventData.contactGenderIdentity)
-        event.set('hivStatus', eventData.hivStatus)
-        event.set('hepCStatus', eventData.hepCStatus)
-        event.set('housingStatus', eventData.houingStatus)
-        event.set('isEnrolled', eventData.hasHealthInsurance)
-        event.set('isInCareForHepC', eventData.isInCareForHepC)
-        event.set('isInCareForHiv', eventData.inInCareForHiv)
-        event.set('isOutreach', eventData.isOutreach)
-        event.set('narcanWasOffered', eventData.narcanWasOffered)
-        event.set('narcanWasTaken', eventData.narcanWasTaken)
-        event.set('didOdLastYear', eventData.didOdLastYear)
-        event.set('hasHealthInsurance', eventData.hasHealthInsurance)
-        event.set('hispanic', eventData.contactIsHispanic)
-        event.set('contactUidPointer', parseContact)
+        event.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection);
+        event.set('countryOfBirth', eventData.contactCountryOfBirth);
+        event.set('date', eventData.date);
+        event.set('dateOfBirth', eventData.contactDateOfBirth);
+        event.set('didOdLastYear', eventData.didOdLastYear);
+        event.set('ethnicity', eventData.contactEthnicity);
+        event.set('genderIdentity', eventData.contactGenderIdentity);
+        event.set('hasHealthInsurance', eventData.hasHealthInsurance);
+        event.set('hepCStatus', eventData.hepCStatus);
+        event.set('hispanic', eventData.contactIsHispanic);
+        event.set('hivStatus', eventData.hivStatus);
+        event.set('housingStatus', eventData.housingStatus);
+        event.set('isEnrolled', eventData.hasHealthInsurance);
+        event.set('isInCareForHepC', eventData.isInCareForHepC);
+        event.set('isInCareForHiv', eventData.isInCareForHiv);
+        event.set('isOutreach', eventData.isOutreach);
+        event.set('narcanWasOffered', eventData.narcanWasOffered);
+        event.set('narcanWasTaken', eventData.narcanWasTaken);
+        event.set('newContactDate', eventData.newContactDate);
+        event.set('numberOfOthersHelping', eventData.numberOfOthersHelping);
+        event.set('otherDrugs', eventData.otherDrugs);
+        event.set('primaryDrug', eventData.primaryDrug);
+        event.set('referrals', eventData.referrals);
+        event.set('syringesGiven', eventData.syringesGiven);
+        event.set('syringesTaken', eventData.syringesTaken);
+        // add event pointer to contact
+        event.set('contactUidPointer', parseContact);
 
         event.save()
+            .then( successfulSave => {
+                // TODO: show save success message
+
+                // fetch new contact data
+                // TODO: include events
+                window._UI_STORE_.dispatch( getContact() );
+
+                // TODO: show spinner on contact info
+                
+                // navigate to contact info
+                this.props.history.push(`/contact/${eventData.contactUid}/info`);
+                
+            })
+            .catch(  );
     })
     yield;
 }
