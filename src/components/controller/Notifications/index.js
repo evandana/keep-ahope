@@ -3,7 +3,7 @@ import Notifications from 'components/view/Notifications';
 
 const mapStateToProps = (state) => {
     return {
-        newNotification: state.newNotification
+        notificationSingleton: state.notificationSingleton
     };
 };
 

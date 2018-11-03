@@ -79,7 +79,7 @@ class Navigation extends React.Component {
     }
 
     render () {
-        const { user, muiTheme, match, location, newNotification } = this.props;
+        const { user, muiTheme, match, location, notificationSingleton } = this.props;
 
         const avatarSize = 60,
             paddingSize = 15,
@@ -117,7 +117,7 @@ class Navigation extends React.Component {
                         </div>
                         </div>
                 </Drawer>
-                <Notifications {...newNotification} />
+                <Notifications {...notificationSingleton} />
             </div>
         );
     }

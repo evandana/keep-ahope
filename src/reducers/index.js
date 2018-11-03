@@ -1,7 +1,7 @@
 import config from './config';
 import contact from './contact';
 import contacts from './contacts';
-import newNotification from './newNotification';
+import notificationSingleton from './notificationSingleton';
 import reportsData from './reportsData';
 import user from './user';
 
@@ -14,7 +14,7 @@ const reducers = {
     contact,
     contacts,
     isLoggedIn,
-    newNotification,
+    notificationSingleton,
     reportsData,
     user,
 };

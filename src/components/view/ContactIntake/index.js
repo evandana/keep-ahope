@@ -149,7 +149,7 @@ class IntakeForm extends Component {
             // which should take the event and contact info, and call the update contact
             // action from within
             let eventData = this.packageFormDataForSubmission()
-            this.props.dispatch( createEvent( { eventData } ) );
+            this.props.dispatch( createEvent( { eventData, history: this.props.history } ) );
         }
     }
 

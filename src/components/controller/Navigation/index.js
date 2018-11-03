@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
         user: state.user,
         config: state.config,
         contactUid: state.contact.uid,
-        newNotification: state.newNotification,
+        notificationSingleton: state.notificationSingleton,
     };
 };
 

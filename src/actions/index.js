@@ -37,6 +37,7 @@ import {
 
     // NOTIFICATIONS
     NEW_NOTIFICATION,
+    UPDATE_NOTIFICATION_SINGLETON,
     
     // REPORTS
     FETCH_REPORTS_DATA,
@@ -152,15 +153,23 @@ export function refreshEvents(eventCollection) {
     }
 }
 
-export function createEvent({eventData}) {
+export function createEvent({ eventData, history }) {
     return {
         type: CREATE_EVENT,
         eventData,
+        history,
     };
 
 }
 
 /** NOTIFICATIONS */
+
+export function updateNotificationSingleton({notificationSingleton}) {
+    return {
+        type: UPDATE_NOTIFICATION_SINGLETON,
+        notificationSingleton,
+    };
+}
 
 export function newNotification({newNotification}) {
     return {

@@ -1,20 +1,14 @@
-import { takeEvery, take, cancel, call, fork } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
-
-import * as moment from 'moment';
+import { takeEvery } from 'redux-saga/effects';
 
 import {
     CREATE_EVENT,
-    DEBOUNCE_REFRESH_EVENTS,
-    FETCH_EVENTS,
-    UPDATE_EVENT,
-    REFRESH_EVENTS,
+    NOTIFICATION_SAVE_SUCCESS,
+    NOTIFICATION_SAVE_FAIL,
 } from '../constants';
 
-import { getContact } from '../actions';
+import { getContact, newNotification } from '../actions';
 
-
-function* createEvent({ eventData }) {
+function* createEvent({ eventData, history }) {
     const Event = window._Parse_.Object.extend("event");
     var event = new Event();
 
@@ -106,18 +100,20 @@ function* createEvent({ eventData }) {
         event.save()
             .then( successfulSave => {
                 // TODO: show save success message
-
+                window._UI_STORE_.dispatch( newNotification( { newNotification: { notificationType: NOTIFICATION_SAVE_SUCCESS } } ));
+                
                 // fetch new contact data
                 // TODO: include events
-                window._UI_STORE_.dispatch( getContact() );
-
+                window._UI_STORE_.dispatch( getContact( eventData.contactUid ) );
                 // TODO: show spinner on contact info
                 
                 // navigate to contact info
-                this.props.history.push(`/contact/${eventData.contactUid}/info`);
+                history.push(`/contact/${eventData.contactUid}/info`);
                 
             })
-            .catch(  );
+            .catch( err => {
+                window._UI_STORE_.dispatch( newNotification( { newNotification: { notificationType: NOTIFICATION_SAVE_FAIL, message: err.toString() } } ));
+            } );
     })
     yield;
 }

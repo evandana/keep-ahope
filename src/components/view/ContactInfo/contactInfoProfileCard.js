@@ -28,14 +28,16 @@ class ContactInfo extends React.Component {
           <CardText expandable={true}>
             <div className="row">
               <div className="col-xs-6">
+                <span style={infoKeyStyle}>Last Event</span>
+                {contact.dateOfLastVisit && (contact.dateOfLastVisit.toLocaleDateString('en-US') + ' (' + contact.dateOfLastVisit.toLocaleTimeString('en-US') + ')' )}
+              </div>
+              <div className="col-xs-6">
                 <span style={infoKeyStyle}>DOB</span>
-                {/* TODO: add this to the DB */}
                 {contact.dateOfBirth && contact.dateOfBirth.toDateString()}
               </div>
               <div className="col-xs-6">
-                <span style={infoKeyStyle}>Race</span>
-                {/* TODO: add this to the DB */}
-                {contact.Race}
+                <span style={infoKeyStyle}>Ethnicity</span>
+                {contact.ethnicity}
               </div>
             </div>
             <div className="row">
