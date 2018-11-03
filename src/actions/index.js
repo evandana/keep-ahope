@@ -34,6 +34,9 @@ import {
     GET_EVENTS, // why set and get?
     REFRESH_EVENTS,
     CREATE_EVENT,
+
+    // NOTIFICATIONS
+    NEW_NOTIFICATION,
     
     // REPORTS
     FETCH_REPORTS_DATA,
@@ -150,12 +153,20 @@ export function refreshEvents(eventCollection) {
 }
 
 export function createEvent({eventData}) {
-
     return {
         type: CREATE_EVENT,
         eventData,
-    }
+    };
 
+}
+
+/** NOTIFICATIONS */
+
+export function newNotification({newNotification}) {
+    return {
+        type: NEW_NOTIFICATION,
+        newNotification,
+    };
 }
 
 /** REPORTS PAGE */

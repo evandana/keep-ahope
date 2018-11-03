@@ -2,6 +2,8 @@ import React from 'react';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
+import Notifications from 'components/controller/Notifications';
+
 import AppBar from 'material-ui/AppBar';
 import Avatar from 'material-ui/Avatar';
 import Drawer from 'material-ui/Drawer';
@@ -77,7 +79,7 @@ class Navigation extends React.Component {
     }
 
     render () {
-        const { user, muiTheme, match, location } = this.props;
+        const { user, muiTheme, match, location, newNotification } = this.props;
 
         const avatarSize = 60,
             paddingSize = 15,
@@ -115,6 +117,7 @@ class Navigation extends React.Component {
                         </div>
                         </div>
                 </Drawer>
+                <Notifications {...newNotification} />
             </div>
         );
     }
