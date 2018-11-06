@@ -38,6 +38,7 @@ import {
     // NOTIFICATIONS
     NEW_NOTIFICATION,
     UPDATE_NOTIFICATION_SINGLETON,
+    CLOSE_NOTIFICATION,
     
     // REPORTS
     FETCH_REPORTS_DATA,
@@ -175,6 +176,13 @@ export function newNotification({newNotification}) {
     return {
         type: NEW_NOTIFICATION,
         newNotification,
+    };
+}
+
+export function closeNotification({notificationId}) {
+    return {
+        type: CLOSE_NOTIFICATION,
+        notificationId
     };
 }
 

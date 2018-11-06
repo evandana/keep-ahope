@@ -18,7 +18,8 @@ function notificationSingleton(state = defaultState, action) {
     switch (action.type) {
         case UPDATE_NOTIFICATION_SINGLETON:
             return {
-                ...notificationSingleton
+                ...notificationSingleton,
+                open: !!notificationSingleton.open
             };
         default:
             return state;

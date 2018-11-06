@@ -43,3 +43,7 @@ firebase login
 
 `firebase deploy` - This will deploy the hosted UI and the cloud functions
 
+
+## DEPENDENCIES
+
+- Reference for [Material UI 0.18 API](https://v0.material-ui.com/#/components)

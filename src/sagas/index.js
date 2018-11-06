@@ -5,7 +5,7 @@ import contact from './contact';
 import events from './events';
 import reports from './reports';
 import searchContacts from './searchContacts';
-import newNotification from './newNotification';
+import notifications from './notifications';
 
 /**
  * use one root saga to yield all other side effect sagas
@@ -15,7 +15,7 @@ function* sagas() {
         fork(authentication),
         fork(config),
         fork(contact),
-        fork(newNotification),
+        fork(notifications),
         fork(events),
         fork(reports),
         fork(searchContacts),

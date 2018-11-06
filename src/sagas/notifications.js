@@ -4,9 +4,13 @@ import {
     NEW_NOTIFICATION,
     NOTIFICATION_SAVE_SUCCESS,
     NOTIFICATION_SAVE_FAIL,
+    CLOSE_NOTIFICATION,
 } from '../constants';
 
 import { updateNotificationSingleton } from 'actions';
+
+let activeNotification = {},
+    queuedNotifications = [];
 
 function* newNotification({ newNotification }) {
 
@@ -33,15 +37,39 @@ function* newNotification({ newNotification }) {
             break;
     }
 
-    // TODO: handle multiple events using this template: https://material-ui.com/demos/snackbars/#consecutive-snackbars
-
+    activeNotification = notificationSingleton;
+    queuedNotifications.push(activeNotification);
     window._UI_STORE_.dispatch( updateNotificationSingleton( { notificationSingleton } ) );
 
+    yield;
+}
+
+function* closeNotification({ notificationId }) {
+
+    console.log('request to close notification by id: ', notificationId)
+    
+    queuedNotifications.splice( queuedNotifications.findIndex( notification => notification.id === notificationId ), 1);
+    
+    if (queuedNotifications.length) {
+        activeNotification = queuedNotifications.pop();
+    } else {
+        activeNotification = {
+            message: '-',
+            open: false,
+            priority: 0,
+            id: '',
+        }
+    }
+
+    console.log('queued notifications', queuedNotifications)
+    console.log('new notificaiton singleton', activeNotification)
+    window._UI_STORE_.dispatch( updateNotificationSingleton( { activeNotification } ) );
     yield;
 }
 
 export default function* () {
     yield [
         takeEvery(NEW_NOTIFICATION, newNotification),
+        takeEvery(CLOSE_NOTIFICATION, closeNotification),
     ];
 }
