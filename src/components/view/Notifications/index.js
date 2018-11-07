@@ -10,7 +10,7 @@ class Notifications extends React.Component {
 
     constructor(props) {
         super(props);
-        this.themePalette = this.props.muiTheme.palette;
+        // this.themePalette = this.props.muiTheme.palette;
     }
 
     handleClose = notificationId => {
@@ -18,7 +18,7 @@ class Notifications extends React.Component {
     };
 
     render() {
-        const { notificationSingleton, muiTheme } = this.props;
+        const { notificationSingleton, muiTheme: { palette } } = this.props;
         return (
             <div style={{position:'relative'}}>
                 <Snackbar

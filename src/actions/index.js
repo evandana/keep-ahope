@@ -15,11 +15,12 @@ import {
     // CONTACT
     GET_CONTACT,
     UPDATE_CURRENT_CONTACT,
-
+    SEARCH_CONTACTS,
+    UPDATE_CURRENT_CONTACT_WITH_EVENTS,
+    
     // CONTACTS
     SET_CONTACT_SEARCH_RESULTS,
     SET_CURRENT_SEARCH_QUERY,
-    SEARCH_CONTACTS,
 
     // CONFIG
     FETCH_CONFIG,
@@ -109,6 +110,13 @@ export function updateCurrentContact(contact) {
     return {
         type: UPDATE_CURRENT_CONTACT,
         contact,
+    }
+}
+
+export function updateCurrentContactWithEvents({eventsForContact}) {
+    return {
+        type: UPDATE_CURRENT_CONTACT_WITH_EVENTS,
+        eventsForContact,
     }
 }
 
