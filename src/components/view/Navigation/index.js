@@ -27,7 +27,6 @@ class Navigation extends React.Component {
         this.setCurrentSearchQuery = props.setCurrentSearchQuery.bind(this);
         this.state = { drawerOpen: false };
 
-        console.log('search query', props.match.params.uid)
         this.setCurrentSearchQuery(props.match.params.uid);
         props.getContact(props.match.params.uid); // TODO: make sure this isn't called too often
     }
@@ -55,7 +54,6 @@ class Navigation extends React.Component {
     displayForAppBarTitle({match, location}) {
         const path = location.pathname;
 
-        console.log('path', path);
         // TODO: see https://github.com/ReactTraining/react-router/issues/5870
         // so that we can use match instead of includes
         if(path.startsWith('/contact')) {

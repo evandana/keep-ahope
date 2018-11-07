@@ -5,29 +5,7 @@ import {
     LOGOUT_USER_REQUEST,
 } from '../constants';
 
-import { setCurrentUser, showLoginSpinner, fetchConfig } from 'actions';
-
-function getGoogleUserObj (googleUser) {
-    
-    // Useful data for your client-side scripts:
-    var profile = googleUser.getBasicProfile();
-    // console.log("Name: " + profile.getName());
-    // console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-    console.log('Full Name: ' + profile.getName());
-    // console.log('Given Name: ' + profile.getGivenName());
-    // console.log('Family Name: ' + profile.getFamilyName());
-    // console.log("Image URL: " + profile.getImageUrl());
-    // console.log("Email: " + profile.getEmail()); 
-    // // The ID token you need to pass to your backend:
-    // var id_token = googleUser.getAuthResponse().id_token;
-    // console.log("ID Token: " + id_token);
-
-    return {
-        uid: profile.getId(),
-        displayName: profile.getName(),
-        email: profile.getEmail(),
-    };
-};
+import { setCurrentUser, showLoginSpinner } from 'actions';
 
 function* loginGoogleRequest( { } ) {
 
@@ -41,16 +19,16 @@ function* loginGoogleRequest( { } ) {
         .then(function(auth2) {
 
             window._GOOGLE_CLOUD_AUTH2_ = auth2;
-            console.log( "is signed in with google: " + auth2.isSignedIn.get());
+            // console.log( "is signed in with google: " + auth2.isSignedIn.get());
 
             // if signed in with google 
             if ( window._GOOGLE_CLOUD_AUTH2_.isSignedIn.get() ) {
 
-                console.log('signed in with google');
+                // console.log('signed in with google');
 
                 // sign in with parse
 
-                console.log('not a current parse user')
+                // console.log('not a current parse user')
 
                 const googleUser = window._GOOGLE_CLOUD_AUTH2_.currentUser.get();
                 const googleUserProfile = googleUser.getBasicProfile();
@@ -87,16 +65,14 @@ function* loginGoogleRequest( { } ) {
                 })
                 .then( linkedParseUser => {
 
-                    console.log('linkedParseUser', linkedParseUser);
-
-                    console.log('current parse user');
+                    // console.log('current parse user');
                     const parseRole = window._Parse_.Object.extend('_Role');
                     const roleQuery = new window._Parse_.Query(parseRole).equalTo('users', linkedParseUser);
     
                     roleQuery.first()
                         .then(result => {
                             if(result) {
-                                console.log('user is logged in and has permissions')
+                                // console.log('user is logged in and has permissions')
                                 
                                 // for now we can equate Admin role with basic permissions
                                 window._UI_STORE_.dispatch(setCurrentUser({
@@ -106,7 +82,7 @@ function* loginGoogleRequest( { } ) {
                                     uid: linkedParseUser.id,
                                 }));
                             } else {
-                                console.log('user is logged in but doesn\'t have permissions')
+                                // console.log('user is logged in but doesn\'t have permissions')
                                 window._UI_STORE_.dispatch(setCurrentUser({
                                     permissions: { basic: false, googleAuth: true },
                                     email: linkedParseUser.attributes.email,
@@ -130,10 +106,10 @@ function* loginGoogleRequest( { } ) {
 
             } else {
 
-                console.log('not signed in with google')
+                // console.log('not signed in with google')
                 // sign in with google
                 window._GOOGLE_CLOUD_AUTH2_.signIn().then(googleUser => {
-                    console.log('restarting the login process')
+                    // console.log('restarting the login process')
 
                     window._UI_STORE_.dispatch({ type: LOGIN_GOOGLE_REQUEST })  // call self to restart flow (to be refactored for better pattern)
                 })

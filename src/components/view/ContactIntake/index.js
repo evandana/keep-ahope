@@ -185,7 +185,6 @@ class IntakeForm extends Component {
     };
 
     buildToggle(toggleName, stateName, updateCallback) {
-        // console.log(toggleName, stateName)
         return (
             <Toggle
                 label={toggleName}

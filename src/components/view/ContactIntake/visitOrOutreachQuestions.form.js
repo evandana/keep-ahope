@@ -1,4 +1,4 @@
-import React, { Component } from '../../../../../../../../Users/evandana/Library/Caches/typescript/2.9/node_modules/@types/react'
+import React, { Component } from 'react'
 
 import { Card, CardTitle } from 'material-ui/Card';
 

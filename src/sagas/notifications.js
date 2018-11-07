@@ -45,8 +45,6 @@ function* newNotification({ newNotification }) {
 }
 
 function* closeNotification({ notificationId }) {
-
-    console.log('request to close notification by id: ', notificationId)
     
     queuedNotifications.splice( queuedNotifications.findIndex( notification => notification.id === notificationId ), 1);
     
@@ -60,10 +58,8 @@ function* closeNotification({ notificationId }) {
             id: '',
         }
     }
-
-    console.log('queued notifications', queuedNotifications)
-    console.log('new notificaiton singleton', activeNotification)
-    window._UI_STORE_.dispatch( updateNotificationSingleton( { activeNotification } ) );
+    
+    window._UI_STORE_.dispatch( updateNotificationSingleton( { notificationSingleton: activeNotification } ) );
     yield;
 }
 

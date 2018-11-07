@@ -18,8 +18,7 @@ class Notifications extends React.Component {
     };
 
     render() {
-        const { notificationSingleton } = this.props;
-
+        const { notificationSingleton, muiTheme } = this.props;
         return (
             <div style={{position:'relative'}}>
                 <Snackbar
@@ -39,10 +38,10 @@ class Notifications extends React.Component {
                     }}
                     style={{
                         top:'0px',
-                        position: 'absolute'
+                        position: 'absolute',
+                        background: this.themePalette.successColor
                     }}
                 />
-                <pre>{JSON.stringify(notificationSingleton)}</pre>
             </div>
         );
     }

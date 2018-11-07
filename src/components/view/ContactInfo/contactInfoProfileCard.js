@@ -1,5 +1,5 @@
 
-import React from '../../../../../../../../Users/evandana/Library/Caches/typescript/2.9/node_modules/@types/react';
+import React from 'react';
 
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 
