@@ -39,7 +39,7 @@ class Notifications extends React.Component {
                     style={{
                         top:'0px',
                         position: 'absolute',
-                        background: this.themePalette.successColor
+                        // background: this.themePalette.successColor
                     }}
                 />
             </div>
