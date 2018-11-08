@@ -5,11 +5,13 @@ import {
     GET_EVENTS_FOR_CONTACT,
 } from '../constants';
 
-import { updateCurrentContact, updateCurrentContactWithEvents } from 'actions';
+import { updateCurrentContact, updateCurrentContactWithEvents, getEventsForContact as getEventsForContactAction } from 'actions';
 
-function* getContact({ uid }) {
+function* getContact( { uid } ) {
 
     if (uid) {
+        // fetch events (has to go through uni-directional data flow)
+        window._UI_STORE_.dispatch( getEventsForContactAction( { uid } ) );
 
         const contact = window._Parse_.Object.extend("contacts")
         const query = new window._Parse_.Query(contact);
@@ -30,16 +32,20 @@ function* getEventsForContact({ uid }) {
     if (uid) {
 
         const contact = window._Parse_.Object.extend("contacts")
-        const query = new window._Parse_.Query(contact);
+        const contactQuery = new window._Parse_.Query(contact);
+        contactQuery.equalTo('uid', uid);
+        contactQuery.first().then( parseContactPointer => {
+            
+            const events = window._Parse_.Object.extend("event")
+            const eventsQuery = new window._Parse_.Query(events);
 
-        const events = window._Parse_.Object.extend("events")
-        query.equalTo('uid', uid);
-        query.first().then( eventsForContact => {
-
-            window._UI_STORE_.dispatch( updateCurrentContactWithEvents( { eventsForContact } ) );
+            eventsQuery.equalTo('contactUidPointer', parseContactPointer);
+            eventsQuery.find().then( eventsForContact => {
+                window._UI_STORE_.dispatch( updateCurrentContactWithEvents( { eventsForContact } ) );
+            });
         });
-    } else {
-        window._UI_STORE_.dispatch( updateCurrentContactWithEvents( {} ) );
+
+
     }
 
     yield;

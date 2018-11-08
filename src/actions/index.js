@@ -21,6 +21,7 @@ import {
     // CONTACTS
     SET_CONTACT_SEARCH_RESULTS,
     SET_CURRENT_SEARCH_QUERY,
+    GET_EVENTS_FOR_CONTACT,
 
     // CONFIG
     FETCH_CONFIG,
@@ -140,6 +141,12 @@ export function setCurrentSearchQuery(searchQuery) {
         type: SET_CURRENT_SEARCH_QUERY,
         searchQuery,
     }
+}
+export function getEventsForContact({uid}) {
+    return {
+        type: GET_EVENTS_FOR_CONTACT,
+        uid,
+    };
 }
 
 /** EVENTS */
