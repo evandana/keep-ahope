@@ -41,7 +41,17 @@ function* getEventsForContact({ uid }) {
 
             eventsQuery.equalTo('contactUidPointer', parseContactPointer);
             eventsQuery.find().then( eventsForContact => {
-                window._UI_STORE_.dispatch( updateCurrentContactWithEvents( { eventsForContact } ) );
+
+                const parsedEventsForContact = eventsForContact.map( event => { 
+                    return { 
+                        id: event.id, 
+                        createdAt: event.createdAt, 
+                        updatedAt: event.updatedAt, 
+                        attributes: event.attributes,
+                    }; 
+                })
+
+                window._UI_STORE_.dispatch( updateCurrentContactWithEvents( { eventsForContact: parsedEventsForContact } ) );
             });
         });
 

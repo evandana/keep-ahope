@@ -20,8 +20,6 @@ import PeriodicQuestionsForm from 'components/view/ContactIntake/periodicQuestio
 import NewContactQuestionsForm from 'components/view/ContactIntake/newContactQuestions.form';
 import VisitOrOutreachQuestions from 'components/view/ContactIntake/visitOrOutreachQuestions.form';
 
-import * as moment from 'moment';
-
 import './styles.css';
 
 
@@ -102,11 +100,9 @@ class IntakeForm extends Component {
             narcanWasTaken: this.state.narcanWasTaken,
             enrollment: this.state.enrollment,
             numberOfOthersHelping: this.state.numberOfOthersHelping,
-            contactUid: this.state.uid,
         }
-
+        
         const periodic = this.state.showPeriodic ? {
-            date: this.state.eventDate,
             housingStatus: this.state.housingStatus,
             hivStatus: this.state.hivStatus,
             isInCareForHiv: this.state.isInCareForHiv,
@@ -119,7 +115,7 @@ class IntakeForm extends Component {
             hasHealthInsurance: this.state.hasHealthInsurance,
             otherDrugs: this.state.otherDrugs,
         } : null;
-
+        
         const contactData = this.state.showNewContactQuestions ? {
             newContactDate: this.state.newContactDate,
             contactDateOfBirth: this.state.contactDateOfBirth,
@@ -129,12 +125,14 @@ class IntakeForm extends Component {
             contactCountryOfBirth: this.state.contactCountryOfBirth,
             contactAgeOfFirstInjection: this.state.contactAgeOfFirstInjection,
         } : null;
-
+        
         // dirty check to only submit data for visible forms
         let prunedEventData = {
-           ...visitOrOutreach,
-           ...periodic,
-           ...contactData,
+            ...visitOrOutreach,
+            ...periodic,
+            ...contactData,
+            date: this.state.eventDate,
+            contactUid: this.state.uid,
         };
         return prunedEventData;
     }

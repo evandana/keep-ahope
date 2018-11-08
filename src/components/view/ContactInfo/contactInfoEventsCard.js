@@ -17,7 +17,7 @@ class ContactInfoEventsCard extends Component {
     }
 
     render() {
-        const { events, palette } = this.props
+        const { contact, events, palette } = this.props
 
         const cardHeaderProps = {
             title: 'Events',
@@ -35,13 +35,29 @@ class ContactInfoEventsCard extends Component {
                     >
                     {!!events ? (
                         // if there are events, list each one
-                        events.map(event => (
-                            <ListItem key={event.uid}
-                                disabled={true}
-                                primaryText={this.formatUidToDate(event.uid)}
-                                innerDivStyle={{paddingLeft: 0, paddingTop: 0}}>
-                            </ListItem>
-                        ))
+                        events.map(event => {
+
+                            const eventDate = new Date(event.attributes.date).toLocaleDateString();
+                            const updatedDate = new Date(event.updatedAt).toLocaleDateString();
+
+                            let primaryText = eventDate;
+                            let secondaryText = '';
+
+                            if ( eventDate !== updatedDate ) {
+                                primaryText = 'event date: ' + eventDate;
+                                secondaryText = 'log date: ' + updatedDate;
+                            }
+
+                            return (
+                                <ListItem 
+                                    key={event.id}
+                                    disabled={true}
+                                    primaryText={ primaryText }
+                                    secondaryText={ secondaryText }
+                                    innerDivStyle={{paddingLeft: 0, paddingTop: 0}}>
+                                </ListItem>
+                            );
+                        })
                     ) : (
                         'There are no events for this user'
                     )}

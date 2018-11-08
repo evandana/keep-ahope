@@ -14,13 +14,12 @@ function contact(state = defaultCurrentContactState, action) {
         case UPDATE_CURRENT_CONTACT:
             return {
                 ...state,
-                ...contact
+                ...contact,
             };
 
         case UPDATE_CURRENT_CONTACT_WITH_EVENTS:
             return {
                 ...state,
-                ...contact,
                 events: eventsForContact
             };
 
