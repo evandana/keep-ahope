@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
 import { Card, CardHeader, CardText } from 'material-ui/Card';
-import { List, ListItem } from 'material-ui/List';
+import { List } from 'material-ui/List';
 
-class ContactInfoEventsCard extends Component {
+import { ContactInfoEventDetailsCard } from './contactInfoEventDetailsCard';
+
+export default class ContactInfoEventsCard extends Component {
 
     /*
     * convert event uid to date format
@@ -37,25 +39,12 @@ class ContactInfoEventsCard extends Component {
                         // if there are events, list each one
                         events.map(event => {
 
-                            const eventDate = new Date(event.attributes.date).toLocaleDateString();
-                            const updatedDate = new Date(event.updatedAt).toLocaleDateString();
-
-                            let primaryText = eventDate;
-                            let secondaryText = '';
-
-                            if ( eventDate !== updatedDate ) {
-                                primaryText = 'event date: ' + eventDate;
-                                secondaryText = 'log date: ' + updatedDate;
-                            }
-
                             return (
-                                <ListItem 
+                                <ContactInfoEventDetailsCard
                                     key={event.id}
-                                    disabled={true}
-                                    primaryText={ primaryText }
-                                    secondaryText={ secondaryText }
-                                    innerDivStyle={{paddingLeft: 0, paddingTop: 0}}>
-                                </ListItem>
+                                    event={event}
+                                    >
+                                </ContactInfoEventDetailsCard>
                             );
                         })
                     ) : (
@@ -67,5 +56,3 @@ class ContactInfoEventsCard extends Component {
         );
     }
 }
-
-export default ContactInfoEventsCard;

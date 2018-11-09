@@ -43,13 +43,24 @@ function* getEventsForContact({ uid }) {
             eventsQuery.find().then( eventsForContact => {
 
                 const parsedEventsForContact = eventsForContact.map( event => { 
+
+                    let mutableAttrs = { ...event.attributes };
+
+                    // remove because it's not useful to the UI
+                    if (mutableAttrs && mutableAttrs.contactUidPointer) {
+                        delete mutableAttrs.contactUidPointer; // why won't this work?
+                        // event.attributes.contactUidPointer = undefined;
+                    }
+
                     return { 
                         id: event.id, 
                         createdAt: event.createdAt, 
                         updatedAt: event.updatedAt, 
-                        attributes: event.attributes,
+                        attributes: mutableAttrs,
                     }; 
                 })
+                // sort these events to be most recent first, based on manually input date
+                .sort( (a, b) => (b.attributes || {date:0}).date - (a.attributes || {date:0}).date );
 
                 window._UI_STORE_.dispatch( updateCurrentContactWithEvents( { eventsForContact: parsedEventsForContact } ) );
             });
