@@ -12,7 +12,6 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 
 /** APP **/
-import config from 'config';
 import AuthorizedRoute from 'components/controller/AuthorizedRoute';
 import AuthorizedNav from 'components/controller/AuthorizedNav';
 

@@ -19,7 +19,7 @@ export default class ContactInfoEventsCard extends Component {
     }
 
     render() {
-        const { contact, events, palette } = this.props
+        const { events, palette } = this.props
 
         const cardHeaderProps = {
             title: 'Events',
@@ -43,6 +43,7 @@ export default class ContactInfoEventsCard extends Component {
                                 <ContactInfoEventDetailsCard
                                     key={event.id}
                                     event={event}
+                                    palette={palette}
                                     >
                                 </ContactInfoEventDetailsCard>
                             );

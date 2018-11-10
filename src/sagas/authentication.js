@@ -5,7 +5,7 @@ import {
     LOGOUT_USER_REQUEST,
 } from '../constants';
 
-import { setCurrentUser, showLoginSpinner } from 'actions';
+import { setCurrentUser, showLoginSpinner, logoutUserRequest as logoutUserRequestAction } from 'actions';
 
 function* loginGoogleRequest( { } ) {
 
@@ -99,6 +99,8 @@ function* loginGoogleRequest( { } ) {
                 .catch( err => {
 
                     // TODO: handle 400 response from Parse "{ code: 209, error: 'invalid session token'}"
+
+                    window._UI_STORE_.dispatch( logoutUserRequestAction() );
 
                     alert('An error occured during login with Parse');
                     window._UI_STORE_.dispatch(showLoginSpinner(false));
