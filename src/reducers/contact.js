@@ -13,8 +13,8 @@ function contact(state = defaultCurrentContactState, action) {
     switch (action.type) {
         case UPDATE_CURRENT_CONTACT:
             return {
-                ...state,
                 ...contact,
+                events: contact.events ? contact.events : []
             };
 
         case UPDATE_CURRENT_CONTACT_WITH_EVENTS:

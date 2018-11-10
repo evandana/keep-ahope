@@ -8,11 +8,54 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
+import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
+import BlockIcon from 'material-ui/svg-icons/content/block'
+import PlaylistAddIcon from 'material-ui/svg-icons/av/playlist-add'
+import PlaylistAddCheckIcon from 'material-ui/svg-icons/av/playlist-add-check'
+import StopIcon from 'material-ui/svg-icons/av/stop'
+
 
 export class ContactInfoEventDetailsSection extends Component {
 
     constructor(props) {
         super(props);
+    }
+
+    getAttrVal ( { val, key, palette } ) {
+
+        const iconStyle = { padding:0, margin:0, width:16, height:16 };
+
+        switch (key) {
+            case 'syringesGiven':
+                return (<span>
+                    {val}
+                </span>);
+            case 'syringesTaken':
+                return (<span>
+                    {val}
+                    <span style={{paddingLeft: '1em'}}>
+                    </span>
+                </span>);
+        }
+
+        switch (val) {
+            case 'positive':
+                return <span style={{ color: palette.warningColor }}>{val}</span>
+            case 'negative':
+                return <span style={{ color: palette.successColor }}>{val}</span>
+            case true:
+            case 'true':
+                return (<span style={{ color: palette.successColor }}>
+                    <CheckCircleIcon style={ iconStyle } />
+                </span>)
+            case false:
+            case 'false':
+                return (<span style={{ color: palette.successColor }}>
+                    <BlockIcon style={ iconStyle } />
+                </span>)
+            default:
+                return val;
+        }
     }
 
     render() {
@@ -92,7 +135,7 @@ export class ContactInfoEventDetailsSection extends Component {
                                     <TableRowColumn
                                         style={ styles.cell }
                                         >
-                                        {attrObj.value}
+                                        { this.getAttrVal( { val: attrObj.value, key: attrObj.key, palette } ) }
                                     </TableRowColumn>
                                 </TableRow>
                             );

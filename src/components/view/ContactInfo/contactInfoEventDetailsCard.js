@@ -65,15 +65,15 @@ export class ContactInfoEventDetailsCard extends Component {
 
         const sortedAttrCollections = {
             eventMeta: {
-                label: 'Event',
+                label: 'Log',
                 data: [],
             },
             persistent: {
-                label: 'Persistent',
+                label: 'Profile Updates',
                 data: [],
             },
             temporal: {
-                label: 'Temporal',
+                label: 'Event Fields',
                 data: [],
             },
             other: {
@@ -85,15 +85,23 @@ export class ContactInfoEventDetailsCard extends Component {
         attrCollection.forEach( attrObj => {
             switch (attrObj.key) {
 
-                // event meta
-                case 'createdAt':
+                // skip these
                 case 'updatedAt':
-                case 'date':
-                case 'newContactDate':
-                    sortedAttrCollections.eventMeta.data.push(attrObj);
                     break;
 
-                // persistent
+                // event meta
+                case 'date':
+                    attrObj.label = 'Effective Date';
+                    sortedAttrCollections.eventMeta.data.push(attrObj);
+                    break;
+                    case 'createdAt':
+                    attrObj.label = 'Log Date';
+                    sortedAttrCollections.eventMeta.data.push(attrObj);
+                    break;
+                    
+                    // persistent
+                case 'newContactDate':
+                    attrObj.label = 'Contact\'s First Visit';
                 case 'ageOfFirstInjection':
                 case 'countryOfBirth':
                 case 'dateOfBirth':
@@ -112,10 +120,12 @@ export class ContactInfoEventDetailsCard extends Component {
                 case 'otherDrugs':
                 case 'otherDrugsAggregate':
                 case 'primaryDrug':
-                    sortedAttrCollections.persistent.data.push(attrObj);
-                    break;
-
+                case 'profileNotes':
+                sortedAttrCollections.persistent.data.push(attrObj);
+                break;
+                
                 // temporal
+                case 'eventNotes':
                 case 'isOutreach':
                 case 'narcanWasOffered':
                 case 'narcanWasTaken':

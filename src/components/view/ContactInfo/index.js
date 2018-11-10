@@ -14,8 +14,8 @@ class ContactInfo extends Component {
         return (
             <div>
                 <ContactInfoProfileCard palette={palette} contact={contact} />
+                <ContactInfoNotesCard palette={palette} contact={contact}/>
                 <ContactInfoEventsCard palette={palette} contact={contact} events={contact.events} />
-                <ContactInfoNotesCard palette={palette} />
             </div>
         );
     }

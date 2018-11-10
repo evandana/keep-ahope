@@ -50,52 +50,57 @@ function* createEvent({ eventData, history }) {
         //   };
 
         // update contact
-        parseContact.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection); // TODO: on server check if this changes to a LATER date
-        parseContact.set('countryOfBirth', eventData.contactCountryOfBirth); // TODO: on server check if this changes (once no longer null) then flag to user
-        parseContact.set('dateOfBirth', eventData.contactDateOfBirth); // TODO: on server check if this changes (once no longer null) then flag to user
         parseContact.set('dateOfLastVisit', eventData.date);
-        parseContact.set('ethnicity', eventData.contactEthnicity); // TODO: on server check if this changes (once no longer null) then flag to user
-        parseContact.set('primaryDrug', eventData.primaryDrug); 
-        parseContact.set('genderIdentity', eventData.contactGenderIdentity); 
-        parseContact.set('hivStatus', eventData.hivStatus); // TODO: on server ensure this can't go from `true` to `false`
-        parseContact.set('hepCStatus', eventData.hepCStatus); 
-        parseContact.set('housingStatus', eventData.housingStatus);
-        parseContact.set('isEnrolled', eventData.hasHealthInsurance);
-        parseContact.set('isInCareForHepC', eventData.isInCareForHepC);
-        parseContact.set('isInCareForHiv', eventData.isInCareForHiv);
-        parseContact.set('otherDrugsAggregate', eventData.otherDrugs); // TODO: aggregate all drugs here (or on server)
-        parseContact.set('didOdLastYear', eventData.didOdLastYear);
-        parseContact.set('hasHealthInsurance', eventData.hasHealthInsurance);
-        parseContact.set('hispanic', eventData.contactIsHispanic);
+        // conditional fields
+        eventData.contactAgeOfFirstInjection && parseContact.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection); // TODO: on server check if this changes to a LATER date
+        eventData.contactCountryOfBirth && parseContact.set('countryOfBirth', eventData.contactCountryOfBirth); // TODO: on server check if this changes (once no longer null) then flag to user
+        eventData.contactDateOfBirth && parseContact.set('dateOfBirth', eventData.contactDateOfBirth); // TODO: on server check if this changes (once no longer null) then flag to user
+        eventData.contactEthnicity && parseContact.set('ethnicity', eventData.contactEthnicity); // TODO: on server check if this changes (once no longer null) then flag to user
+        eventData.contactGenderIdentity && parseContact.set('genderIdentity', eventData.contactGenderIdentity); 
+        eventData.contactIsHispanic && parseContact.set('hispanic', eventData.contactIsHispanic);
+        eventData.didOdLastYear && parseContact.set('didOdLastYear', eventData.didOdLastYear);
+        eventData.hasHealthInsurance && parseContact.set('hasHealthInsurance', eventData.hasHealthInsurance);
+        eventData.hasHealthInsurance && parseContact.set('isEnrolled', eventData.hasHealthInsurance);
+        eventData.hepCStatus && parseContact.set('hepCStatus', eventData.hepCStatus); 
+        eventData.hivStatus && parseContact.set('hivStatus', eventData.hivStatus); // TODO: on server ensure this can't go from `true` to `false`
+        eventData.housingStatus && parseContact.set('housingStatus', eventData.housingStatus);
+        eventData.isInCareForHepC && parseContact.set('isInCareForHepC', eventData.isInCareForHepC);
+        eventData.isInCareForHiv && parseContact.set('isInCareForHiv', eventData.isInCareForHiv);
+        eventData.otherDrugs && parseContact.set('otherDrugsAggregate', eventData.otherDrugs); // TODO: aggregate all drugs here (or on server)
+        eventData.primaryDrug && parseContact.set('primaryDrug', eventData.primaryDrug); 
+        eventData.profileNotes && parseContact.set('profileNotes', eventData.profileNotes); // TODO: on server check if this changes to a LATER date
 
         // update event
-        event.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection);
-        event.set('countryOfBirth', eventData.contactCountryOfBirth);
         event.set('date', eventData.date);
-        event.set('dateOfBirth', eventData.contactDateOfBirth);
-        event.set('didOdLastYear', eventData.didOdLastYear);
-        event.set('ethnicity', eventData.contactEthnicity);
-        event.set('genderIdentity', eventData.contactGenderIdentity);
-        event.set('hasHealthInsurance', eventData.hasHealthInsurance);
-        event.set('hepCStatus', eventData.hepCStatus);
-        event.set('hispanic', eventData.contactIsHispanic);
-        event.set('hivStatus', eventData.hivStatus);
-        event.set('housingStatus', eventData.housingStatus);
-        event.set('isEnrolled', eventData.hasHealthInsurance);
-        event.set('isInCareForHepC', eventData.isInCareForHepC);
-        event.set('isInCareForHiv', eventData.isInCareForHiv);
-        event.set('isOutreach', eventData.isOutreach);
-        event.set('narcanWasOffered', eventData.narcanWasOffered);
-        event.set('narcanWasTaken', eventData.narcanWasTaken);
-        event.set('newContactDate', eventData.newContactDate);
-        event.set('numberOfOthersHelping', eventData.numberOfOthersHelping);
-        event.set('otherDrugs', eventData.otherDrugs);
-        event.set('primaryDrug', eventData.primaryDrug);
-        event.set('referrals', eventData.referrals);
-        event.set('syringesGiven', eventData.syringesGiven);
-        event.set('syringesTaken', eventData.syringesTaken);
         // add event pointer to contact
         event.set('contactUidPointer', parseContact);
+        // conditional fields
+        eventData.contactAgeOfFirstInjection && event.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection);
+        eventData.contactCountryOfBirth && event.set('countryOfBirth', eventData.contactCountryOfBirth);
+        eventData.contactDateOfBirth && event.set('dateOfBirth', eventData.contactDateOfBirth);
+        eventData.contactEthnicity && event.set('ethnicity', eventData.contactEthnicity);
+        eventData.contactGenderIdentity && event.set('genderIdentity', eventData.contactGenderIdentity);
+        eventData.contactIsHispanic && event.set('hispanic', eventData.contactIsHispanic);
+        eventData.didOdLastYear && event.set('didOdLastYear', eventData.didOdLastYear);
+        eventData.eventNotes && event.set('eventNotes', eventData.eventNotes);
+        eventData.hasHealthInsurance && event.set('hasHealthInsurance', eventData.hasHealthInsurance);
+        eventData.hasHealthInsurance && event.set('isEnrolled', eventData.hasHealthInsurance);
+        eventData.hepCStatus && event.set('hepCStatus', eventData.hepCStatus);
+        eventData.hivStatus && event.set('hivStatus', eventData.hivStatus);
+        eventData.housingStatus && event.set('housingStatus', eventData.housingStatus);
+        eventData.isInCareForHepC && event.set('isInCareForHepC', eventData.isInCareForHepC);
+        eventData.isInCareForHiv && event.set('isInCareForHiv', eventData.isInCareForHiv);
+        eventData.isOutreach && event.set('isOutreach', eventData.isOutreach);
+        eventData.narcanWasOffered && event.set('narcanWasOffered', eventData.narcanWasOffered);
+        eventData.narcanWasTaken && event.set('narcanWasTaken', eventData.narcanWasTaken);
+        eventData.newContactDate && event.set('newContactDate', eventData.newContactDate);
+        eventData.numberOfOthersHelping && event.set('numberOfOthersHelping', eventData.numberOfOthersHelping);
+        eventData.otherDrugs && event.set('otherDrugs', eventData.otherDrugs);
+        eventData.primaryDrug && event.set('primaryDrug', eventData.primaryDrug);
+        eventData.profileNotes && event.set('profileNotes', eventData.profileNotes);
+        eventData.referrals && event.set('referrals', eventData.referrals);
+        eventData.syringesGiven && event.set('syringesGiven', eventData.syringesGiven);
+        eventData.syringesTaken && event.set('syringesTaken', eventData.syringesTaken);
 
         event.save()
             .then( successfulSave => {
