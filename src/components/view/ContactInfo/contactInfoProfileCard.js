@@ -64,6 +64,7 @@ class ContactInfo extends React.Component {
 
         // meta
         case 'createdAt':
+          attrObj.label = 'First logged event'
           sortedAttrCollections.meta.data.push(attrObj);
           break;
 
