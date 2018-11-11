@@ -9,10 +9,7 @@ import {
     TableRowColumn,
 } from 'material-ui/Table';
 import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
-import BlockIcon from 'material-ui/svg-icons/content/block'
-import PlaylistAddIcon from 'material-ui/svg-icons/av/playlist-add'
-import PlaylistAddCheckIcon from 'material-ui/svg-icons/av/playlist-add-check'
-import StopIcon from 'material-ui/svg-icons/av/stop'
+import BlockIcon from 'material-ui/svg-icons/content/block';
 
 
 export class ContactInfoEventDetailsSection extends Component {
@@ -25,17 +22,25 @@ export class ContactInfoEventDetailsSection extends Component {
 
         const iconStyle = { padding:0, margin:0, width:16, height:16 };
 
+        if ( Object.prototype.toString.call(val) === '[object Date]' ) {
+            // date
+            if (key === 'createdAt' || key === 'updatedAt') {
+                val = new Date(val).toLocaleDateString() + ' (' + new Date(val).toLocaleTimeString() + ')';
+            } else {
+                val = new Date(val).toLocaleDateString();
+            }
+        } if ( Array.isArray(val) ) {
+            // array
+            val = val.join(', ');
+        } else {
+            val = val.toString();
+        }
+
         switch (key) {
             case 'syringesGiven':
-                return (<span>
-                    {val}
-                </span>);
+                return <span>{val}</span>;
             case 'syringesTaken':
-                return (<span>
-                    {val}
-                    <span style={{paddingLeft: '1em'}}>
-                    </span>
-                </span>);
+                return <span>{val}</span>;
         }
 
         switch (val) {
@@ -116,8 +121,8 @@ export class ContactInfoEventDetailsSection extends Component {
                     </TableHeader>
                     <TableBody
                         displayRowCheckbox={false}
-                    >
-                        {eventDetailsSectionData.data.map(attrObj => {
+                        >
+                        { eventDetailsSectionData.data.map( attrObj => {
                             return (
                                 <TableRow 
                                     key={ attrObj.key }

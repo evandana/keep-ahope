@@ -10,7 +10,6 @@ export class ContactInfoEventDetailsCard extends Component {
         super(props);
     }
 
-
     upperCase(str){
         return str.toUpperCase();
     }
@@ -41,20 +40,6 @@ export class ContactInfoEventDetailsCard extends Component {
 
             let label = this.convertCamelCaseToTitleCase( key );
             let value = event.attributes[key];
-            
-            if ( Object.prototype.toString.call(value) === '[object Date]' ) {
-                // date
-                if (key === 'createdAt' || key === 'updatedAt') {
-                    value = new Date(value).toLocaleDateString() + ' (' + new Date(value).toLocaleTimeString() + ')';
-                } else {
-                    value = new Date(value).toLocaleDateString();
-                }
-            } if ( Array.isArray(value) ) {
-                // array
-                value = value.join(', ');
-            } else {
-                value = value.toString();
-            }
 
             return {
                 value,
@@ -76,6 +61,10 @@ export class ContactInfoEventDetailsCard extends Component {
                 label: 'Event Fields',
                 data: [],
             },
+            chemical: {
+                label: 'Chemical Use',
+                data: [],
+            },
             other: {
                 label: 'Other',
                 data: [],
@@ -94,7 +83,7 @@ export class ContactInfoEventDetailsCard extends Component {
                     attrObj.label = 'Effective Date';
                     sortedAttrCollections.eventMeta.data.push(attrObj);
                     break;
-                    case 'createdAt':
+                case 'createdAt':
                     attrObj.label = 'Log Date';
                     sortedAttrCollections.eventMeta.data.push(attrObj);
                     break;
@@ -106,23 +95,15 @@ export class ContactInfoEventDetailsCard extends Component {
                 case 'countryOfBirth':
                 case 'dateOfBirth':
                 case 'dateOfLastVisit':
-                case 'didOdLastYear':
                 case 'ethnicity':
                 case 'genderIdentity':
                 case 'hasHealthInsurance':
-                case 'hepCStatus':
                 case 'hispanic':
-                case 'hivStatus':
                 case 'housingStatus':
                 case 'isEnrolled':
-                case 'isInCareForHepC':
-                case 'isInCareForHiv':
-                case 'otherDrugs':
-                case 'otherDrugsAggregate':
-                case 'primaryDrug':
                 case 'profileNotes':
-                sortedAttrCollections.persistent.data.push(attrObj);
-                break;
+                    sortedAttrCollections.persistent.data.push(attrObj);
+                    break;
                 
                 // temporal
                 case 'eventNotes':
@@ -134,6 +115,18 @@ export class ContactInfoEventDetailsCard extends Component {
                 case 'syringesGiven':
                 case 'syringesTaken':
                     sortedAttrCollections.temporal.data.push(attrObj);
+                    break;
+
+                // chemical use
+                case 'didOdLastYear':
+                case 'hepCStatus':
+                case 'hivStatus':
+                case 'isInCareForHepC':
+                case 'isInCareForHiv':
+                case 'otherDrugs':
+                case 'otherDrugsAggregate':
+                case 'primaryDrug':
+                    sortedAttrCollections.chemical.data.push(attrObj);
                     break;
 
                 // other
@@ -151,28 +144,31 @@ export class ContactInfoEventDetailsCard extends Component {
                     showExpandableButton={true}
                 />
                 <CardText expandable={true}>
-                    <div>
-                        <ContactInfoEventDetailsSection 
-                            eventDetailsSectionData={ sortedAttrCollections.persistent } 
-                            palette={ palette } 
-                            className="col-xs-12 col-sm-6"
-                            />
-                        <ContactInfoEventDetailsSection 
-                            eventDetailsSectionData={ sortedAttrCollections.eventMeta } 
-                            palette={ palette } 
-                            className="col-xs-12 col-sm-6"
-                            />
-                        <ContactInfoEventDetailsSection 
-                            eventDetailsSectionData={ sortedAttrCollections.temporal } 
-                            palette={ palette } 
-                            className="col-xs-12 col-sm-6"
-                            />
-                        <ContactInfoEventDetailsSection 
-                            eventDetailsSectionData={ sortedAttrCollections.other } 
-                            palette={ palette } 
-                            className="col-xs-12 col-sm-6"
-                            />
-                    </div>
+                    <ContactInfoEventDetailsSection 
+                        eventDetailsSectionData={ sortedAttrCollections.persistent } 
+                        palette={ palette } 
+                        className="col-xs-12 col-sm-6"
+                        />
+                    <ContactInfoEventDetailsSection 
+                        eventDetailsSectionData={ sortedAttrCollections.eventMeta } 
+                        palette={ palette } 
+                        className="col-xs-12 col-sm-6"
+                        />
+                    <ContactInfoEventDetailsSection 
+                        eventDetailsSectionData={ sortedAttrCollections.chemical } 
+                        palette={ palette } 
+                        className="col-xs-12 col-sm-6"
+                        />
+                    <ContactInfoEventDetailsSection 
+                        eventDetailsSectionData={ sortedAttrCollections.temporal } 
+                        palette={ palette } 
+                        className="col-xs-12 col-sm-6"
+                        />
+                    <ContactInfoEventDetailsSection 
+                        eventDetailsSectionData={ sortedAttrCollections.other } 
+                        palette={ palette } 
+                        className="col-xs-12 col-sm-6"
+                        />
                     <div style={{ clear: 'both' }}> </div>
                 </CardText>
             </Card>

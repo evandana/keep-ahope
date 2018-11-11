@@ -1,65 +1,140 @@
 
 import React from 'react';
 
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+
+import { ContactInfoEventDetailsSection } from './contactInfoEventDetailsSection';
 
 class ContactInfo extends React.Component {
+
+  upperCase(str) {
+    return str.toUpperCase();
+  }
+
+  convertCamelCaseToTitleCase(str) {
+    str = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2');
+    str = str.toLowerCase(); //add space between camelCase text
+    str = str.replace(/^\w|\s\w/g, this.upperCase);
+    return str;
+  }
 
   render() {
     const { contact, palette } = this.props;
 
-    const infoKeyStyle = {
-      color: '#90A4AE',
-      paddingRight: '.5rem'
-    }
+    let attrCollection = Object.keys(contact).map(key => {
+
+      let label = this.convertCamelCaseToTitleCase(key);
+      let value = contact[key];
+
+      return {
+        value,
+        key,
+        label,
+      };
+    });
+
+    const sortedAttrCollections = {
+      meta: {
+        label: 'Log',
+        data: [],
+      },
+      profile: {
+        label: 'Profile',
+        data: [],
+      },
+      chemical: {
+        label: 'Chemical Use',
+        data: [],
+      },
+      other: {
+        label: 'Other',
+        data: [],
+      },
+    };
+
+    attrCollection.forEach(attrObj => {
+      switch (attrObj.key) {
+
+        // skip these
+        case 'profileNotes':
+        case 'uid':
+        case 'events':
+        case 'updatedAt':
+          break;
+
+        // meta
+        case 'createdAt':
+          sortedAttrCollections.meta.data.push(attrObj);
+          break;
+
+        // profile
+        case 'birthCountry':
+        case 'countryOfBirth':
+        case 'dateOfBirth':
+        case 'dateOfLastVisit':
+        case 'ethnicity':
+        case 'firstInjectionAge':
+        case 'genderIdentity':
+        case 'hispanic':
+        case 'housingStatus':
+          sortedAttrCollections.profile.data.push(attrObj);
+          break;
+
+        // chemical usage
+        case 'ageOfFirstInjection':
+        case 'didOdLastYear':
+        case 'hasHealthInsurance':
+        case 'hepCStatus':
+        case 'hivStatus':
+        case 'isEnrolled':
+        case 'isInCareForHepC':
+        case 'isInCareForHiv':
+        case 'otherDrugsAggregate':
+        case 'primaryDrug':
+          sortedAttrCollections.chemical.data.push(attrObj);
+          break;
+
+        // other
+        default:
+          sortedAttrCollections.other.data.push(attrObj);
+      }
+    });
 
     return (
       <div>
-        <Card initiallyExpanded={true} >
+        <Card initiallyExpanded={ true } >
           <CardHeader
-              title='Profile'
-              titleColor={palette.primary1Color}
-              subtitle={contact.uid}
-              subtitleColor={palette.titleColor}
-              actAsExpander={true}
-              showExpandableButton={true}
+            title={ contact.uid }
+            titleColor={ palette.primary1Color }
+            // subtitle={contact.uid}
+            subtitleColor={ palette.titleColor }
+            actAsExpander={ true }
+            showExpandableButton={ true }
           />
-
           <CardText expandable={true}>
-            <div className="row">
-              <div className="col-xs-6">
-                <span style={infoKeyStyle}>Last Event</span>
-                {contact.dateOfLastVisit && (contact.dateOfLastVisit.toLocaleDateString('en-US') + ' (' + contact.dateOfLastVisit.toLocaleTimeString('en-US') + ')' )}
-              </div>
-              <div className="col-xs-6">
-                <span style={infoKeyStyle}>DOB</span>
-                {contact.dateOfBirth && contact.dateOfBirth.toDateString()}
-              </div>
-              <div className="col-xs-6">
-                <span style={infoKeyStyle}>Ethnicity</span>
-                {contact.ethnicity}
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-xs-6">
-                <span style={infoKeyStyle}>Gender</span>
-                {contact.genderIdentity}
-              </div>
-              <div className="col-xs-6">
-                <span style={infoKeyStyle}>Ethnicity</span>
-                {contact.ethnicity}
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-xs-6">
-                <span style={infoKeyStyle}>Age of first injection</span>
-                {contact.firstInjectionAge && contact.firstInjectionAge.toDateString()}
-              </div>
-              <div className="col-xs-6">
-                <span style={infoKeyStyle}>Hispanic</span>
-                {contact.hispanic ? 'True' : 'False'}
-              </div>
-            </div>
+
+            <ContactInfoEventDetailsSection
+              eventDetailsSectionData={ sortedAttrCollections.profile }
+              palette={ palette }
+              className="col-xs-12 col-sm-6"
+            />
+            <ContactInfoEventDetailsSection
+              eventDetailsSectionData={ sortedAttrCollections.meta }
+              palette={ palette }
+              className="col-xs-12 col-sm-6"
+            />
+            <ContactInfoEventDetailsSection
+              eventDetailsSectionData={ sortedAttrCollections.chemical }
+              palette={ palette }
+              className="col-xs-12 col-sm-6"
+            />
+            <ContactInfoEventDetailsSection
+              eventDetailsSectionData={ sortedAttrCollections.other }
+              palette={palette}
+              className="col-xs-12 col-sm-6"
+            />
+            <div style={{ clear: 'both' }}> </div>
+
           </CardText>
         </Card>
       </div>
