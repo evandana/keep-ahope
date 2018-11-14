@@ -42,18 +42,24 @@ function* fetchReportsData({ dateRange }) {
     const contactsAll = window._Parse_.Object.extend("contacts");
     const contactsAllQuery = new window._Parse_.Query(contactsAll);
     
-    // events in date range
+    // date range selector
     const dateBoundsMinMax = getDateBoundsFromRangeKey({rangeKey: dateRange});
-    let eventsFilteredQuery = new window._Parse_.Query(eventsAll);
+
+    // events in date range
+    const eventsFilteredQuery = new window._Parse_.Query(eventsAll);
     eventsFilteredQuery.greaterThanOrEqualTo('date', dateBoundsMinMax.min);
     eventsFilteredQuery.lessThanOrEqualTo('date', dateBoundsMinMax.max);
-    
-    // unique contacts in events for date range
+
+    // contacts with events in date range    
+    const contactsFilteredQuery = new window._Parse_.Query(contactsAll);
+    contactsFilteredQuery.greaterThanOrEqualTo('updatedAt', dateBoundsMinMax.min);
+    contactsFilteredQuery.lessThanOrEqualTo('updatedAt', dateBoundsMinMax.max);
     
     // async queries
     const contactsAllQueryCount = contactsAllQuery.count();
     const eventsAllQueryCount = eventsAllQuery.count();
     const eventsFilteredQueryFind = eventsFilteredQuery.find();
+    const contactsFilteredQueryFind = contactsFilteredQuery.find();
 
     console.log('dateRange', dateRange)
 
@@ -61,14 +67,49 @@ function* fetchReportsData({ dateRange }) {
         contactsAllQueryCount,
         eventsAllQueryCount,
         eventsFilteredQueryFind,
+        contactsFilteredQueryFind,
     ]).then(([
         contactsAllQueryCountResults,
         eventsAllQueryCountResults,
         eventsFilteredQueryFindResults,
+        contactsFilteredQueryFindResults,
     ]) => {
+        /** 
+         * object definition: eventsFilteredQueryFindResults
+         * 
+         * {
+         *      className: "event"
+         *      id: "kuemd3hLtq"
+         *      _objCount: 105
+         *      attributes: Object
+         *      createdAt: Object
+         *      updatedAt: Object
+         * }
+         */
         console.log('contactsAllQueryCountResults', contactsAllQueryCountResults);
         console.log('eventsAllQueryCountResults', eventsAllQueryCountResults);
         console.log('eventsFilteredQueryFindResults', eventsFilteredQueryFindResults);
+        console.log('contactsFilteredQueryFindResults', contactsFilteredQueryFindResults);
+
+
+        const eventAggregations = getEventAggregations(eventsFilteredQueryFindResults);
+        const contactBreakdownData = getContactBreakdownData(contactsFilteredQueryFindResults);
+        
+        console.log('eventAggregations', eventAggregations);
+        console.log('contactBreakdownData', contactBreakdownData);
+        /** Example: */
+        // contacts: {
+        //     meta: {
+        //         total: 100,
+        //     },
+        //     total: 0,
+        //     birthCountry: [
+        //         {
+        //             label: 'US',
+        //             count: 0
+        //         }
+        //     ],
+        // }
 
         window._UI_STORE_.dispatch(updateReportsData({ 
             reportsData: {
@@ -76,46 +117,57 @@ function* fetchReportsData({ dateRange }) {
                     _meta: {
                         count: eventsFilteredQueryFindResults.length,
                         unfilteredCount: eventsAllQueryCountResults,
-                    }
-                    // ...eventAggregations
+                    },
+                    ...eventAggregations,
                 },
                 contacts: {
                     _meta: {
-                        // count: filteredContacts.length,
+                        count: contactsFilteredQueryFindResults.length,
                         unfilteredCount: contactsAllQueryCountResults,
-                    }
-                    // ...contactBreakdownData
+                    },
+                    contactBreakdownData,
                 },
-                /** Example: */
-                // contacts: {
-                //     meta: {
-                //         total: 100,
-                //     },
-                //     total: 0,
-                //     birthCountry: [
-                //         {
-                //             label: 'US',
-                //             count: 0
-                //         }
-                //     ],
-                // }
             } 
         }));
     });
 
-
-    // const contact = window._Parse_.Object.extend("contacts")
-    // const contactQuery = new window._Parse_.Query(contact);
-    // contactQuery.equalTo('uid', uid);
-    // contactQuery.first().then( parseContactPointer => {
-        
-    //     const events = window._Parse_.Object.extend("event")
-    //     const eventsQuery = new window._Parse_.Query(events);
-
-    //     eventsQuery.equalTo('contactUidPointer', parseContactPointer);
-    //     eventsQuery.find().then( eventsForContact => {
-
     yield;
+}
+
+export default function* () {
+    yield [
+        takeEvery(FETCH_REPORTS_DATA, fetchReportsData),
+    ];
+}
+
+function getEventAggregations ( events ) {
+
+    let eventAggregations = {
+        narcanWasOffered: 0,
+        narcanWasTaken: 0,
+        syringesGiven: 0,
+        syringesTaken: 0,
+    };
+
+    return events.reduce( (agg, event) => {
+        return {
+            narcanWasOffered: eventAggregations.narcanWasOffered + parseInt( event.attributes.narcanWasOffered || 0, 10),
+            narcanWasTaken: eventAggregations.narcanWasTaken + parseInt( event.attributes.narcanWasTaken || 0, 10),
+            syringesGiven: eventAggregations.syringesGiven + parseInt( event.attributes.syringesGiven || 0, 10),
+            syringesTaken: eventAggregations.syringesTaken + parseInt( event.attributes.syringesTaken || 0, 10),
+        };
+    }, {
+        narcanWasOffered: 0,
+        narcanWasTaken: 0,
+        syringesGiven: 0,
+        syringesTaken: 0,
+    });
+
+    return eventAggregations || [];
+}
+
+function getContactBreakdownData ( contacts ) {
+    return []
 }
 
 function getDateBoundsFromRangeKey({ rangeKey }) {
@@ -152,11 +204,4 @@ function getDateBoundsFromRangeKey({ rangeKey }) {
         min: min.toDate(),
         max: max.toDate(),
     };
-}
-
-
-export default function* () {
-    yield [
-        takeEvery(FETCH_REPORTS_DATA, fetchReportsData),
-    ];
 }
