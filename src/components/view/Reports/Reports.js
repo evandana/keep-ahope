@@ -10,17 +10,12 @@ import { getImageForEnv } from 'static/images/index'
 import { fetchReportsData } from 'actions'
 import reports from 'sagas/reports';
 
-// import {
-//     RANGE_CURRENT_WEEK,
-//     RANGE_PREVIOUS_WEEK,
-//     RANGE_CURRENT_YEAR,
-//     RANGE_PREVIOUS_YEAR,
-// } from 'constants'
-
-const RANGE_CURRENT_WEEK = 'currentweek';
-const RANGE_PREVIOUS_WEEK = 'previousweek';
-const RANGE_CURRENT_YEAR = 'currentyear';
-const RANGE_PREVIOUS_YEAR = 'previousyear';
+import {
+    RANGE_CURRENT_WEEK,
+    RANGE_PREVIOUS_WEEK,
+    RANGE_CURRENT_YEAR,
+    RANGE_PREVIOUS_YEAR,
+} from '../../../constants'; // why does this not work with `'constants'`?
 
 class Results extends React.Component {
 
@@ -36,6 +31,7 @@ class Results extends React.Component {
             fetchingInProgress: ''
         };
 
+        // TODO: just change the route
         dispatch(fetchReportsData({ dateRange: this.state.dateRange }));
     }
     
@@ -47,6 +43,7 @@ class Results extends React.Component {
             dateRange
         });
 
+        // TODO: just change the route
         dispatch(fetchReportsData({ dateRange }));
     }
 

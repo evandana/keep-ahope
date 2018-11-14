@@ -55,11 +55,10 @@ export const CLEAR_ORDER_RESPONSES = 'CLEAR_ORDER_RESPONSES';
 /** REPORTS */
 export const FETCH_REPORTS_DATA = 'FETCH_REPORTS_DATA';
 export const UPDATE_REPORTS_DATA = 'UPDATE_REPORTS_DATA';
-// Reports range // WHY CAN THESE NOT BE USED?
-// export const RANGE_CURRENT_WEEK = 'currentweek';
-// export const RANGE_PREVIOUS_WEEK = 'previousweek';
-// export const RANGE_CURRENT_YEAR = 'currentyear';
-// export const RANGE_PREVIOUS_YEAR = 'previousyear';
+export const RANGE_CURRENT_WEEK = 'RANGE_CURRENT_WEEK';
+export const RANGE_PREVIOUS_WEEK = 'RANGE_PREVIOUS_WEEK';
+export const RANGE_CURRENT_YEAR = 'RANGE_CURRENT_YEAR';
+export const RANGE_PREVIOUS_YEAR = 'RANGE_PREVIOUS_YEAR';
 
 
 // old
