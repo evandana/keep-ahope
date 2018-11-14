@@ -125,7 +125,7 @@ function* fetchReportsData({ dateRange }) {
                         count: contactsFilteredQueryFindResults.length,
                         unfilteredCount: contactsAllQueryCountResults,
                     },
-                    contactBreakdownData,
+                    ...contactBreakdownData,
                 },
             } 
         }));
@@ -149,7 +149,7 @@ function getEventAggregations ( events ) {
         syringesTaken: 0,
     };
 
-    return events.reduce( (agg, event) => {
+    return !events ? [] : events.reduce( (agg, event) => {
         return {
             narcanWasOffered: eventAggregations.narcanWasOffered + parseInt( event.attributes.narcanWasOffered || 0, 10),
             narcanWasTaken: eventAggregations.narcanWasTaken + parseInt( event.attributes.narcanWasTaken || 0, 10),
@@ -162,12 +162,38 @@ function getEventAggregations ( events ) {
         syringesGiven: 0,
         syringesTaken: 0,
     });
-
-    return eventAggregations || [];
 }
 
 function getContactBreakdownData ( contacts ) {
-    return []
+
+    const contactBreakdowns = [
+        'birthCountry',
+        'ethnicity', // from contact
+        'hispanic', // from contact
+        'firstInjectionAge',
+        'genderIdentity',
+    ];
+
+    return !contacts ? [] : contactBreakdowns.reduce((agg, breakdownField) => {
+
+        const breakdownFieldValsAsKeys = contacts.reduce((breakdownFieldValAgg, contact) => {
+
+            // { 'US' : 123, ...  }
+            breakdownFieldValAgg[contact.attributes[breakdownField]] = !breakdownFieldValAgg[contact.attributes[breakdownField]] ? 1 : breakdownFieldValAgg[contact.attributes[breakdownField]] + 1;
+
+            return breakdownFieldValAgg;
+        }, {});
+
+        agg[breakdownField] = Object.keys(breakdownFieldValsAsKeys).map(breakdownFieldVal => {
+
+            return {
+                label: breakdownFieldVal,
+                count: breakdownFieldValsAsKeys[breakdownFieldVal]
+            };
+        });
+
+        return agg;
+    }, {});
 }
 
 function getDateBoundsFromRangeKey({ rangeKey }) {
