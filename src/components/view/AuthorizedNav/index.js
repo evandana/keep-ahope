@@ -15,6 +15,7 @@ class AuthorizedNav extends Component {
                         <Component {...props}/>
                     ) : (
                         <div>
+                            {/* for when not logged in */}
                             <AppBar
                                 title='AHOPE'
                                 showMenuIconButton={false}

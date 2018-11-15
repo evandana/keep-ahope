@@ -2,10 +2,7 @@ import React from 'react';
 
 import { Chart } from 'react-google-charts';
 
-import { Card, CardActions, CardHeader, CardText, CardMedia } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-
-import { getImageForEnv } from 'static/images/index'
+import { Card, CardHeader, CardText, CardMedia } from 'material-ui/Card';
 
 class Results extends React.Component {
 
@@ -110,7 +107,7 @@ class Results extends React.Component {
                                             fill: '#F4F4F4',
                                             opacity: 100
                                         },
-                                        colors: ['#888', '#aaa']
+                                        colors: ['#888', '#aaa'],
                                     }}
                                     graph_id={'BarChart'+label.replace(' ','')}
                                     width="100%"

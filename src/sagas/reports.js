@@ -86,17 +86,10 @@ function* fetchReportsData({ dateRange }) {
          *      updatedAt: Object
          * }
          */
-        console.log('contactsAllQueryCountResults', contactsAllQueryCountResults);
-        console.log('eventsAllQueryCountResults', eventsAllQueryCountResults);
-        console.log('eventsFilteredQueryFindResults', eventsFilteredQueryFindResults);
-        console.log('contactsFilteredQueryFindResults', contactsFilteredQueryFindResults);
-
 
         const eventAggregations = getEventAggregations(eventsFilteredQueryFindResults);
         const contactBreakdownData = getContactBreakdownData(contactsFilteredQueryFindResults);
         
-        console.log('eventAggregations', eventAggregations);
-        console.log('contactBreakdownData', contactBreakdownData);
         /** Example: */
         // contacts: {
         //     meta: {

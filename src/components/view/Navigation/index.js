@@ -24,6 +24,7 @@ class Navigation extends React.Component {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
+        this.getMenuItemHandler = this.getMenuItemHandler.bind(this);
         this.setCurrentSearchQuery = props.setCurrentSearchQuery.bind(this);
         this.state = { drawerOpen: false };
 
@@ -40,10 +41,8 @@ class Navigation extends React.Component {
     }
 
     getMenuItemHandler (routeName) {
-        return function () {
-            this.setState({drawerOpen: false});
-            this.props.history.push(routeName);
-        }.bind(this);
+        this.setState({drawerOpen: false});
+        this.props.history.push(routeName);
     }
 
     handleLogout () {
@@ -56,15 +55,9 @@ class Navigation extends React.Component {
 
         // TODO: see https://github.com/ReactTraining/react-router/issues/5870
         // so that we can use match instead of includes
-        if(path.startsWith('/contact')) {
-            if(path.includes('/intake') || path.includes('/info')) {
-
-                return (<ContactTypeaheadSearch/>);
-            }
-            return (<ContactTypeaheadSearch/>);
-        }  else if (path.startsWith('/reports')) {
+        if (path.startsWith('/reports')) {
             return 'Reports';
-        } else if (path === '/') {
+        } else {
             return (<ContactTypeaheadSearch/>);
         }
     };
@@ -104,8 +97,8 @@ class Navigation extends React.Component {
                                 rightIcon={<ArrowDownIcon color={muiTheme.palette.alternateTextColor}/>}
                             />
                         </div>
-                        <MenuItem onTouchTap={this.getMenuItemHandler('/contact')} primaryText='Contact' leftIcon={<PersonIcon/>}/>
-                        <MenuItem onTouchTap={this.getMenuItemHandler('/reports')} primaryText='Reports' leftIcon={<EventNoteIcon/>}/>
+                        <MenuItem onTouchTap={() => this.getMenuItemHandler('/contact')} primaryText='Contact' leftIcon={<PersonIcon/>}/>
+                        <MenuItem onTouchTap={() => this.getMenuItemHandler('/reports')} primaryText='Reports' leftIcon={<EventNoteIcon/>}/>
                         <div style={{marginTop: 'auto'}}>
                             <MenuItem
                                 onTouchTap={this.handleLogout}

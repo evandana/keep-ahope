@@ -85,8 +85,12 @@ class App extends Component {
                 <Provider store={store}>
                     <ConnectedRouter history={history}>
                         <div className="app">
-                            <AuthorizedNav path="/:context/:uid/:action/" component={Navigation} />
-                            <AuthorizedNav exact path="/" component={Navigation} />
+                            <Switch>
+                                <AuthorizedNav exact path="/" component={Navigation} />
+                                <AuthorizedNav exact path="/contact" component={Navigation} />
+                                <AuthorizedNav exact path="/reports" component={Navigation} />
+                                <AuthorizedNav path="/:context/:uid/:action/" component={Navigation} />
+                            </Switch>
                             <Messages />
                             <Switch>
                                 <AuthorizedRoute exact path="/contact/" component={Contact} />
