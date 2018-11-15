@@ -18,9 +18,3 @@ apidocs
 Thumbs.db
 
 public/build/*
-
-# Make Functions Folder Private Except...
-functions/*
-!functions/index.js
-!functions/package.json
-!functions/README.md

@@ -7,18 +7,12 @@
 # install dependencies
 npm install
 
-# install firebase cli
-# more information: https://firebase.google.com/docs/cli/
-npm install -g firebase-tools
-
-# login to firebase 
-# requires that permissions are granted to this project for your user
-firebase login
-
-
+npm run start
 ```
 
-- After first logging in with your Gmail (running locally or in production), ensure that your user has permissions granted in the Firebase database (`/users/<<Google UID>>/permissions/basic`)
+### Authorization
+
+Contact an administrator to grant you permissions with [these instructions](https://github.com/evandana/keep-ahope/wiki/Authorizing-a-User)
 
 
 ## DEVELOPMENT
@@ -32,16 +26,13 @@ firebase login
 
 [http://localhost:3000/](http://localhost:3000/)
 
+Uses `react-scripts`
+
 *build and serve* `npm run prod`
 
 *build*  `npm run build` -- Don't forget to first copy the static images from src/static/images into public/images
 
 *serve*  `npm run serve`
-
-
-## DEPLOY
-
-`firebase deploy` - This will deploy the hosted UI and the cloud functions
 
 
 ## DEPENDENCIES

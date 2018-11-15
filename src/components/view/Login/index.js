@@ -62,9 +62,6 @@ class Login extends Component {
                         <p>
                             This may be an unsupported browser.
                         </p>
-                        <p>
-                            Try this app in Chrome: <FlatButton href="https://pmc-2018.firebaseapp.com" style={{whiteSpace:'nowrap'}} label='pmc-2018.firebaseapp.com'></FlatButton>
-                        </p>
                     </Paper>
                 )}
 
