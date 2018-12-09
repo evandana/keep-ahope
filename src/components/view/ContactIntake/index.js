@@ -58,7 +58,7 @@ class IntakeForm extends Component {
             didOdLastYear: true,
             didSeeOdLastYear: true,
             hasHealthInsurance: false,
-            otherDrugs: null,
+            otherDrugs: [null],
 
             // new contact
             newContactDate: todayDate,

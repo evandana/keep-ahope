@@ -52,6 +52,7 @@ class PeriodicIntakeForm extends Component {
         ];
 
         const otherDrugOptionsList = [
+            {primaryText: '-none-', value: null},
             {primaryText: 'Heroin', value: 'heroin'},
             {primaryText: 'Methamphetamine', value: 'meth'},
             {primaryText: 'Cocaine', value: 'cocaine'},
