@@ -16,7 +16,9 @@ class NewVisitAndOutreachQuestions extends Component {
     render() {
         const referralsSelectOptionsList = [
             {primaryText: 'No Referrals', value: null},
-            {primaryText: 'Referrals', value: 'some list of referrals'},
+            {primaryText: 'Medical attention', value: 'Medical attention'},
+            {primaryText: 'Mental health', value: 'Mental health'},
+            {primaryText: 'Other', value: 'Other'},
         ];
         const enrollmentRadioOptions = [
             { name: 'enrollment', label: 'Enrollment', value: 'enrolled' },
@@ -35,7 +37,7 @@ class NewVisitAndOutreachQuestions extends Component {
                     {this.buildToggle('Outreach', 'isOutreach', this.props.handleChildToggleChange)}
                 </div>
                 <div style={{padding: '2rem'}}>
-                    {this.buildSelectField('Referrals', referralsSelectOptionsList, 'referrals', this.props.handleSelectChange)}
+                    {this.buildSelectField('Referrals', referralsSelectOptionsList, 'referrals', this.props.handleSelectChange, true)}
                 </div>
                 <div style={{padding: '2rem 2rem 0rem 2rem'}}>
                     {this.buildSlider('syringesGiven', 'Syringes Given', this.props.syringesGiven, this.props.handleSliderChange)}

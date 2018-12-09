@@ -72,7 +72,7 @@ class IntakeForm extends Component {
             // visit or isOutreach
             uid: params.uid,
             isOutreach: false,
-            referrals: null,
+            referrals: [null],
             syringesGiven: 0,
             syringesTaken: 0,
             narcanWasOffered: false,
@@ -199,16 +199,16 @@ class IntakeForm extends Component {
     };
 
     buildSelectField(title, selectOptionsList, name, updateCallback, multiple=false) {
-        let selectControls = selectOptionsList.map(ethnicity => (
+        const selectControls = selectOptionsList.map(selectOption => (
             <MenuItem
-                key={ethnicity.value}
-                primaryText={ethnicity.primaryText}
-                value={ethnicity.value}
+                key={selectOption.value}
+                primaryText={selectOption.primaryText}
+                value={selectOption.value}
                 name={name}
             />
         ));
 
-        let labelStyle = {
+        const labelStyle = {
             color: this.props.palette.primary3Color,
             margin: '2rem 0 1rem 0'
         };
@@ -218,11 +218,11 @@ class IntakeForm extends Component {
                 <div style={labelStyle}>{title}</div>
                 <SelectField
                     multiple={multiple}
-                    value={this.props[name]}
+                    value={ this.props[name] }
                     style={{color: this.props.palette.primary1Color}}
                     name={name}
                     onChange={(e, index, value) => {
-                        updateCallback(name, value)
+                        updateCallback(name, value, multiple, this.props[name])
                     }}
                 >
                     {selectControls}
@@ -273,11 +273,42 @@ class IntakeForm extends Component {
         });
     };
 
-    handleChildSelectChange(name, value) {
+    handleChildSelectChange(name, value, multiple = false, prevVal) {
+
+        if (multiple) {
+            value = this.handleMultiSelectChangeWithNull({newVal: value, prevVal});
+        }
+
         this.setState({
             [name]: value
         });
     };
+
+
+    handleMultiSelectChangeWithNull({newVal, prevVal}) {
+        
+        const selectedCount = newVal.length;
+        const indexOfNullInCurr = newVal.findIndex( item => item === null );
+        const indexOfNullInPrev = prevVal.findIndex( item => item === null );
+
+        // if only one item selected, no action to take
+        if (selectedCount === 1) {
+            return newVal;
+        } else if (selectedCount > 1 && indexOfNullInCurr > -1 ) {
+            // if greater than 1 item and has null, then either return null or the other values
+            if (indexOfNullInPrev > -1) {
+                // if previously had null, then remove it
+                return newVal.filter( item => item !== null );
+            } else {
+                // if previously didn't have null, then remove all others
+                return newVal.filter( item => item === null );
+            }
+        } else {
+            // else no changes needed
+            return newVal;
+        }
+    }
+
 
     handleChildToggleChange(name, isInputChecked) {
         this.setState({
