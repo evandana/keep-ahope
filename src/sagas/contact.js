@@ -17,8 +17,11 @@ function* getContact( { uid } ) {
         const query = new window._Parse_.Query(contact);
         query.equalTo('uid', uid);
         query.first().then( parseContact => {
-            let contactDataPlusUid = Object.assign({}, parseContact.attributes, { uid: uid });
-            window._UI_STORE_.dispatch( updateCurrentContact( contactDataPlusUid ) );
+            // if contact exists
+            if (parseContact) {
+                let contactDataPlusUid = Object.assign({}, parseContact.attributes, { uid: uid });
+                window._UI_STORE_.dispatch( updateCurrentContact( contactDataPlusUid ) );
+            }
         });
     } else {
         window._UI_STORE_.dispatch( updateCurrentContact( {} ) );

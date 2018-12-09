@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import PersonIcon from 'material-ui/svg-icons/social/person';
+import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
 import Divider from 'material-ui/Divider';
 
 class ContactSearchResults extends Component {
@@ -15,6 +16,10 @@ class ContactSearchResults extends Component {
 
     render() {
         const { searchResults, contactSearchQuery, currentContactUid } = this.props;
+
+        let regex = new RegExp(/\w{4}\d{6}\w{3}/);
+        let errorMsg = '';
+        const isValidSearchQuery = contactSearchQuery && contactSearchQuery.length === 13 && regex.test(contactSearchQuery);
 
         return (
             <div>
@@ -40,8 +45,24 @@ class ContactSearchResults extends Component {
                 {(searchResults.length === 0 && contactSearchQuery.length > 1) && (
                     <div>
                         <Subheader>
-                            No results for contact ID: {contactSearchQuery}
+                            { !isValidSearchQuery ?
+                                'No results for contact ID: "' + contactSearchQuery + '"' :
+                                'Create new contact'
+                            }
                         </Subheader>
+                        { !isValidSearchQuery ? (
+                            <ListItem
+                                key='invalid'
+                                primaryText='Enter a valid new ID to create a new contact'
+                            />
+                        ) : (
+                            <ListItem
+                                key='createNew'
+                                primaryText={'CREATE ' + contactSearchQuery}
+                                leftIcon={<PersonAddIcon />}
+                                onClick={() => this.handleNavigationToContact(contactSearchQuery)}
+                            />
+                        )}
                         <Divider/>
                     </div>
                 )}

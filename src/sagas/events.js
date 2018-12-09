@@ -12,10 +12,16 @@ function* createEvent({ eventData, history }) {
     const Event = window._Parse_.Object.extend("event");
     var event = new Event();
 
-    const contact = window._Parse_.Object.extend("contacts")
-    const query = new window._Parse_.Query(contact);
+    const Contact = window._Parse_.Object.extend("contacts")
+    const query = new window._Parse_.Query(Contact);
     query.equalTo('uid', eventData.contactUid)
     query.first().then( parseContact => {
+
+        // if contact doesn't yet exist, create it
+        if (!parseContact) {
+            parseContact = new Contact();
+            parseContact.set('uid', eventData.contactUid);
+        }
 
         // event data with most fields filled out
         // eventData = {
