@@ -14,13 +14,28 @@ class Contact extends Component {
         const urlPathUid = match && match.params && match.params.uid && match.params.uid.toLowerCase();
         const urlPathAction = match && match.params && match.params.action && match.params.action.toLowerCase();
 
+        let regex = null;
+        if (!urlPathUid || urlPathUid.length < 1 ) {
 
-        const regex = new RegExp(/\w{4}\d{6}\w{3}/);
-        const isValidSearchQuery = contact.uid && contact.uid.length === 13 && regex.test(contact.uid);
+        } else if (urlPathUid.length > 0 && urlPathUid.length <= 4) {
+            regex = new RegExp(/\w{1,4}/);
+        } else if (urlPathUid.length > 4 && urlPathUid.length <= 10) {
+            regex = new RegExp(/\w{4}\d{1,6}/);
+        } else if (urlPathUid.length > 10) {
+            regex = new RegExp(/\w{4}\d{6}\w{1,3}/);
+        }
+
+        const isPartialSearchQuery = urlPathUid && ( urlPathUid.length < 13 || urlPathUid.length > 13 );
+        const isValidSearchQuery = urlPathUid && urlPathUid.length === 13 && regex.test(urlPathUid);
 
         return (
             <div>
-                {!isValidSearchQuery ? (
+                {(urlPathUid === undefined || !urlPathAction) && (
+                    <ContactSearchResults
+                        contactUidEntry='hardcoded123'>
+                    </ContactSearchResults>
+                )}
+                {urlPathUid !== undefined && !isValidSearchQuery ? (
                     <div style={{
                         display: 'block',
                         padding: '1em',
@@ -30,12 +45,7 @@ class Contact extends Component {
                     </div>
                 ) : (
                     <div>
-                        {!urlPathAction && (
-                            <ContactSearchResults
-                                contactUidEntry='hardcoded123'>
-                            </ContactSearchResults>
-                        )}
-                        {urlPathAction === 'intake' && (
+                        {!isPartialSearchQuery && isValidSearchQuery && urlPathAction === 'intake' && (
                             <div>
                                 <ContactNavigation/>
                                 <ContactIntake
@@ -44,7 +54,7 @@ class Contact extends Component {
                                 />
                             </div>
                         )}
-                        {urlPathAction === 'info' && (
+                        {!isPartialSearchQuery && isValidSearchQuery && urlPathAction === 'info' && (
                             <div>
                                 <ContactNavigation/>
                                 <ContactInfo

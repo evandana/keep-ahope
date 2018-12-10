@@ -92,7 +92,7 @@ function* loginGoogleRequest( { } ) {
                             }
                         })
                         .catch( err => {
-                            console.log('error performing role query')
+                            console.log('error performing role query', err)
                         });
 
                 })
