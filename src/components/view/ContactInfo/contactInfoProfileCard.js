@@ -46,6 +46,10 @@ class ContactInfo extends React.Component {
         label: 'Chemical Use',
         data: [],
       },
+      syringes: {
+        label: 'Syringe Exchange',
+        data: [],
+      },
       other: {
         label: 'Other',
         data: [],
@@ -67,12 +71,14 @@ class ContactInfo extends React.Component {
           attrObj.label = 'First logged event'
           sortedAttrCollections.meta.data.push(attrObj);
           break;
+        case 'dateOfLastVisit':
+          sortedAttrCollections.meta.data.push(attrObj);
+          break;
 
         // profile
         case 'birthCountry':
         case 'countryOfBirth':
         case 'dateOfBirth':
-        case 'dateOfLastVisit':
         case 'ethnicity':
         case 'firstInjectionAge':
         case 'genderIdentity':
@@ -90,9 +96,16 @@ class ContactInfo extends React.Component {
         case 'isEnrolled':
         case 'isInCareForHepC':
         case 'isInCareForHiv':
+        case 'otherDrugs':
         case 'otherDrugsAggregate':
         case 'primaryDrug':
           sortedAttrCollections.chemical.data.push(attrObj);
+          break;
+          
+        // syrings
+        case 'syringesGivenAggregate':
+        case 'syringesTakenAggregate':
+          sortedAttrCollections.syringes.data.push(attrObj);
           break;
 
         // other
@@ -126,6 +139,11 @@ class ContactInfo extends React.Component {
             />
             <ContactInfoEventDetailsSection
               eventDetailsSectionData={ sortedAttrCollections.chemical }
+              palette={ palette }
+              className="col-xs-12 col-sm-6"
+            />
+            <ContactInfoEventDetailsSection
+              eventDetailsSectionData={ sortedAttrCollections.syringes }
               palette={ palette }
               className="col-xs-12 col-sm-6"
             />

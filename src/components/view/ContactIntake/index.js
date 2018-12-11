@@ -54,7 +54,7 @@ class IntakeForm extends Component {
             hepCStatus: 'neverTested',
             isInCareForHepC: false,
             healthInsurer: null,
-            primaryDrug: 'heroin',
+            primaryDrug: null,
             didOdLastYear: true,
             didSeeOdLastYear: true,
             hasHealthInsurance: false,

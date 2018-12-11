@@ -61,8 +61,27 @@ function* createEvent({ eventData, history }) {
         //     "syringesTaken": 20,
         //   };
 
+        const prevOtherDrugsAggregate = parseContact.get('otherDrugsAggregate') ? parseContact.get('otherDrugsAggregate') : [];
+        const eventDataOtherDrugs = eventData.otherDrugs || [];
+        const otherDrugsAggregate = Array.from(new Set([
+            ...eventDataOtherDrugs, 
+            eventData.primaryDrug,
+            parseContact.get('primaryDrug'),
+            ...prevOtherDrugsAggregate,
+        ])).filter( item => !!item );
+
         // update contact
         parseContact.set('dateOfLastVisit', eventData.date);
+        // aggregate fields
+        eventData.syringesGiven && parseContact.set('syringesGivenAggregate', 
+            (parseContact.get('syringesGivenAggregate') || 0) + eventData.syringesGiven
+        );
+        eventData.syringesTaken && parseContact.set('syringesTakenAggregate', 
+            (parseContact.get('syringesTakenAggregate') || 0) + eventData.syringesTaken
+        );
+        if (eventData.primaryDrug || eventData.otherDrugs) {
+            parseContact.set('otherDrugsAggregate', otherDrugsAggregate); // TODO: aggregate all drugs here (or on server)
+        }
         // conditional fields
         eventData.contactAgeOfFirstInjection && parseContact.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection); // TODO: on server check if this changes to a LATER date
         eventData.contactCountryOfBirth && parseContact.set('countryOfBirth', eventData.contactCountryOfBirth); // TODO: on server check if this changes (once no longer null) then flag to user
@@ -78,7 +97,7 @@ function* createEvent({ eventData, history }) {
         eventData.housingStatus && parseContact.set('housingStatus', eventData.housingStatus);
         eventData.isInCareForHepC && parseContact.set('isInCareForHepC', eventData.isInCareForHepC);
         eventData.isInCareForHiv && parseContact.set('isInCareForHiv', eventData.isInCareForHiv);
-        eventData.otherDrugs && parseContact.set('otherDrugsAggregate', eventData.otherDrugs); // TODO: aggregate all drugs here (or on server)
+        eventData.otherDrugs && parseContact.set('otherDrugs', eventData.otherDrugs); // TODO: aggregate all drugs here (or on server)
         eventData.primaryDrug && parseContact.set('primaryDrug', eventData.primaryDrug); 
         eventData.profileNotes && parseContact.set('profileNotes', eventData.profileNotes); // TODO: on server check if this changes to a LATER date
 
