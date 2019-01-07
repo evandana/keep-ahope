@@ -6,7 +6,6 @@ import {updateIntakeFormField, updateIntakeFormWithContact, createEvent} from 'a
 
 const mapStateToProps = (state) => {
     return {
-        // user: state.user,
         intakeForm: state.intakeForm,
     }
 };

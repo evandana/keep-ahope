@@ -58,6 +58,7 @@ class IntakeForm extends Component {
             didSeeOdLastYear: userStateForDisplay.didSeeOdLastYear,
             hasHealthInsurance: userStateForDisplay.hasHealthInsurance,
             otherDrugs: userStateForDisplay.otherDrugs,
+            zipCode: userStateForDisplay.zipCode,
         } : null;
         
         const contactData = userStateForDisplay.showNewContactQuestions ? {
@@ -263,7 +264,6 @@ class IntakeForm extends Component {
     }
 
     addDefaultValuesToIntakeForm({initialState, userState}) {
-
         return {
             visitOrOutreach: userState.visitOrOutreach !== null ? userState.visitOrOutreach : true,
             showPeriodic: userState.showPeriodic !== null ? userState.showPeriodic : false,
@@ -276,6 +276,7 @@ class IntakeForm extends Component {
             eventDate: userState.eventDate !== null ? userState.eventDate : new Date(),
         
             // periodic
+            zipCode: userState.zipCode !== null ? userState.zipCode : '02118',
             didOdLastYear: userState.didOdLastYear !== null ? userState.didOdLastYear : true,
             didSeeOdLastYear: userState.didSeeOdLastYear !== null ? userState.didSeeOdLastYear : true,
             hasHealthInsurance: userState.hasHealthInsurance !== null ? userState.hasHealthInsurance : false,
@@ -439,6 +440,7 @@ class IntakeForm extends Component {
                     buildRadio={this.buildRadio}
                     palette={palette}
                     // form data
+                    zipCode={userStateForDisplay.zipCode}
                     housingStatus={userStateForDisplay.housingStatus}
                     hivStatus={userStateForDisplay.hivStatus}
                     isInCareForHiv={userStateForDisplay.isInCareForHiv}

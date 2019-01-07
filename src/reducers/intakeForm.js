@@ -27,6 +27,7 @@ const INITIAL_FORM_STATE = {
     didSeeOdLastYear: null, // true,
     hasHealthInsurance: null, // false,
     otherDrugs: [null],
+    zipCode: null,
 
     // new contact
     newContactDate: null,

@@ -84,6 +84,7 @@ class ContactInfo extends React.Component {
         case 'genderIdentity':
         case 'hispanic':
         case 'housingStatus':
+        case 'zipCode':
           sortedAttrCollections.profile.data.push(attrObj);
           break;
 

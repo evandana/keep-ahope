@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import { Card, CardTitle, CardText } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
 
 
 class PeriodicIntakeForm extends Component {
@@ -12,7 +13,6 @@ class PeriodicIntakeForm extends Component {
         this.buildRadio = this.props.buildRadio.bind(this);
         this.buildToggle = this.props.buildToggle.bind(this);
     };
-
 
     render() {
 
@@ -65,13 +65,18 @@ class PeriodicIntakeForm extends Component {
             {primaryText: 'Other', value: 'other'},
         ]
 
-        // TODO:
-        const zipCode = '00000';
-
         // rest of the stuff for this form
         return (
             <Card>
                 <CardTitle title='Periodic' titleColor={this.props.palette.primary1Color}/>
+
+                <TextField
+                    style={{paddingTop: '2rem', paddingLeft: '2rem', paddingRight: '2rem'}}
+                    floatingLabelText="Zip Code"
+                    value={this.props.zipCode}
+                    name='zipCode'
+                    onChange={this.props.handleChange}
+                />
 
                 <div style={{padding: '2rem'}}>
                     {this.buildRadio('Housing Status', housingRadioOptions, 'housingStatus', this.props.handleChange)}

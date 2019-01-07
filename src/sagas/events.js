@@ -102,6 +102,7 @@ function* createEvent({ eventData, history }) {
         eventData.otherDrugs && parseContact.set('otherDrugs', eventData.otherDrugs); // TODO: aggregate all drugs here (or on server)
         eventData.primaryDrug && parseContact.set('primaryDrug', eventData.primaryDrug); 
         eventData.profileNotes && parseContact.set('profileNotes', eventData.profileNotes); // TODO: on server check if this changes to a LATER date
+        eventData.zipCode && parseContact.set('zipCode', eventData.zipCode); 
         
         // ----------------------------------------------
         // update EVENT
@@ -136,6 +137,7 @@ function* createEvent({ eventData, history }) {
         eventData.referrals && event.set('referrals', eventData.referrals);
         eventData.syringesGiven && event.set('syringesGiven', eventData.syringesGiven);
         eventData.syringesTaken && event.set('syringesTaken', eventData.syringesTaken);
+        eventData.zipCode && event.set('zipCode', eventData.zipCode);
 
         event.save()
             .then( successfulSave => {
