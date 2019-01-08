@@ -6,6 +6,8 @@ import PersonIcon from 'material-ui/svg-icons/social/person';
 import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
 import Divider from 'material-ui/Divider';
 
+import { setIntakeFormToInitialState } from 'actions';
+
 class ContactSearchResults extends Component {
 
     handleNavigationToContact(contactUid) {
@@ -59,7 +61,12 @@ class ContactSearchResults extends Component {
                                 key='createNew'
                                 primaryText={'CREATE ' + contactSearchQuery}
                                 leftIcon={<PersonAddIcon />}
-                                onClick={() => this.handleNavigationToContact(contactSearchQuery)}
+                                onClick={() => {
+
+                                    // clear the old form
+                                    window._UI_STORE_.dispatch( setIntakeFormToInitialState( ));
+                                    this.handleNavigationToContact(contactSearchQuery)
+                                }}
                             />
                         )}
                         <Divider/>
