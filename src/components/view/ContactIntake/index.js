@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton'
 import Checkbox from 'material-ui/Checkbox';
 import Toggle from 'material-ui/Toggle';
 import Slider from 'material-ui/Slider';
-import { Card, CardHeader, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardTitle } from 'material-ui/Card';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
@@ -287,7 +287,6 @@ class IntakeForm extends Component {
             didOdLastYear: userState.didOdLastYear !== null ? userState.didOdLastYear : true,
             didSeeOdLastYear: userState.didSeeOdLastYear !== null ? userState.didSeeOdLastYear : true,
             hasHealthInsurance: userState.hasHealthInsurance !== null ? userState.hasHealthInsurance : false,
-            healthInsurer: userState.healthInsurer !== null ? userState.healthInsurer : null,
             healthInsurer: userState.healthInsurer !== null ? userState.healthInsurer : null,
             hepCStatus: userState.hepCStatus !== null ? userState.hepCStatus : 'neverTested',
             hivStatus: userState.hivStatus !== null ? userState.hivStatus : 'neverTested',

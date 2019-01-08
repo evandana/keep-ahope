@@ -14,9 +14,9 @@ import BlockIcon from 'material-ui/svg-icons/content/block';
 
 export class ContactInfoEventDetailsSection extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     getAttrVal ( { val, key, palette } ) {
 
@@ -41,6 +41,7 @@ export class ContactInfoEventDetailsSection extends Component {
                 return <span>{val}</span>;
             case 'syringesTaken':
                 return <span>{val}</span>;
+            default:
         }
 
         switch (val) {

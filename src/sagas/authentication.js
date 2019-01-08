@@ -7,7 +7,7 @@ import {
 
 import { setCurrentUser, showLoginSpinner, logoutUserRequest as logoutUserRequestAction } from 'actions';
 
-function* loginGoogleRequest( { } ) {
+function* loginGoogleRequest( ) {
 
     window._UI_STORE_.dispatch(showLoginSpinner(true));
     

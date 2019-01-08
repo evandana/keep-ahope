@@ -6,9 +6,9 @@ import { ContactInfoEventDetailsSection } from './contactInfoEventDetailsSection
 
 export class ContactInfoEventDetailsCard extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     upperCase(str){
         return str.toUpperCase();
@@ -91,6 +91,8 @@ export class ContactInfoEventDetailsCard extends Component {
                     // persistent
                 case 'newContactDate':
                     attrObj.label = 'Contact\'s First Visit';
+                    sortedAttrCollections.persistent.data.push(attrObj);
+                    break;
                 case 'ageOfFirstInjection':
                 case 'countryOfBirth':
                 case 'dateOfBirth':

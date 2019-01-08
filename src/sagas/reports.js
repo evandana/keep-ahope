@@ -1,5 +1,4 @@
 import { takeEvery } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 
 import {
     RANGE_ALL_TIME,
@@ -197,11 +196,6 @@ function getDateBoundsFromRangeKey({ rangeKey }) {
             max = moment(now).add(1, 'day');
             break;
 
-        case RANGE_CURRENT_WEEK:
-            min = moment().startOf('isoWeek');
-            max = moment(now).add(1, 'day');
-            break;
-
         case RANGE_PREVIOUS_WEEK:
             min = moment().startOf('isoWeek').subtract(1, 'week');
             max = moment().startOf('isoWeek').subtract(1, 'day');
@@ -215,6 +209,12 @@ function getDateBoundsFromRangeKey({ rangeKey }) {
         case RANGE_PREVIOUS_YEAR:
             min = moment().startOf('year').subtract(1, 'year');
             max = moment().startOf('year').subtract(1, 'day');
+            break;
+
+        case RANGE_CURRENT_WEEK:
+        default:
+            min = moment().startOf('isoWeek');
+            max = moment(now).add(1, 'day');
             break;
     }
 

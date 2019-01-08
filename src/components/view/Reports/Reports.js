@@ -3,12 +3,9 @@ import React from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-import ReportsCard from './ReportsCard'
+import ReportsCard from './ReportsCard';
 
-import { getImageForEnv } from 'static/images/index'
-
-import { fetchReportsData } from 'actions'
-import reports from 'sagas/reports';
+import { fetchReportsData } from 'actions';
 
 import {
     RANGE_CURRENT_WEEK,

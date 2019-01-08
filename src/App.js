@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 /** ROUTER **/
-import { Route } from 'react-router-dom';
+// import { Route } from 'react-router-dom';
 import { Switch } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 /** REDUX **/

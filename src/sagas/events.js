@@ -20,7 +20,7 @@ function* createEvent({ eventData, history }) {
         const regex = new RegExp(/\w{4}\d{6}\w{3}/);
         const isValidSearchQuery = eventData.contactUid && eventData.contactUid.length === 13 && regex.test(eventData.contactUid);
         if (!isValidSearchQuery) {
-            throw 'Invalid contact search query';
+            throw new Error('Invalid contact search query');
         }
 
         // if contact doesn't yet exist, create it

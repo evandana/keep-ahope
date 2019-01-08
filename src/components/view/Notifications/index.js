@@ -8,17 +8,17 @@ import { closeNotification } from 'actions';
 
 class Notifications extends React.Component {
 
-    constructor(props) {
-        super(props);
-        // this.themePalette = this.props.muiTheme.palette;
-    }
+    // constructor(props) {
+    //     super(props);
+    //     // this.themePalette = this.props.muiTheme.palette;
+    // }
 
     handleClose = notificationId => {
         window._UI_STORE_.dispatch( closeNotification( { notificationId } ) );
     };
 
     render() {
-        const { notificationSingleton, muiTheme: { palette } } = this.props;
+        const { notificationSingleton } = this.props;
         return (
             <div style={{position:'relative'}}>
                 <Snackbar

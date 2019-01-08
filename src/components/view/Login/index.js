@@ -4,12 +4,11 @@ import { getImageForEnv } from 'static/images/index'
 import './styles.css';
 
 import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
+// import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import { fetchConfig, showLoginSpinner } from '../../../actions';
 
 class Login extends Component {
 
@@ -27,7 +26,7 @@ class Login extends Component {
          * Detect unsupported browser
          * Safari mobile login has issues due to auth protocol requirements
          */
-        const isChrome = /Chrome.*/.test(navigator.userAgent) && /Google.*/.test(navigator.vendor);
+        // const isChrome = /Chrome.*/.test(navigator.userAgent) && /Google.*/.test(navigator.vendor);
         // var isMobile = false; //initiate as false
         // // device detection
         // if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)

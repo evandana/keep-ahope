@@ -4,10 +4,10 @@ import {
     FETCH_CONFIG,
 } from '../constants';
 
-import { refreshConfig } from 'actions';
+// import { } from 'actions';
 
 
-function* fetchConfig({uid, userData}) {
+function* fetchConfig() {
 
     console.log('TOOD: replace config fetch with Parse')
     

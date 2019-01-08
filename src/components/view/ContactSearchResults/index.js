@@ -18,7 +18,6 @@ class ContactSearchResults extends Component {
         const { searchResults, contactSearchQuery, currentContactUid } = this.props;
 
         let regex = new RegExp(/\w{4}\d{6}\w{3}/);
-        let errorMsg = '';
         const isValidSearchQuery = contactSearchQuery && contactSearchQuery.length === 13 && regex.test(contactSearchQuery);
 
         return (

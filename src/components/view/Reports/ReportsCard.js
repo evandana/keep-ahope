@@ -6,9 +6,9 @@ import { Card, CardHeader, CardText, CardMedia } from 'material-ui/Card';
 
 class Results extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
     
     convertDataToGoogleFormat({data, xLabel, yLabel}) {
 
@@ -27,7 +27,6 @@ class Results extends React.Component {
             hSize,
             label,
             path,
-            priority,
             type,
             // vSize,
         } = this.props;

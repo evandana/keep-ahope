@@ -2,31 +2,31 @@ import React from 'react';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-import AppBar from 'material-ui/AppBar';
+// import AppBar from 'material-ui/AppBar';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
-import { blueGrey600, cyan600 } from 'material-ui/styles/colors'
+// import { blueGrey600, cyan600 } from 'material-ui/styles/colors'
 
 import ExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import AssignmentInd from 'material-ui/svg-icons/action/assignment-ind';
 import ChromeReaderModeIcon from 'material-ui/svg-icons/action/chrome-reader-mode';
-import CreditCardIcon from 'material-ui/svg-icons/action/credit-card';
-import RedeemIcon from 'material-ui/svg-icons/action/redeem';
+// import CreditCardIcon from 'material-ui/svg-icons/action/credit-card';
+// import RedeemIcon from 'material-ui/svg-icons/action/redeem';
 // import TimelineIcon from 'material-ui/svg-icons/action/timeline';
-import LocalPlayIcon from 'material-ui/svg-icons/maps/local-play';
+// import LocalPlayIcon from 'material-ui/svg-icons/maps/local-play';
 // import LocalOfferIcon from 'material-ui/svg-icons/maps/local-offer';
 // import MoodIcon from 'material-ui/svg-icons/social/mood';
-import PollIcon from 'material-ui/svg-icons/social/poll';
+// import PollIcon from 'material-ui/svg-icons/social/poll';
 // import PeopleIcon from 'material-ui/svg-icons/social/people';
-import PersonIcon from 'material-ui/svg-icons/social/person';
+// import PersonIcon from 'material-ui/svg-icons/social/person';
 // import WhatsHotIcon from 'material-ui/svg-icons/social/whatshot';
 // import StarIcon from 'material-ui/svg-icons/toggle/star';
 // import AddCircleIcon from 'material-ui/svg-icons/content/add-circle';
-import ModeEditIcon from 'material-ui/svg-icons/editor/mode-edit';
+// import ModeEditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
-import { getImageForEnv } from 'static/images/index'
+// import { getImageForEnv } from 'static/images/index'
 
 import './styles.css';
 
@@ -106,8 +106,6 @@ class ContactNavigation extends React.Component {
             // },
         ];
 
-        const currentPagePath = window.location.pathname; // e.g. '/events'
-
         const tabs = tabObjs
             .map(tabObj => {
                 return this.buildTab(tabObj);
@@ -128,11 +126,9 @@ class ContactNavigation extends React.Component {
     };
 
     render () {
-        const { user, logout, match } = this.props;
+        const { match } = this.props;
 
         const urlPathAction = match && match.params && match.params.action && match.params.action.toLowerCase();
-
-        const iconMenu = this.buildIconMenu({ logout });
 
         const navigationTabs = this.buildNavigationTabs(urlPathAction);
 
