@@ -154,5 +154,10 @@ function getStateWithContactInfo({contact, initialState, userState}) {
         }
     });
 
+    if (Object.keys(contact) && Object.keys(contact).length === 1) {
+        initialStateWithContactInfo.newContact = true;
+        userStateWithContactInfo.newContact = true;
+    }
+
     return { initialStateWithContactInfo , userStateWithContactInfo };
 }

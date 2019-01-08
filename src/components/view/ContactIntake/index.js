@@ -61,7 +61,7 @@ class IntakeForm extends Component {
             zipCode: userStateForDisplay.zipCode,
         } : null;
         
-        const contactData = userStateForDisplay.showNewContactQuestions ? {
+        const contactData = initialState.newContact || userStateForDisplay.showNewContactQuestions ? {
             newContactDate: userStateForDisplay.newContactDate,
             contactDateOfBirth: userStateForDisplay.contactDateOfBirth,
             contactGenderIdentity: userStateForDisplay.contactGenderIdentity,
@@ -273,7 +273,7 @@ class IntakeForm extends Component {
     addDefaultValuesToIntakeForm({initialState, userState}) {
         return {
             visitOrOutreach: userState.visitOrOutreach !== null ? userState.visitOrOutreach : true,
-            showPeriodic: userState.showPeriodic !== null ? userState.showPeriodic : false,
+            showPeriodic: userState.showPeriodic !== null ? userState.showPeriodic : true,
             showNewContactQuestions: userState.showNewContactQuestions !== null ? userState.showNewContactQuestions : false,
         
             eventNotes: userState.eventNotes !== null ? userState.eventNotes : '',
@@ -283,16 +283,16 @@ class IntakeForm extends Component {
             eventDate: userState.eventDate !== null ? userState.eventDate : new Date(),
         
             // periodic
-            zipCode: userState.zipCode !== null ? userState.zipCode : '02118',
-            didOdLastYear: userState.didOdLastYear !== null ? userState.didOdLastYear : true,
-            didSeeOdLastYear: userState.didSeeOdLastYear !== null ? userState.didSeeOdLastYear : true,
+            zipCode: userState.zipCode !== null ? userState.zipCode : '',
+            didOdLastYear: userState.didOdLastYear !== null ? userState.didOdLastYear : false,
+            didSeeOdLastYear: userState.didSeeOdLastYear !== null ? userState.didSeeOdLastYear : false,
             hasHealthInsurance: userState.hasHealthInsurance !== null ? userState.hasHealthInsurance : false,
             healthInsurer: userState.healthInsurer !== null ? userState.healthInsurer : null,
-            hepCStatus: userState.hepCStatus !== null ? userState.hepCStatus : 'neverTested',
-            hivStatus: userState.hivStatus !== null ? userState.hivStatus : 'neverTested',
-            housingStatus: userState.housingStatus !== null ? userState.housingStatus : 'homeless',
-            isInCareForHepC: userState.isInCareForHepC !== null ? userState.isInCareForHepC : false,
-            isInCareForHiv: userState.isInCareForHiv !== null ? userState.isInCareForHiv : false,
+            hepCStatus: userState.hepCStatus !== null ? userState.hepCStatus : null,
+            hivStatus: userState.hivStatus !== null ? userState.hivStatus : null,
+            housingStatus: userState.housingStatus !== null ? userState.housingStatus : null,
+            isInCareForHepC: userState.isInCareForHepC !== null ? userState.isInCareForHepC : null,
+            isInCareForHiv: userState.isInCareForHiv !== null ? userState.isInCareForHiv : null,
             otherDrugs: userState.otherDrugs || [null],
             primaryDrug: userState.primaryDrug !== null ? userState.primaryDrug : null,
         
@@ -300,9 +300,9 @@ class IntakeForm extends Component {
             contactAgeOfFirstInjection: userState.contactAgeOfFirstInjection !== null ? userState.contactAgeOfFirstInjection : 0,
             contactCountryOfBirth: userState.contactCountryOfBirth !== null ? userState.contactCountryOfBirth : '',
             contactDateOfBirth: userState.contactDateOfBirth !== null ? userState.contactDateOfBirth : new Date(1980, 0, 1),
-            contactEthnicity: userState.contactEthnicity !== null ? userState.contactEthnicity : 'White',
-            contactGenderIdentity: userState.contactGenderIdentity !== null ? userState.contactGenderIdentity : 'male',
-            contactIsHispanic: userState.contactIsHispanic !== null ? userState.contactIsHispanic : true,
+            contactEthnicity: userState.contactEthnicity !== null ? userState.contactEthnicity : null,
+            contactGenderIdentity: userState.contactGenderIdentity !== null ? userState.contactGenderIdentity : null,
+            contactIsHispanic: userState.contactIsHispanic !== null ? userState.contactIsHispanic : false,
             newContactDate: userState.newContactDate !== null ? userState.newContactDate : new Date(),
         
             // visit or isOutreach
@@ -338,20 +338,23 @@ class IntakeForm extends Component {
                 label: 'Visit or Outreach',
                 key: 'visitOrOutreach',
                 defaultChecked: true, 
-                disabled: true
+                disabled: true,
+                checked: userStateForDisplay.visitOrOutreach,
             },
             {
                 label: 'First Contact',
                 key: 'showNewContactQuestions',
-                defaultChecked: false, 
-                disabled: false, 
+                defaultChecked: initialState.newContact === true ? true : false, 
+                disabled: initialState.newContact === true ? true : false, 
+                checked: initialState.newContact === true ? true : userStateForDisplay.showNewContactQuestions,
                 onCheckCallback: () => this.updateIntakeFormField({key: 'showNewContactQuestions', val: !userStateForDisplay.showNewContactQuestions})
             },
             {
                 label: 'Periodic',
                 key: 'showPeriodic',
-                defaultChecked: false, 
+                defaultChecked: true, 
                 disabled: false, 
+                checked: userStateForDisplay.showPeriodic,
                 onCheckCallback: () => this.updateIntakeFormField({key: 'showPeriodic', val: !userStateForDisplay.showPeriodic})
             },
         ];
@@ -381,7 +384,7 @@ class IntakeForm extends Component {
                                 labelStyle={option.labelStyle}
                                 style={option.style}
                                 label={option.label}
-                                checked={userStateForDisplay[option.key]}
+                                checked={option.checked}
                                 // defaultChecked={option.defaultChecked}
                                 disabled={option.disabled}
                                 onCheck={option.onCheckCallback}
@@ -414,7 +417,7 @@ class IntakeForm extends Component {
                     numberOfOthersHelping={userStateForDisplay.numberOfOthersHelping}
                 />
 
-                {userStateForDisplay.showNewContactQuestions && <NewContactQuestionsForm
+                {(initialState.newContact === true || userStateForDisplay.showNewContactQuestions) && <NewContactQuestionsForm
                     // helpers
                     updateIntakeFormField={this.updateIntakeFormField}
                     handleChange={this.handleChildInputChange.bind(this)}
