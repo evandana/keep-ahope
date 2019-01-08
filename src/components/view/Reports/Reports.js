@@ -145,7 +145,7 @@ class Results extends React.Component {
                             type='breakdown'
                             hSize={2}
                             label='Country of Birth'
-                            path='contacts.birthCountry'
+                            path='contacts.countryOfBirth'
                             data={reportsData}
                             />
 

@@ -135,19 +135,12 @@ export default function* () {
 
 function getEventAggregations ( events ) {
 
-    let eventAggregations = {
-        narcanWasOffered: 0,
-        narcanWasTaken: 0,
-        syringesGiven: 0,
-        syringesTaken: 0,
-    };
-
     return !events ? [] : events.reduce( (agg, event) => {
         return {
-            narcanWasOffered: eventAggregations.narcanWasOffered + parseInt( event.attributes.narcanWasOffered || 0, 10),
-            narcanWasTaken: eventAggregations.narcanWasTaken + parseInt( event.attributes.narcanWasTaken || 0, 10),
-            syringesGiven: eventAggregations.syringesGiven + parseInt( event.attributes.syringesGiven || 0, 10),
-            syringesTaken: eventAggregations.syringesTaken + parseInt( event.attributes.syringesTaken || 0, 10),
+            narcanWasOffered: agg.narcanWasOffered + ( event.attributes.narcanWasOffered ? 1 : 0 ),
+            narcanWasTaken: agg.narcanWasTaken + ( event.attributes.narcanWasTaken ? 1 : 0 ),
+            syringesGiven: agg.syringesGiven + parseInt( event.attributes.syringesGiven || 0, 10),
+            syringesTaken: agg.syringesTaken + parseInt( event.attributes.syringesTaken || 0, 10),
         };
     }, {
         narcanWasOffered: 0,
@@ -160,7 +153,7 @@ function getEventAggregations ( events ) {
 function getContactBreakdownData ( contacts ) {
 
     const contactBreakdowns = [
-        'birthCountry',
+        'countryOfBirth',
         'ethnicity', // from contact
         'hispanic', // from contact
         'firstInjectionAge',
