@@ -24,11 +24,11 @@ class NewVisitAndOutreachQuestions extends Component {
             { name: 'enrollment', label: 'Enrollment', value: 'enrolled' },
             { name: 'refill', label: 'Refill', value: 'refill' },
         ];
-        const options = {
+        const numberOfOthersHelpingStepDetails = {
             defaultValue: 0,
             step: 1,
             min: 0,
-            max: 100,
+            max: 12,
         }
         return (
             <Card>
@@ -55,7 +55,7 @@ class NewVisitAndOutreachQuestions extends Component {
                     {this.buildRadio('Enrollment', enrollmentRadioOptions, 'enrollment', this.props.handleChange)}
                 </div>
                 <div style={{padding: '2rem'}}>
-                    {this.buildSlider('numberOfOthersHelping', 'Number of others helping', this.props.numberOfOthersHelping, this.props.handleSliderChange, options)}
+                    {this.buildSlider('numberOfOthersHelping', 'Number of others helping', this.props.numberOfOthersHelping, this.props.handleSliderChange, numberOfOthersHelpingStepDetails)}
                 </div>
             </Card>
         )

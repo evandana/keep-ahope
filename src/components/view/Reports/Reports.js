@@ -15,6 +15,7 @@ import {
     RANGE_PREVIOUS_WEEK,
     RANGE_CURRENT_YEAR,
     RANGE_PREVIOUS_YEAR,
+    RANGE_ALL_TIME,
 } from '../../../constants'; // why does this not work with `'constants'`?
 
 class Results extends React.Component {
@@ -72,6 +73,7 @@ class Results extends React.Component {
                             <MenuItem value={RANGE_PREVIOUS_WEEK} label="Previous Week" primaryText="Previous Week" />
                             <MenuItem value={RANGE_CURRENT_YEAR} label="Current Year" primaryText="Current Year" />
                             <MenuItem value={RANGE_PREVIOUS_YEAR} label="Previous Year" primaryText="Previous Year" />
+                            <MenuItem value={RANGE_ALL_TIME} label="All Time" primaryText="All Time" />
                         </SelectField>
                     </div>
 
@@ -145,7 +147,7 @@ class Results extends React.Component {
                             type='breakdown'
                             hSize={2}
                             label='Country of Birth'
-                            path='contacts.birthCountry'
+                            path='contacts.countryOfBirth'
                             data={reportsData}
                             />
 
