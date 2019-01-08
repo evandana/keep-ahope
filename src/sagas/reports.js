@@ -2,6 +2,7 @@ import { takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 
 import {
+    RANGE_ALL_TIME,
     FETCH_REPORTS_DATA,
     RANGE_CURRENT_WEEK,
     RANGE_PREVIOUS_WEEK,
@@ -191,6 +192,11 @@ function getDateBoundsFromRangeKey({ rangeKey }) {
     // note isoWeek starts on Monday
 
     switch ( rangeKey ) {
+        case RANGE_ALL_TIME:
+            min = moment('2017');
+            max = moment(now).add(1, 'day');
+            break;
+
         case RANGE_CURRENT_WEEK:
             min = moment().startOf('isoWeek');
             max = moment(now).add(1, 'day');
