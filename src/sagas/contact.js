@@ -25,6 +25,9 @@ function* getContact( { uid } ) {
                 };
                 window._UI_STORE_.dispatch( updateCurrentContact( contactDataPlusUid ) );
                 window._UI_STORE_.dispatch( updateIntakeFormWithContact( {contact: contactDataPlusUid}) );
+            } else {
+                window._UI_STORE_.dispatch( updateCurrentContact( {} ) );
+                window._UI_STORE_.dispatch( updateIntakeFormWithContact( {contact: { uid }} ) );
             }
         });
     } else {

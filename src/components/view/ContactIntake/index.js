@@ -79,7 +79,7 @@ class IntakeForm extends Component {
             profileNotes: userStateForDisplay.profileNotes,
             eventNotes: userStateForDisplay.eventNotes,
             date: userStateForDisplay.eventDate,
-            contactUid: userStateForDisplay.uid,
+            contactUid: initialState.uid,
         };
         return prunedEventData;
     }
