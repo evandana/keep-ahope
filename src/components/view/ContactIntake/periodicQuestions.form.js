@@ -34,7 +34,7 @@ class PeriodicIntakeForm extends Component {
             { name: 'neverTested', label: 'Never Tested', value: 'neverTested' },
         ];
 
-        const enthnicityOptionsList = [
+        const insurerOptionsList = [
             {primaryText: 'Mass Health', value: 'MH'},
             {primaryText: 'Neighborhood Health Program', value: 'NHP'},
             {primaryText: 'Blue Cross Blue Shield', value: 'BCBS'},
@@ -83,7 +83,10 @@ class PeriodicIntakeForm extends Component {
                 </div>
 
                 <div style={{padding: '2rem'}}>
-                    {this.buildRadio('HIV Status', hivRadioOptions, 'hivStatus', this.props.handleChange)}
+                    {this.buildRadio('HIV Status', hivRadioOptions, 'hivStatus', (evt, val) => {
+                        this.props.handleChange(evt, val);
+                        this.props.handleChildToggleChange('isInCareForHiv', val === 'negative' ? false : this.props.isInCareForHiv );
+                    })}
                 </div>
 
                 {this.props.hivStatus === 'positive' && <div style={{padding: '2rem'}}>
@@ -91,7 +94,10 @@ class PeriodicIntakeForm extends Component {
                 </div>}
 
                 <div style={{padding: '2rem'}}>
-                    {this.buildRadio('Hepatitus C Status', hepCOptions, 'hepCStatus', this.props.handleChange)}
+                    {this.buildRadio('Hepatitus C Status', hepCOptions, 'hepCStatus', (evt, val) => {
+                        this.props.handleChange(evt, val);
+                        this.props.handleChildToggleChange('isInCareForHepC', val === 'negative' ? false : this.props.isInCareForHepC );
+                    })}
                 </div>
 
                 {this.props.hepCStatus === 'positive' &&  <div style={{padding: '2rem'}}>
@@ -99,11 +105,14 @@ class PeriodicIntakeForm extends Component {
                 </div>}
 
                 <div style={{padding: '2rem'}}>
-                    {this.buildToggle('Health Insurance?', 'hasHealthInsurance', this.props.handleChildToggleChange)}
+                    {this.buildToggle('Health Insurance?', 'hasHealthInsurance', (evt, val, multiple) => {
+                        this.props.handleChildToggleChange(evt, val, multiple);
+                        this.props.handleSelectChange('healthInsurer', val ? null : this.props.healthInsurer );
+                    })}
                 </div>
 
                 {this.props.hasHealthInsurance && <div style={{padding: '2rem'}}>
-                    {this.buildSelectField('Health Insurer', enthnicityOptionsList, 'healthInsurer', this.props.handleSelectChange)}
+                    {this.buildSelectField('Health Insurer', insurerOptionsList, 'healthInsurer', this.props.handleSelectChange)}
                 </div>}
 
                 <div style={{padding: '2rem'}}>

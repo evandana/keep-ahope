@@ -133,7 +133,6 @@ class IntakeForm extends Component {
         return (
             <Toggle
                 label={toggleName}
-                defaultToggled={false}
                 labelPosition="right"
                 toggled={this.props[stateName]}
                 onToggle={(event, isInputChecked) => {
