@@ -18,7 +18,7 @@ class NewContactQuestionsForm extends Component {
 
     render() {
 
-        const { updateIntakeFormField } = this.props;
+        const { palette, updateIntakeFormField } = this.props;
 
         const radioButtonGenderList = [
             {label: 'Male', value: 'male'},
@@ -56,7 +56,7 @@ class NewContactQuestionsForm extends Component {
         // rest of the stuff for this form
         return (
             <Card>
-                <CardTitle title='First Contact' titleColor={this.props.palette.primary1Color}/>
+                <CardTitle title='First Contact' titleColor={palette.primary1Color}/>
 
                 <div style={{padding: '2rem'}}>
                     <DatePicker
@@ -76,7 +76,7 @@ class NewContactQuestionsForm extends Component {
                     {this.buildRadio('Gender Identity', radioButtonGenderList, 'contactGenderIdentity', this.props.handleChange)}
                 </div>
                 <div style={{padding: '2rem'}}>
-                    {this.buildSelectField('Ethnicity', enthnicityOptionsList, 'contactEthnicity', this.props.handleSelectChange)}
+                    {this.buildSelectField({title: 'Ethnicity', selectOptionsList: enthnicityOptionsList, name: 'contactEthnicity', val: this.props.contactEthnicity, updateCallback: this.props.handleSelectChange, multiple: false })}
                 </div>
                 <div style={{padding: '2rem'}}>
                     {this.buildRadio('Country of Birth', countryOfBirthList, 'contactCountryOfBirth', this.props.handleChange)}

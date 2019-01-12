@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { FieldWithManualOption } from '../common/FieldWithManualOption';
+
 import { Card, CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 
@@ -14,7 +16,14 @@ class PeriodicIntakeForm extends Component {
         this.buildToggle = this.props.buildToggle.bind(this);
     };
 
+    getUniquePrimaryTextList({collection, realValue}) {
+        const isManualInCollection = collection.find( obj => obj.primaryText === realValue || obj.value === realValue );
+        return isManualInCollection ? collection : [ ...collection, {primaryText: realValue, value: realValue} ];
+    }
+
     render() {
+
+        const { updateIntakeFormField } = this.props;
 
         const housingRadioOptions = [
             { name: 'housed', label: 'Housed', value: 'housed' },
@@ -112,7 +121,7 @@ class PeriodicIntakeForm extends Component {
                 </div>
 
                 {this.props.hasHealthInsurance && <div style={{padding: '2rem'}}>
-                    {this.buildSelectField('Health Insurer', insurerOptionsList, 'healthInsurer', this.props.handleSelectChange)}
+                    {this.buildSelectField({ title: 'Health Insurer', selectOptionsList: insurerOptionsList, name: 'healthInsurer', val: this.props.healthInsurer, updateCallback: this.props.handleSelectChange, multiple: false })}
                 </div>}
 
                 <div style={{padding: '2rem'}}>
@@ -124,11 +133,34 @@ class PeriodicIntakeForm extends Component {
                 </div>
 
                 <div style={{padding: '2rem'}}>
-                    {this.buildSelectField('Primary Drug', primaryDrugOptionsList, 'primaryDrug', this.props.handleSelectChange)}
+                    <FieldWithManualOption
+                        showManual={this.props.primaryDrug && ( this.props.primaryDrug === 'other' || primaryDrugOptionsList.findIndex( ddObj => ddObj.value === this.props.primaryDrug ) < 0 ) }
+                        onManualChange={({manualVal, defaultFieldVal}) => {
+                            updateIntakeFormField({
+                                key: 'primaryDrug', 
+                                val: manualVal
+                            })
+                        }}
+                        defaultFieldProps={{
+                            title: 'Primary Drug',
+                            val: this.props.primaryDrug,
+                        }}
+                        defaultFieldEl={this.buildSelectField({ 
+                            title: 'Primary Drug', 
+                            selectOptionsList: this.getUniquePrimaryTextList({
+                                collection: primaryDrugOptionsList, 
+                                realValue: this.props.primaryDrug,
+                            }),
+                            name: 'primaryDrug', 
+                            val: this.props.primaryDrug, 
+                            updateCallback: this.props.handleSelectChange, 
+                            multiple: false 
+                        })}
+                    /> 
                 </div>
 
                 <div style={{padding: '2rem'}}>
-                    {this.buildSelectField('Other Drugs', otherDrugOptionsList, 'otherDrugs', this.props.handleSelectChange, true)}
+                    {this.buildSelectField({ title: 'Other Drugs', selectOptionsList: otherDrugOptionsList, name: 'otherDrugs', val: this.props.otherDrugs, updateCallback: this.props.handleSelectChange, multiple: true })}
                 </div>
 
             </Card>

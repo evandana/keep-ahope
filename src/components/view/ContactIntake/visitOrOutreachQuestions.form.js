@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 
+import { FieldWithManualOption } from '../common/FieldWithManualOption';
+
 import { Card, CardTitle } from 'material-ui/Card';
 
 
-class NewVisitAndOutreachQuestions extends Component {
+class VisitOrOutreachQuestions extends Component {
 
     constructor(props) {
         super(props);
@@ -14,6 +16,9 @@ class NewVisitAndOutreachQuestions extends Component {
     };
 
     render() {
+
+        const { updateIntakeFormField } = this.props;
+
         const referralsSelectOptionsList = [
             {primaryText: 'No Referrals', value: null},
             {primaryText: 'Medical attention', value: 'Medical attention'},
@@ -37,7 +42,24 @@ class NewVisitAndOutreachQuestions extends Component {
                     {this.buildToggle('Outreach', 'isOutreach', this.props.handleChildToggleChange)}
                 </div>
                 <div style={{padding: '2rem'}}>
-                    {this.buildSelectField('Referrals', referralsSelectOptionsList, 'referrals', this.props.handleSelectChange, true)}
+                    <FieldWithManualOption
+                        showManual={this.props.referrals && this.props.referrals.indexOf('Other') > -1}
+                        onManualChange={({manualVal, defaultFieldVal}) => {
+                            const validDropdownOptions = referralsSelectOptionsList.map( obj => obj.primaryText );
+                            updateIntakeFormField({
+                                key: 'referrals', 
+                                val: [
+                                    ...defaultFieldVal.filter( val => validDropdownOptions.indexOf(val) > -1 ),
+                                    manualVal,
+                                ]
+                            })
+                        }}
+                        defaultFieldProps={{
+                            title: 'Referrals',
+                            val: this.props.referrals,
+                        }}
+                        defaultFieldEl={ this.buildSelectField({ title: 'Referrals', selectOptionsList: referralsSelectOptionsList, name: 'referrals', val: this.props.referrals, updateCallback: this.props.handleSelectChange, multiple: true }) }
+                    />  
                 </div>
                 <div style={{padding: '2rem 2rem 0rem 2rem'}}>
                     {this.buildSlider('syringesGiven', 'Syringes Given', this.props.syringesGiven, this.props.handleSliderChange)}
@@ -62,4 +84,4 @@ class NewVisitAndOutreachQuestions extends Component {
     }
 }
 
-export default NewVisitAndOutreachQuestions;
+export default VisitOrOutreachQuestions;
