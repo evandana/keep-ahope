@@ -145,7 +145,7 @@ class IntakeForm extends Component {
     buildSelectField({ title, selectOptionsList, name, val, updateCallback, multiple=false}) {
         const selectControls = selectOptionsList.map(selectOption => (
             <MenuItem
-                key={selectOption.value}
+                key={name + '-' + selectOption.value}
                 primaryText={selectOption.primaryText}
                 value={selectOption.value}
                 name={name}
@@ -163,6 +163,7 @@ class IntakeForm extends Component {
                 <SelectField
                     multiple={multiple}
                     value={ val }
+                    key={name}
                     style={{color: this.props.palette.primary1Color}}
                     name={name}
                     onChange={(e, index, value) => {

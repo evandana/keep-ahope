@@ -23,7 +23,7 @@ class VisitOrOutreachQuestions extends Component {
             {primaryText: 'No Referrals', value: null},
             {primaryText: 'Medical attention', value: 'Medical attention'},
             {primaryText: 'Mental health', value: 'Mental health'},
-            {primaryText: 'Other', value: 'Other'},
+            {primaryText: 'Other', value: 'other'},
         ];
         const enrollmentRadioOptions = [
             { name: 'enrollment', label: 'Enrollment', value: 'enrolled' },
@@ -43,9 +43,9 @@ class VisitOrOutreachQuestions extends Component {
                 </div>
                 <div style={{padding: '2rem'}}>
                     <FieldWithManualOption
-                        showManual={this.props.referrals && this.props.referrals.indexOf('Other') > -1}
+                        showManual={this.props.referrals && this.props.referrals.indexOf('other') > -1}
                         onManualChange={({manualVal, defaultFieldVal}) => {
-                            const validDropdownOptions = referralsSelectOptionsList.map( obj => obj.primaryText );
+                            const validDropdownOptions = referralsSelectOptionsList.map( obj => obj.value );
                             updateIntakeFormField({
                                 key: 'referrals', 
                                 val: [

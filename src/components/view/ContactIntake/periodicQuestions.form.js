@@ -160,7 +160,31 @@ class PeriodicIntakeForm extends Component {
                 </div>
 
                 <div style={{padding: '2rem'}}>
-                    {this.buildSelectField({ title: 'Other Drugs', selectOptionsList: otherDrugOptionsList, name: 'otherDrugs', val: this.props.otherDrugs, updateCallback: this.props.handleSelectChange, multiple: true })}
+                    <FieldWithManualOption
+                        showManual={this.props.otherDrugs && this.props.otherDrugs.indexOf('other') > -1 }
+                        onManualChange={({manualVal, defaultFieldVal}) => {
+                            const validDropdownOptions = otherDrugOptionsList.map( obj => obj.value );
+                            updateIntakeFormField({
+                                key: 'otherDrugs', 
+                                val: [
+                                    ...defaultFieldVal.filter( val => validDropdownOptions.indexOf(val) > -1 ),
+                                    manualVal,
+                                ]
+                            })
+                        }}
+                        defaultFieldProps={{
+                            title: 'Other Drugs',
+                            val: this.props.otherDrugs,
+                        }}
+                        defaultFieldEl={this.buildSelectField({ 
+                            title: 'Other Drugs', 
+                            selectOptionsList: otherDrugOptionsList,
+                            name: 'otherDrugs', 
+                            val: this.props.otherDrugs, 
+                            updateCallback: this.props.handleSelectChange, 
+                            multiple: true 
+                        })}
+                    />
                 </div>
 
             </Card>
