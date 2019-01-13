@@ -144,6 +144,7 @@ class PeriodicIntakeForm extends Component {
                         defaultFieldProps={{
                             title: 'Primary Drug',
                             val: this.props.primaryDrug,
+                            validOptionsList: primaryDrugOptionsList.map( obj => obj.value ),
                         }}
                         defaultFieldEl={this.buildSelectField({ 
                             title: 'Primary Drug', 
@@ -175,6 +176,7 @@ class PeriodicIntakeForm extends Component {
                         defaultFieldProps={{
                             title: 'Other Drugs',
                             val: this.props.otherDrugs,
+                            validOptionsList: otherDrugOptionsList.map( obj => obj.value ),
                         }}
                         defaultFieldEl={this.buildSelectField({ 
                             title: 'Other Drugs', 

@@ -57,6 +57,7 @@ class VisitOrOutreachQuestions extends Component {
                         defaultFieldProps={{
                             title: 'Referrals',
                             val: this.props.referrals,
+                            validOptionsList: referralsSelectOptionsList.map( obj => obj.value ),
                         }}
                         defaultFieldEl={ this.buildSelectField({ title: 'Referrals', selectOptionsList: referralsSelectOptionsList, name: 'referrals', val: this.props.referrals, updateCallback: this.props.handleSelectChange, multiple: true }) }
                     />  
