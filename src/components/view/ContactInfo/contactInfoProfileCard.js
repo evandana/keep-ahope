@@ -80,7 +80,6 @@ class ContactInfo extends React.Component {
         case 'countryOfBirth':
         case 'dateOfBirth':
         case 'ethnicity':
-        case 'firstInjectionAge':
         case 'genderIdentity':
         case 'hispanic':
         case 'housingStatus':

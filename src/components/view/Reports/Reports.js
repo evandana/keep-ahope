@@ -53,7 +53,7 @@ class Results extends React.Component {
         // const breakdownKpis = [
         //     'birthCountry',
         //     'ethnicity',
-        //     'firstInjectionAge',
+        //     'ageOfFirstInjection',
         //     'genderIdentity',
         //     'hispanic'
         // ]

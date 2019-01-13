@@ -156,7 +156,7 @@ function getContactBreakdownData ( contacts ) {
         'countryOfBirth',
         'ethnicity', // from contact
         'hispanic', // from contact
-        'firstInjectionAge',
+        'ageOfFirstInjection',
         'genderIdentity',
     ];
 
