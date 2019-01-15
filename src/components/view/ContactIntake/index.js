@@ -76,6 +76,7 @@ class IntakeForm extends Component {
             ...visitOrOutreach,
             ...periodic,
             ...contactData,
+            contactGivesDataConsent: userStateForDisplay.contactGivesDataConsent,
             profileNotes: userStateForDisplay.profileNotes,
             eventNotes: userStateForDisplay.eventNotes,
             date: userStateForDisplay.eventDate,
@@ -281,6 +282,7 @@ class IntakeForm extends Component {
         
             // form
             eventDate: userState.eventDate !== null ? userState.eventDate : new Date(),
+            contactGivesDataConsent: userState !== null ? userState.contactGivesDataConsent : false,
         
             // periodic
             zipCode: userState.zipCode !== null ? userState.zipCode : '',
@@ -364,14 +366,26 @@ class IntakeForm extends Component {
 
                 <Card>
                     <CardTitle title='Form Questions' titleColor={palette.primary1Color}/>
+                    <div style={{...fieldsStyle, padding: '2rem'}}>
+                        <Toggle
+                            label='Contact gives consent to record this interaction and understands their data rights'
+                            labelPosition="right"
+                            // toggled={userStateForDisplay.contactGivesDataConsent}
+                            value={!!userStateForDisplay.contactGivesDataConsent}
+                            onToggle={(event, isInputChecked) => {
+                                this.handleChildToggleChange('contactGivesDataConsent', isInputChecked);
+                            }}
+                        />
+                    </div>
+
                     <div style={fieldsStyle}>
-                    <DatePicker
-                        hintText="Date"
-                        floatingLabelText="Date"
-                        value={userStateForDisplay.eventDate}
-                        onChange={(e, date) => this.updateIntakeFormField({key: 'eventDate', val: date})}
-                        autoOk={true}
-                    />
+                        <DatePicker
+                            hintText="Date"
+                            floatingLabelText="Date"
+                            value={userStateForDisplay.eventDate}
+                            onChange={(e, date) => this.updateIntakeFormField({key: 'eventDate', val: date})}
+                            autoOk={true}
+                        />
                     </div>
                     <div
                         className="row"

@@ -19,7 +19,7 @@ function* createEvent({ eventData, history }) {
 
         const regex = new RegExp(/\w{4}\d{6}\w{3}/);
         const isValidSearchQuery = eventData.contactUid && eventData.contactUid.length === 13 && regex.test(eventData.contactUid);
-        if (!isValidSearchQuery) {
+        if (!isValidSearchQuery || !eventData.contactGivesDataConsent) {
             console.log('Invalid contact search query');
             return;
         }
@@ -91,6 +91,7 @@ function* createEvent({ eventData, history }) {
         eventData.contactDateOfBirth && parseContact.set('dateOfBirth', eventData.contactDateOfBirth); // TODO: on server check if this changes (once no longer null) then flag to user
         eventData.contactEthnicity && parseContact.set('ethnicity', eventData.contactEthnicity); // TODO: on server check if this changes (once no longer null) then flag to user
         eventData.contactGenderIdentity && parseContact.set('genderIdentity', eventData.contactGenderIdentity); 
+        eventData.contactGivesDataConsent && parseContact.set('contactGivesDataConsent', eventData.contactGivesDataConsent);
         eventData.contactIsHispanic && parseContact.set('hispanic', eventData.contactIsHispanic);
         eventData.didOdLastYear && parseContact.set('didOdLastYear', eventData.didOdLastYear);
         eventData.hasHealthInsurance && parseContact.set('hasHealthInsurance', eventData.hasHealthInsurance);
@@ -112,6 +113,7 @@ function* createEvent({ eventData, history }) {
         // add event pointer to contact
         event.set('contactUidPointer', parseContact);
         // conditional fields
+        eventData.contactGivesDataConsent && event.set('contactGivesDataConsent', eventData.contactGivesDataConsent);
         eventData.contactAgeOfFirstInjection && event.set('ageOfFirstInjection', eventData.contactAgeOfFirstInjection);
         eventData.contactCountryOfBirth && event.set('countryOfBirth', eventData.contactCountryOfBirth);
         eventData.contactDateOfBirth && event.set('dateOfBirth', eventData.contactDateOfBirth);

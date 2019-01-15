@@ -79,6 +79,9 @@ export class ContactInfoEventDetailsCard extends Component {
                     break;
 
                 // event meta
+                case 'contactGivesDataConsent':
+                    sortedAttrCollections.eventMeta.data.push(attrObj);
+                    break;
                 case 'date':
                     attrObj.label = 'Effective Date';
                     sortedAttrCollections.eventMeta.data.push(attrObj);

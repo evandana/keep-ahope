@@ -5,15 +5,16 @@ import {
 } from '../constants';
 
 const INITIAL_FORM_STATE = {
+    // which sections to show
     visitOrOutreach: null, // true
     showPeriodic: null, // false,
     showNewContactQuestions: null, // false,
-
+    
+    // form
+    contactGivesDataConsent: null, 
+    eventDate: null,
     eventNotes: null, // '',
     profileNotes: null,
-
-    // form
-    eventDate: null,
 
     // periodic
     housingStatus: null, // 'homeless',
@@ -115,6 +116,7 @@ function getStateWithContactInfo({contact, initialState, userState}) {
     const initialStateFieldToContactFieldMapping = {
         uid: 'uid',
         profileNotes: 'profileNotes',
+        contactGivesDataConsent: 'contactGivesDataConsent',
 
         // new contact
         newContactDate: 'createdAt',
