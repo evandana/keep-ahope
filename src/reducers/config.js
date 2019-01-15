@@ -4,6 +4,7 @@ import {
 
 const defaultState = {
     LOCKDOWN_MODE: false,
+    MESSAGE_GLOBAL: 'DO NOT ENTER PHI',
 }
 
 function config(state = defaultState, action) {
