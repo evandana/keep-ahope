@@ -18,6 +18,7 @@ import NewContactQuestionsForm from 'components/view/ContactIntake/newContactQue
 import VisitOrOutreachQuestions from 'components/view/ContactIntake/visitOrOutreachQuestions.form';
 
 import './styles.css';
+import { EditorBorderRight } from 'material-ui/svg-icons';
 
 
 class IntakeForm extends Component {
@@ -506,10 +507,11 @@ class IntakeForm extends Component {
                 </Card>
 
                 <Card>
+                    <div style={{textAlign:'right', color: palette.warningColor}} hidden={userStateForDisplay.contactGivesDataConsent}>User must consent before data can be saved.</div>
                     <div className="submitButtons">
-                    {/* TODO: handle this in a more elegant way than just reloading the page */}
-                    <FlatButton label="Clear Form" labelStyle={clearLabelStyle} onClick={() => window.location.reload()} />
-                    <FlatButton label="Save" primary={true} onClick={() => this.submitForm({initialState, userStateForDisplay})} />
+                        {/* TODO: handle this in a more elegant way than just reloading the page */}
+                        <FlatButton label="Clear Form" labelStyle={clearLabelStyle} onClick={() => window.location.reload()} />
+                        <FlatButton label="Save" disabled={!userStateForDisplay.contactGivesDataConsent} primary={true} onClick={() => this.submitForm({initialState, userStateForDisplay})} />
                     </div>
                 </Card>
             </form>
