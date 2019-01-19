@@ -7,6 +7,7 @@ import {updateIntakeFormField, updateIntakeFormWithContact, createEvent} from 'a
 const mapStateToProps = (state) => {
     return {
         intakeForm: state.intakeForm,
+        CONSENT_VERSION: state.config.CONSENT_VERSION,
     }
 };
 

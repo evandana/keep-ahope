@@ -4,7 +4,8 @@ import {
 
 const defaultState = {
     LOCKDOWN_MODE: false,
-    MESSAGE_GLOBAL: 'DO NOT ENTER PHI',
+    MESSAGE_GLOBAL: 'DO NOT ENTER PII/PHI',
+    CONSENT_VERSION: '0.0.1',
 }
 
 function config(state = defaultState, action) {
