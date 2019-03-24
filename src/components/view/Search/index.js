@@ -10,6 +10,7 @@ import './react-datepicker-override.css'
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 
 import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
 
 import { defaultState as getSearchByCriteriaResultsDefaultState } from '../../../reducers/searchByCriteriaResults';
@@ -46,6 +47,7 @@ import {
 import Select from 'react-select';
 import { fade } from 'material-ui/utils/colorManipulator';
 import { relative } from 'path';
+import { PlacesAirportShuttle } from 'material-ui/svg-icons';
 
 const NO_VAL_PROVIDED = '-';
 
@@ -68,6 +70,15 @@ const columns = [
         label: 'UID',
         style: { width: '10em', marginRight: 0, paddingRight: 0 },
         // filterOptions: [],
+        show: true,
+    },
+    {
+        key: 'mothersFirstThree',
+        label: `Mother's First Three`,
+        style: { width: '10em', marginRight: 0, paddingRight: 0 },
+        filterByText: {
+            maxLength: 3,
+        },
         show: true,
     },
     {
@@ -236,7 +247,9 @@ class Search extends Component {
     }
 
     requestUpdateSearchByCriteria({key, value}) {
-        if (this.state.isFirstTime) { this.setState({ isFirstTime: false }); }
+        if (this.state.isFirstTime) {
+            this.setState({ isFirstTime: false });
+        }
         const { requestSearchByCriteria,  searchByCriteriaResults: { searchCriteria } } = this.props;
         searchCriteria[key] = value;
         requestSearchByCriteria({searchCriteria});
@@ -419,6 +432,17 @@ class Search extends Component {
                                                     }}
                                                     key={column.key}
                                                     >
+                                                    {column.filterByText && (
+                                                        <TextField
+                                                            hintText='abc'
+                                                            fullWidth={true}
+                                                            inputStyle={{ background: palette.canvasColor }}
+                                                            defaultValue={searchCriteria[column.key]}
+                                                            errorText={searchCriteria[column.key] && searchCriteria[column.key].length > 3 ?
+                                                                'Enter fewer than three characters' : false }
+                                                            onChange={(e) => this.requestUpdateSearchByCriteria({key: column.key, value: e.value})}
+                                                            />
+                                                    )}
                                                     {column.filterByCalendar === true && (
                                                         <DatePicker
                                                             selected={searchCriteria[column.key] ? moment(searchCriteria[column.key]) : null}
@@ -429,7 +453,7 @@ class Search extends Component {
                                                             dropdownMode="select"
                                                         />
                                                     )}
-                                                    {!column.filterOptions || !column.filterOptions.length ? '' : (
+                                                    {column.filterOptions && column.filterOptions.length && (
                                                         <Select
                                                             key={'dropdown-' + column.key}
                                                             defaultValue={searchCriteria[column.key]}
