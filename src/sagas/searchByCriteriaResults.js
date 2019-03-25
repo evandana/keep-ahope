@@ -26,7 +26,7 @@ function* requestSearchByCriteria( { searchCriteria } ) {
     const query = new window._Parse_.Query(contact);
     
     if (searchCriteria.mothersFirstThree !== undefined && searchCriteria.mothersFirstThree !== null) {
-        query.matches('uid', new RegExp('\w{4}\d{8}' + searchCriteria.mothersFirstThree));
+        query.matches('uid', new RegExp('\w{4}\d{8}' + searchCriteria.mothersFirstThree, 'i'));
     } 
     if (searchCriteria.dateOfBirth !== undefined && searchCriteria.dateOfBirth !== null) {
         query.greaterThanOrEqualTo('dateOfBirth', Moment(searchCriteria.dateOfBirth).startOf('day').toDate());

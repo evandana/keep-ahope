@@ -14,7 +14,7 @@ function* createEvent({ eventData, history }) {
 
     const Contact = window._Parse_.Object.extend("contacts")
     const query = new window._Parse_.Query(Contact);
-    query.equalTo('uid', eventData.contactUid)
+    query.matches('uid', new RegExp(eventData.contactUid, 'i'));
     query.first().then( parseContact => {
 
         const regex = new RegExp(/\w{4}\d{6}\w{3}/);
@@ -27,7 +27,7 @@ function* createEvent({ eventData, history }) {
         // if contact doesn't yet exist, create it
         if (!parseContact) {
             parseContact = new Contact();
-            parseContact.set('uid', eventData.contactUid);
+            parseContact.set('uid', eventData.contactUid.toUpperCase());
         }
 
         // event data with most fields filled out

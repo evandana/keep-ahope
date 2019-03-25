@@ -32,7 +32,7 @@ function* getContact( { uid } ) {
 
         const contact = window._Parse_.Object.extend("contacts")
         const query = new window._Parse_.Query(contact);
-        query.equalTo('uid', uid);
+        query.matches('uid', new RegExp(uid, 'i'));
         query.first().then( parseContact => {
             // if contact exists
             if (parseContact) {

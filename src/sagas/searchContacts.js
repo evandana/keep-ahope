@@ -12,7 +12,7 @@ function* searchContacts({ searchStringUid }) {
 
     const Contact = window._Parse_.Object.extend('contacts');
     const contactQuery = new window._Parse_.Query(Contact);
-    contactQuery.startsWith('uid', searchStringUid)
+    contactQuery.matches('uid', new RegExp('^' + searchStringUid, 'i'))
     contactQuery.limit(10)
     contactQuery.descending()
     contactQuery.find().then(results => {

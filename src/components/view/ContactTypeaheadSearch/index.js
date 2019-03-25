@@ -69,8 +69,9 @@ class ContactTypeaheadSearch extends Component {
                 zDepth={1}
             >
                 <AutoComplete
+                    inputStyle          = {{ textTransform: 'uppercase' }}
                     dataSource          = {dataSource}
-                    floatingLabelText    = "Search for a Contact ID"
+                    floatingLabelText   = "Search for a Contact ID"
                     fullWidth           = {true}
                     hintText            = "AA BB 01 01 2018 AAA"
                     errorText           = { this.state.errorMessage }
