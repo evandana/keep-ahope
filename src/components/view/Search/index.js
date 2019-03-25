@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import './react-datepicker-override.css'
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
+import OpenInNewIcon from 'material-ui/svg-icons/action/open-in-new';
 
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -68,7 +69,7 @@ const columns = [
     {
         key: 'uid',
         label: 'UID',
-        style: { width: '10em', marginRight: 0, paddingRight: 0 },
+        style: { width: '12em', marginRight: 0, paddingRight: 0 },
         // filterOptions: [],
         show: true,
     },
@@ -304,7 +305,6 @@ class Search extends Component {
                     marginTop: '-155px',
                     display: 'flex',
                     flexDirection: 'column',
-                    display: 'flex',
                     height: 'calc(100% - 155px)',
                     overflow: 'hidden',
                     minHeight: '0px', /* IMPORTANT: you need this for non-chrome browsers */
@@ -489,14 +489,39 @@ class Search extends Component {
                                                 } else if (column.key === 'rowNum') {
                                                     value = indexStart + contactIndex + 1;
                                                 } else if ('function' === typeof column.displayTranslation) {
-                                                    value = column.displayTranslation({val: value});
+                                                    value = column.displayTranslation({ val: value });
                                                 }
                                                 return (
                                                     <TableRowColumn
                                                         style={column.style || {}}
                                                         key={contact.uid + '-' +column.key}
                                                         >
-                                                        {value}
+                                                        {column.key === 'uid' ? (
+                                                            <FlatButton
+                                                                key={column.key + value}
+                                                                style={{ width:'100%', position: 'static' }}
+                                                                label={value}
+                                                                labelPosition='before'
+                                                                labelStyle={{ 
+                                                                    fontFamily: 'monospace', 
+                                                                    position: 'static',
+                                                                    textTransform: 'uppercase',
+                                                                }}
+                                                                icon={<OpenInNewIcon 
+                                                                    style={{
+                                                                        width: 12,
+                                                                        height: 12,
+                                                                    }}
+                                                                    />}
+                                                                onClick={() => {
+                                                                    this.props.getContact(value);
+                                                                    this.props.setCurrentSearchQuery(value || '');
+                                                                    this.props.history.push(`/contact/${value}/info`)
+                                                                }}
+                                                                />
+                                                        ) : (
+                                                            <span>{value}</span>
+                                                        )}
                                                     </TableRowColumn>
                                                 );
                                             })

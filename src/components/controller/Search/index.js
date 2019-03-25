@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import Search from 'components/view/Search';
 
-import { requestSearchByCriteria } from 'actions';
+import { requestSearchByCriteria, getContact, setCurrentSearchQuery } from 'actions';
 
 const mapStateToProps = (state) => {
     return {
@@ -9,15 +10,15 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        requestSearchByCriteria: ({searchCriteria}) => dispatch(requestSearchByCriteria({searchCriteria})),
-    };
+const mapDispatchToProps = {
+    requestSearchByCriteria,
+    getContact,
+    setCurrentSearchQuery,
 };
 
-const SearchController = connect(
+const SearchController = withRouter(connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Search);
+)(Search));
 
 export default SearchController;
