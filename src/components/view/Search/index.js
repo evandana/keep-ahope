@@ -6,7 +6,7 @@ import moment from 'moment';
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
-import './react-datepicker-override.css'
+import '../common/react-datepicker-override.css'
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import OpenInNewIcon from 'material-ui/svg-icons/action/open-in-new';
 
@@ -41,14 +41,9 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
-// import SelectField from 'material-ui/SelectField';
-// import MenuItem from 'material-ui/MenuItem';
-// import DatePicker from 'material-ui/DatePicker';
 
 import Select from 'react-select';
 import { fade } from 'material-ui/utils/colorManipulator';
-import { relative } from 'path';
-import { PlacesAirportShuttle } from 'material-ui/svg-icons';
 
 const NO_VAL_PROVIDED = '-';
 

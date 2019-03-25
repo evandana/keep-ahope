@@ -7,7 +7,6 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import { Card, CardTitle } from 'material-ui/Card';
 import { RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Checkbox from 'material-ui/Checkbox';
-import DatePicker from 'material-ui/DatePicker';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton'
 import MenuItem from 'material-ui/MenuItem';
@@ -20,6 +19,11 @@ import Toggle from 'material-ui/Toggle';
 import PeriodicQuestionsForm from 'components/view/ContactIntake/periodicQuestions.form';
 import NewContactQuestionsForm from 'components/view/ContactIntake/newContactQuestions.form';
 import VisitOrOutreachQuestions from 'components/view/ContactIntake/visitOrOutreachQuestions.form';
+
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import '../common/react-datepicker-override.css'
 
 import DescriptionIcon from 'material-ui/svg-icons/action/description';
 
@@ -461,12 +465,16 @@ class IntakeForm extends Component {
                     </div>
 
                     <div style={{ ...fieldStyles, paddingTop: 0 }}>
+                        <div style={{ padding: '.5em', color: palette.disabledColor }}>
+                            Event Date
+                        </div>
                         <DatePicker
-                            hintText="Date"
-                            floatingLabelText="Date of Interaction"
-                            value={userStateForDisplay.eventDate}
-                            onChange={(e, date) => this.updateIntakeFormField({key: 'eventDate', val: date})}
-                            autoOk={true}
+                            selected={userStateForDisplay.eventDate ? moment(userStateForDisplay.eventDate) : null}
+                            onChange={(date) => this.updateIntakeFormField({key: 'eventDate', value: date})}
+                            peekNextMonth
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
                         />
                     </div>
                     <div

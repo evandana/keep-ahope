@@ -3,7 +3,13 @@ import React, { Component } from 'react'
 import { FieldWithManualOption } from '../common/FieldWithManualOption';
 
 import { Card, CardTitle } from 'material-ui/Card';
-import DatePicker from 'material-ui/DatePicker';
+
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import '../common/react-datepicker-override.css'
+
+import moment from 'moment';
 
 import {genderOptionsList, enthnicityOptionsList, countryOfBirthList } from '../../../utils/fieldValueLists';
 
@@ -50,13 +56,16 @@ class NewContactQuestionsForm extends Component {
                 <CardTitle title='First Contact' titleColor={palette.primary1Color}/>
 
                 <div style={{...fieldStyles}}>
+                    <div style={{ padding: '.5em', color: palette.disabledColor }}>
+                        Date of Birth
+                    </div>
                     <DatePicker
-                        hintText="Date of Birth"
-                        floatingLabelText="Date of Birth"
-                        value={this.props.contactDateOfBirth}
-                        onChange={(e, date) => updateIntakeFormField({key: 'contactDateOfBirth', val: date})}
-                        autoOk={true}
-                        openToYearSelection={true}
+                        selected={this.props.contactDateOfBirth ? moment(this.props.contactDateOfBirth) : null}
+                        onChange={(date) => this.updateIntakeFormField({key: 'contactDateOfBirth', value: date})}
+                        peekNextMonth
+                        showMonthDropdown
+                        showYearDropdown
+                        dropdownMode="select"
                     />
                 </div>
 
