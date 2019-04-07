@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import muiThemeable from 'material-ui/styles/muiThemeable';
+import moment from 'moment';
+
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import PersonIcon from 'material-ui/svg-icons/social/person';
@@ -7,6 +10,7 @@ import PersonAddIcon from 'material-ui/svg-icons/social/person-add';
 import Divider from 'material-ui/Divider';
 
 import { setIntakeFormToInitialState } from 'actions';
+import { DarkRawTheme } from 'material-ui/styles';
 
 class ContactSearchResults extends Component {
 
@@ -16,11 +20,20 @@ class ContactSearchResults extends Component {
         this.props.history.push(`/contact/${contactUid}/intake`);
     }
 
-    render() {
-        const { searchResults, contactSearchQuery, currentContactUid } = this.props;
+    isValidDate(uid) {
+        // can't test that date is "before" because interpretation of YY could be 19YY or 20YY based on '68
+        return moment(uid.match(/\d{6}/), 'MMDDYY') && 
+            moment(uid.match(/\d{6}/), 'MMDDYY').isValid();
+    }
 
-        let regex = new RegExp(/\w{4}\d{6}\w{3}/);
-        const isValidSearchQuery = contactSearchQuery && contactSearchQuery.length === 13 && regex.test(contactSearchQuery);
+    render() {
+        const { searchResults, contactSearchQuery, currentContactUid, muiTheme: {palette} } = this.props;
+
+        const regex = new RegExp(/\w{4}\d{6}\w{3}/);
+        const isDateValid = this.isValidDate(contactSearchQuery);
+        const isValidSearchQuery = contactSearchQuery && contactSearchQuery.length === 13 && regex.test(contactSearchQuery) && isDateValid;
+
+        const uidUpper = contactSearchQuery.toUpperCase();
 
         return (
             <div>
@@ -47,19 +60,31 @@ class ContactSearchResults extends Component {
                     <div>
                         <Subheader>
                             { !isValidSearchQuery ?
-                                'No results for contact ID: "' + contactSearchQuery + '"' :
+                                'No results for contact ID: "' + contactSearchQuery.toUpperCase() + '"' :
                                 'Create new contact'
                             }
                         </Subheader>
+                        {contactSearchQuery.length >= 10 && !isDateValid && (
+                            <Subheader style={{ color: palette.errorColor }}>
+                                Date is not valid. Date must be in the past and follow the format: MM DD YY
+                            </Subheader>
+                        )}
                         { !isValidSearchQuery ? (
                             <ListItem
                                 key='invalid'
-                                primaryText='Enter a valid new ID to create a new contact'
+                                primaryText='Enter a valid new ID to create a new contact: CODE 12 31 99 MOM'
                             />
                         ) : (
                             <ListItem
                                 key='createNew'
-                                primaryText={'CREATE ' + contactSearchQuery}
+                                primaryText={(
+                                    <span>
+                                        <span>CREATE</span>
+                                        <span style={{ fontFamily: 'monospace', color: palette.primary1Color, marginLeft: '2em', whiteSpace: 'nowrap' }}>
+                                            {`${uidUpper.slice(0,2)} ${uidUpper.slice(2,4)} ${uidUpper.slice(4,6)}/${uidUpper.slice(6,8)}/${uidUpper.slice(8,10)} ${uidUpper.slice(10,13)}`}
+                                        </span>
+                                    </span>
+                                )}
                                 leftIcon={<PersonAddIcon />}
                                 onClick={() => {
 
@@ -96,4 +121,4 @@ class ContactSearchResults extends Component {
     }
 }
 
-export default ContactSearchResults;
+export default muiThemeable()(ContactSearchResults);

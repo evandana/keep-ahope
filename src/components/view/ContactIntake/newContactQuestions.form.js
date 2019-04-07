@@ -61,7 +61,7 @@ class NewContactQuestionsForm extends Component {
                     </div>
                     <DatePicker
                         selected={this.props.contactDateOfBirth ? moment(this.props.contactDateOfBirth) : null}
-                        onChange={(date) => this.updateIntakeFormField({key: 'contactDateOfBirth', value: date})}
+                        onChange={(date) => this.updateIntakeFormField({key: 'contactDateOfBirth', val: date})}
                         peekNextMonth
                         showMonthDropdown
                         showYearDropdown

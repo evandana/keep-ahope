@@ -71,8 +71,6 @@ function intakeForm(state = intakeFormState, action) {
 
         case UPDATE_INTAKE_FORM_FIELD:
 
-            // console.log('reducer: ', key, val)
-
             let updatedStateValObj = {};
             updatedStateValObj[key] = val;
 
@@ -113,8 +111,6 @@ function getStateWithContactInfo({contact, initialState, userState}) {
 
     let initialStateWithContactInfo = {}, 
         userStateWithContactInfo = {};
-
-    console.log('userState.dateOfLastVisit', userState)
 
     const initialStateFieldToContactFieldMapping = {
         uid: 'uid',

@@ -73,6 +73,7 @@ const columns = [
         label: `Mother's First Three`,
         style: { width: '10em', marginRight: 0, paddingRight: 0 },
         filterByText: {
+            minLength: 3,
             maxLength: 3,
         },
         show: true,
@@ -427,15 +428,17 @@ class Search extends Component {
                                                     }}
                                                     key={column.key}
                                                     >
-                                                    {column.filterByText && (
+                                                    {column.filterByText !== undefined && (
                                                         <TextField
                                                             hintText='abc'
                                                             fullWidth={true}
                                                             inputStyle={{ background: palette.canvasColor }}
                                                             defaultValue={searchCriteria[column.key]}
-                                                            errorText={searchCriteria[column.key] && searchCriteria[column.key].length > 3 ?
-                                                                'Enter fewer than three characters' : false }
-                                                            onChange={(e) => this.requestUpdateSearchByCriteria({key: column.key, value: e.value})}
+                                                            errorText={searchCriteria[column.key] && 
+                                                                ( searchCriteria[column.key].length > column.filterByText.maxLength || 
+                                                                    searchCriteria[column.key].length < column.filterByText.minLength ) ?
+                                                                'Enter three letters' : false }
+                                                            onChange={(e, value) => this.requestUpdateSearchByCriteria({key: column.key, value})}
                                                             />
                                                     )}
                                                     {column.filterByCalendar === true && (

@@ -283,7 +283,8 @@ class IntakeForm extends Component {
         })
     }
 
-    addDefaultValuesToIntakeForm({initialState, userState}) {
+    addDefaultValuesToIntakeForm({uid, initialState, userState}) {
+
         return {
             visitOrOutreach: userState.visitOrOutreach !== null ? userState.visitOrOutreach : true,
             showPeriodic: userState.showPeriodic !== null ? userState.showPeriodic : true,
@@ -314,7 +315,7 @@ class IntakeForm extends Component {
             // new contact
             contactAgeOfFirstInjection: userState.contactAgeOfFirstInjection !== null ? userState.contactAgeOfFirstInjection : 0,
             contactCountryOfBirth: userState.contactCountryOfBirth !== null ? userState.contactCountryOfBirth : '',
-            contactDateOfBirth: userState.contactDateOfBirth !== null ? userState.contactDateOfBirth : new Date(1980, 0, 1),
+            contactDateOfBirth: userState.contactDateOfBirth !== null ? userState.contactDateOfBirth : moment(uid.match(/\d{6}/)[0], 'MMDDYY'),
             contactEthnicity: userState.contactEthnicity !== null ? userState.contactEthnicity : null,
             contactGenderIdentity: userState.contactGenderIdentity !== null ? userState.contactGenderIdentity : null,
             contactIsHispanic: userState.contactIsHispanic !== null ? userState.contactIsHispanic : false,
@@ -343,9 +344,9 @@ class IntakeForm extends Component {
 
     render() {
 
-        const { intakeForm: {userState, initialState }, muiTheme: {palette}, consentText } = this.props;
-
-        const userStateForDisplay = this.addDefaultValuesToIntakeForm({initialState, userState});
+        const { intakeForm: {userState, initialState }, muiTheme: {palette}, consentText, uid } = this.props;
+        
+        const userStateForDisplay = this.addDefaultValuesToIntakeForm({uid, initialState, userState});
 
         const clearLabelStyle = {
             color: palette.errorColor
@@ -361,19 +362,19 @@ class IntakeForm extends Component {
         // checkboxes to select which forms to show
         const formCheckboxOptionsArray = [
             {
-                label: 'Visit or Outreach',
-                key: 'visitOrOutreach',
-                defaultChecked: true, 
-                disabled: true,
-                checked: userStateForDisplay.visitOrOutreach,
-            },
-            {
                 label: 'First Contact',
                 key: 'showNewContactQuestions',
                 defaultChecked: initialState.newContact === true ? true : false, 
                 disabled: initialState.newContact === true ? true : false, 
                 checked: initialState.newContact === true ? true : userStateForDisplay.showNewContactQuestions,
                 onCheckCallback: () => this.updateIntakeFormField({key: 'showNewContactQuestions', val: !userStateForDisplay.showNewContactQuestions})
+            },
+            {
+                label: 'Visit or Outreach',
+                key: 'visitOrOutreach',
+                defaultChecked: true, 
+                disabled: true,
+                checked: userStateForDisplay.visitOrOutreach,
             },
             {
                 label: (<div>Periodic {dateOfLastVisitConverted && (
@@ -470,7 +471,7 @@ class IntakeForm extends Component {
                         </div>
                         <DatePicker
                             selected={userStateForDisplay.eventDate ? moment(userStateForDisplay.eventDate) : null}
-                            onChange={(date) => this.updateIntakeFormField({key: 'eventDate', value: date})}
+                            onChange={(date) => this.updateIntakeFormField({key: 'eventDate', val: date})}
                             peekNextMonth
                             showMonthDropdown
                             showYearDropdown

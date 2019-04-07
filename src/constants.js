@@ -1,4 +1,4 @@
-export const OFFLINE_MODE = true;
+export const OFFLINE_MODE = false;
 
 /** USER ACTIONS **/
 export const GET_USER = 'GET_USER';
