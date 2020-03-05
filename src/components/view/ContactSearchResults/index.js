@@ -113,7 +113,16 @@ class ContactSearchResults extends Component {
                                 return (
                                     <ListItem
                                         key={i}
-                                        primaryText={contact && contact.uid && contact.uid.toUpperCase()}
+                                        primaryText={
+                                            <div className="uid">
+                                                <span>{contact.uidSegment1}</span>
+                                                <span>{contact.uidSegment2}</span>
+                                                <span className="slash-after">{contact.uidSegment3}</span>
+                                                <span className="slash-after">{contact.uidSegment4}</span>
+                                                <span>{contact.uidSegment5}</span>
+                                                <span>{contact.uidSegment6}</span>
+                                            </div>
+                                        }
                                         leftIcon={<PersonIcon />}
                                         onClick={() => this.handleNavigationToContact(contact.uid)}
                                         secondaryText={<span>{identifiers}</span>}

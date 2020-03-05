@@ -5,3 +5,18 @@ body {
 .text-content {
     padding: 2em;
 }
+
+/* User UID Formatting */
+.uid span {
+  margin-right: 10px;
+  color: #50aee6;
+  font-family: monospace;
+}
+
+.uid span.slash-after {
+  margin-right: 0;
+}
+
+.uid span.slash-after::after {
+  content: '/'
+}
