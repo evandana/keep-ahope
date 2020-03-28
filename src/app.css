@@ -8,7 +8,7 @@ body {
 
 /* User UID Formatting */
 .uid span {
-  margin-right: 10px;
+  margin-right: 8px;
   color: #50aee6;
   font-family: monospace;
 }

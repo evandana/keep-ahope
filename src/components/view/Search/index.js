@@ -59,7 +59,7 @@ const columns = [
     {
         key: 'rowNum',
         label: '#',
-        style: {width: '2em'},
+        style: {width: '2em', paddingRight: '12px'},
         show: true,
     },
     {
@@ -76,7 +76,7 @@ const columns = [
     {
         key: 'uid',
         label: 'UID',
-        style: { width: '12em', marginRight: 0, paddingRight: 0 },
+        style: { width: '14em', marginRight: 0, paddingLeft: '12px', paddingRight: '12px' },
         // filterOptions: [],
         show: true,
     },
@@ -407,6 +407,7 @@ class Search extends Component {
                             headerStyle={{
                                 position: 'absolute',
                                 top: 0,
+                                zIndex: 1
                             }}
                             footerStyle={{
                                 position: 'absolute',
@@ -524,19 +525,30 @@ class Search extends Component {
                                                             <FlatButton
                                                                 key={column.key + value}
                                                                 style={{ width:'100%', position: 'static' }}
-                                                                label={value}
-                                                                labelPosition='before'
-                                                                labelStyle={{ 
-                                                                    fontFamily: 'monospace', 
+                                                                label={
+                                                                    <div className="uid" style={{ 
+                                                                        paddingLeft: '6px', paddingRight: '6px'
+                                                                    }}>
+                                                                        <span>{contact.uidSegment1}</span>
+                                                                        <span>{contact.uidSegment2}</span>
+                                                                        <span className="slash-after">{contact.uidSegment3}</span>
+                                                                        <span className="slash-after">{contact.uidSegment4}</span>
+                                                                        <span>{contact.uidSegment5}</span>
+                                                                        <span>{contact.uidSegment6}</span>
+                                                                        <OpenInNewIcon 
+                                                                            style={{
+                                                                                width: 12,
+                                                                                height: 12,
+                                                                                position: 'relative',
+                                                                                top: '1px'
+                                                                            }}
+                                                                        />
+                                                                    </div>
+                                                                }
+                                                                labelStyle={{
                                                                     position: 'static',
-                                                                    textTransform: 'uppercase',
+                                                                    padding: 0
                                                                 }}
-                                                                icon={<OpenInNewIcon 
-                                                                    style={{
-                                                                        width: 12,
-                                                                        height: 12,
-                                                                    }}
-                                                                    />}
                                                                 onClick={() => {
                                                                     // TODO: refactor this.props out of here
                                                                     this.props.getContact(value);
