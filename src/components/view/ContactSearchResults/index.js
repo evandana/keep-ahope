@@ -27,7 +27,7 @@ class ContactSearchResults extends Component {
     }
 
     render() {
-        const { searchResults, contactSearchQuery, currentContactUid, muiTheme: {palette} } = this.props;
+        const { searchResults, contactSearchQuery, currentContact, muiTheme: {palette} } = this.props;
 
         const regex = new RegExp(/\w{4}\d{6}\w{3}/);
         const isDateValid = this.isValidDate(contactSearchQuery);
@@ -38,19 +38,28 @@ class ContactSearchResults extends Component {
         return (
             <div>
                 {/* only show if there is nothing else showing */}
-                {(searchResults.length === 0 && contactSearchQuery.length < 1 && !currentContactUid) && (
+                {(searchResults.length === 0 && contactSearchQuery.length < 1 && !currentContact.uid) && (
                     <Subheader>
                         Enter User ID {contactSearchQuery}
                     </Subheader>
                 )}
 
-                {currentContactUid && (
+                {currentContact.uid && (
                     <div>
                         <Subheader>Most Recent Contact</Subheader>
                         <ListItem
-                            primaryText={currentContactUid}
+                            primaryText={
+                                <div className="uid">
+                                    <span>{currentContact.uidSegment1}</span>
+                                    <span>{currentContact.uidSegment2}</span>
+                                    <span className="slash-after">{currentContact.uidSegment3}</span>
+                                    <span className="slash-after">{currentContact.uidSegment4}</span>
+                                    <span>{currentContact.uidSegment5}</span>
+                                    <span>{currentContact.uidSegment6}</span>
+                                </div>
+                            }
                             leftIcon={<PersonIcon />}
-                            onClick={() => this.handleNavigationToContact(currentContactUid)}
+                            onClick={() => this.handleNavigationToContact(currentContact.uid)}
                         />
                         <Divider/>
                     </div>

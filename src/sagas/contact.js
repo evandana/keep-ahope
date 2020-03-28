@@ -39,6 +39,12 @@ function* getContact( { uid } ) {
                 const contactDataPlusUid = {
                     ...parseContact.attributes, 
                     uid,
+                    uidSegment1: uid.substring(0,2).toUpperCase(), 
+                    uidSegment2: uid.substring(2,4).toUpperCase(), 
+                    uidSegment3: uid.substring(4,6).toUpperCase(),
+                    uidSegment4: uid.substring(6,8).toUpperCase(),
+                    uidSegment5: uid.substring(8,10).toUpperCase(),
+                    uidSegment6: uid.substring(10,13).toUpperCase()
                 };
                 window._UI_STORE_.dispatch( updateCurrentContact( contactDataPlusUid ) );
                 window._UI_STORE_.dispatch( updateIntakeFormWithContact( {contact: contactDataPlusUid}) );

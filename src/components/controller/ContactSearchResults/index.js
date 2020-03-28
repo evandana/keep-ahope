@@ -7,7 +7,7 @@ const mapStateToProps = (state) => {
     return {
         searchResults: state.contacts.searchResults,
         contactSearchQuery: state.contacts.searchQuery,
-        currentContactUid: state.contact.uid,
+        currentContact: state.contact,
     };
 };
 
