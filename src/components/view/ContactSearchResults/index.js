@@ -12,6 +12,8 @@ import Divider from 'material-ui/Divider';
 import { setIntakeFormToInitialState } from 'actions';
 import { DarkRawTheme } from 'material-ui/styles';
 
+import FormattedUid from '../common/formattedUid'
+
 class ContactSearchResults extends Component {
 
     handleNavigationToContact(contactUid) {
@@ -48,16 +50,7 @@ class ContactSearchResults extends Component {
                     <div>
                         <Subheader>Most Recent Contact</Subheader>
                         <ListItem
-                            primaryText={
-                                <div className="uid">
-                                    <span>{currentContact.uidSegment1}</span>
-                                    <span>{currentContact.uidSegment2}</span>
-                                    <span className="slash-after">{currentContact.uidSegment3}</span>
-                                    <span className="slash-after">{currentContact.uidSegment4}</span>
-                                    <span>{currentContact.uidSegment5}</span>
-                                    <span>{currentContact.uidSegment6}</span>
-                                </div>
-                            }
+                            primaryText={<FormattedUid contact={currentContact} />}
                             leftIcon={<PersonIcon />}
                             onClick={() => this.handleNavigationToContact(currentContact.uid)}
                         />
@@ -122,16 +115,7 @@ class ContactSearchResults extends Component {
                                 return (
                                     <ListItem
                                         key={i}
-                                        primaryText={
-                                            <div className="uid">
-                                                <span>{contact.uidSegment1}</span>
-                                                <span>{contact.uidSegment2}</span>
-                                                <span className="slash-after">{contact.uidSegment3}</span>
-                                                <span className="slash-after">{contact.uidSegment4}</span>
-                                                <span>{contact.uidSegment5}</span>
-                                                <span>{contact.uidSegment6}</span>
-                                            </div>
-                                        }
+                                        primaryText={<FormattedUid contact={contact} />}
                                         leftIcon={<PersonIcon />}
                                         onClick={() => this.handleNavigationToContact(contact.uid)}
                                         secondaryText={<span>{identifiers}</span>}

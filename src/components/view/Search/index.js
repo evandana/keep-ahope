@@ -8,7 +8,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../common/react-datepicker-override.css'
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
-import OpenInNewIcon from 'material-ui/svg-icons/action/open-in-new';
 
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -46,6 +45,8 @@ import {
 
 import Select from 'react-select';
 import { fade } from 'material-ui/utils/colorManipulator';
+
+import FormattedUid from '../common/formattedUid'
 
 const NO_VAL_PROVIDED = '-';
 
@@ -526,24 +527,13 @@ class Search extends Component {
                                                                 key={column.key + value}
                                                                 style={{ width:'100%', position: 'static' }}
                                                                 label={
-                                                                    <div className="uid" style={{ 
-                                                                        paddingLeft: '6px', paddingRight: '6px'
-                                                                    }}>
-                                                                        <span>{contact.uidSegment1}</span>
-                                                                        <span>{contact.uidSegment2}</span>
-                                                                        <span className="slash-after">{contact.uidSegment3}</span>
-                                                                        <span className="slash-after">{contact.uidSegment4}</span>
-                                                                        <span>{contact.uidSegment5}</span>
-                                                                        <span>{contact.uidSegment6}</span>
-                                                                        <OpenInNewIcon 
-                                                                            style={{
-                                                                                width: 12,
-                                                                                height: 12,
-                                                                                position: 'relative',
-                                                                                top: '1px'
-                                                                            }}
-                                                                        />
-                                                                    </div>
+                                                                    <FormattedUid 
+                                                                        contact={contact}
+                                                                        showIcon
+                                                                        style={{ 
+                                                                            paddingLeft: '6px', paddingRight: '6px'
+                                                                        }}
+                                                                    />
                                                                 }
                                                                 labelStyle={{
                                                                     position: 'static',

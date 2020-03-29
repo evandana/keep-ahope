@@ -1,0 +1,13 @@
+.uid span {
+    margin-right: 8px;
+    color: #50aee6;
+    font-family: monospace;
+}
+
+.uid span.slash-after {
+    margin-right: 0;
+}
+
+.uid span.slash-after::after {
+    content: '/'
+}

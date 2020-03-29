@@ -4,6 +4,7 @@ import React from 'react';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 
 import { ContactInfoEventDetailsSection } from './contactInfoEventDetailsSection';
+import FormattedUid from '../common/formattedUid'
 
 class ContactInfo extends React.Component {
 
@@ -124,16 +125,7 @@ class ContactInfo extends React.Component {
       <div>
         <Card initiallyExpanded={ true } >
           <CardHeader
-            title={
-              <div className="uid">
-                <span>{contact.uidSegment1}</span>
-                <span>{contact.uidSegment2}</span>
-                <span className="slash-after">{contact.uidSegment3}</span>
-                <span className="slash-after">{contact.uidSegment4}</span>
-                <span>{contact.uidSegment5}</span>
-                <span>{contact.uidSegment6}</span>
-              </div>
-            }
+            title={<FormattedUid contact={contact} />}
             titleColor={ palette.primary1Color }
             // subtitle={contact.uid}
             subtitleColor={ palette.titleColor }
