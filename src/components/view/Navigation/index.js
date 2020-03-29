@@ -122,7 +122,6 @@ class Navigation extends React.Component {
                             <MenuItem
                                 style={{ color: muiTheme.palette.alternateTextColor, paddingTop: paddingSize }}
                                 primaryText={user.email}
-                                rightIcon={<ArrowDownIcon color={muiTheme.palette.alternateTextColor}/>}
                             />
                         </div>
                         <MenuItem onTouchTap={() => this.getMenuItemHandler('/contact')} primaryText='Contact' leftIcon={<PersonIcon/>}/>
