@@ -62,6 +62,12 @@ class ContactInfo extends React.Component {
         // skip these
         case 'profileNotes':
         case 'uid':
+        case 'uidSegment1':
+        case 'uidSegment2':
+        case 'uidSegment3':
+        case 'uidSegment4':
+        case 'uidSegment5':
+        case 'uidSegment6':
         case 'events':
         case 'updatedAt':
           break;
@@ -118,7 +124,16 @@ class ContactInfo extends React.Component {
       <div>
         <Card initiallyExpanded={ true } >
           <CardHeader
-            title={ contact.uid }
+            title={
+              <div className="uid">
+                <span>{contact.uidSegment1}</span>
+                <span>{contact.uidSegment2}</span>
+                <span className="slash-after">{contact.uidSegment3}</span>
+                <span className="slash-after">{contact.uidSegment4}</span>
+                <span>{contact.uidSegment5}</span>
+                <span>{contact.uidSegment6}</span>
+              </div>
+            }
             titleColor={ palette.primary1Color }
             // subtitle={contact.uid}
             subtitleColor={ palette.titleColor }
