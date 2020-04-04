@@ -403,7 +403,6 @@ class Search extends Component {
                                 paddingBottom: '49px',
                                 height: 'calc(100% - 163px)',
                                 paddingTop: '114px',
-                                paddingBottom: '49px',
                             }}
                             headerStyle={{
                                 position: 'absolute',
