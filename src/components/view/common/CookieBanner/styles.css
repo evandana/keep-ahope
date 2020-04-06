@@ -1,0 +1,15 @@
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 4em);
+    background: rgba(0,0,0,.6);
+    padding: 2em;
+    z-index: 100;
+}
+
+.cookie-banner p {
+    margin: 0 0 12px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #fff;
+}
