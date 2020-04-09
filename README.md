@@ -28,11 +28,7 @@ Contact an administrator to grant you permissions with [these instructions](http
 
 Uses `react-scripts`
 
-*build and serve* `npm run prod`
-
 *build*  `npm run build` -- Don't forget to first copy the static images from src/static/images into public/images
-
-*serve*  `npm run serve`
 
 
 ## DEPENDENCIES

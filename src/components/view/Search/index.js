@@ -8,7 +8,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../common/react-datepicker-override.css'
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
-import OpenInNewIcon from 'material-ui/svg-icons/action/open-in-new';
 
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -47,6 +46,8 @@ import {
 import Select from 'react-select';
 import { fade } from 'material-ui/utils/colorManipulator';
 
+import FormattedUid from '../common/formattedUid'
+
 const NO_VAL_PROVIDED = '-';
 
 function dateTranslation ({val}) {
@@ -59,7 +60,7 @@ const columns = [
     {
         key: 'rowNum',
         label: '#',
-        style: {width: '2em'},
+        style: {width: '2em', paddingRight: '12px'},
         show: true,
     },
     {
@@ -76,7 +77,7 @@ const columns = [
     {
         key: 'uid',
         label: 'UID',
-        style: { width: '12em', marginRight: 0, paddingRight: 0 },
+        style: { width: '14em', marginRight: 0, paddingLeft: '12px', paddingRight: '12px' },
         // filterOptions: [],
         show: true,
     },
@@ -402,11 +403,11 @@ class Search extends Component {
                                 paddingBottom: '49px',
                                 height: 'calc(100% - 163px)',
                                 paddingTop: '114px',
-                                paddingBottom: '49px',
                             }}
                             headerStyle={{
                                 position: 'absolute',
                                 top: 0,
+                                zIndex: 1
                             }}
                             footerStyle={{
                                 position: 'absolute',
@@ -524,19 +525,19 @@ class Search extends Component {
                                                             <FlatButton
                                                                 key={column.key + value}
                                                                 style={{ width:'100%', position: 'static' }}
-                                                                label={value}
-                                                                labelPosition='before'
-                                                                labelStyle={{ 
-                                                                    fontFamily: 'monospace', 
+                                                                label={
+                                                                    <FormattedUid 
+                                                                        contact={contact}
+                                                                        showIcon
+                                                                        style={{ 
+                                                                            paddingLeft: '6px', paddingRight: '6px'
+                                                                        }}
+                                                                    />
+                                                                }
+                                                                labelStyle={{
                                                                     position: 'static',
-                                                                    textTransform: 'uppercase',
+                                                                    padding: 0
                                                                 }}
-                                                                icon={<OpenInNewIcon 
-                                                                    style={{
-                                                                        width: 12,
-                                                                        height: 12,
-                                                                    }}
-                                                                    />}
                                                                 onClick={() => {
                                                                     // TODO: refactor this.props out of here
                                                                     this.props.getContact(value);
