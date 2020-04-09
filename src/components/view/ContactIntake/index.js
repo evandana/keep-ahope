@@ -30,6 +30,8 @@ import '../common/react-datepicker-override.css'
 
 import DescriptionIcon from 'material-ui/svg-icons/action/description';
 
+import { setIntakeFormToInitialState } from 'actions';
+
 import './styles.css';
 
 class IntakeForm extends Component {
@@ -44,6 +46,8 @@ class IntakeForm extends Component {
         this.state = {
             consentDialogOpen: false,
         };
+
+        window._UI_STORE_.dispatch(setIntakeFormToInitialState());
     }
 
     // i'm sure we'll want to change names on the db in the future at some time
