@@ -19,7 +19,17 @@ function* searchContacts({ searchStringUid }) {
     contactQuery.limit(10)
     contactQuery.descending()
     contactQuery.find().then(results => {
-        const contactsWithMatchingUid = results.map(parseObj => parseObj.attributes);
+        const contactsWithMatchingUid = results.map(parseObj => parseObj.attributes).map(contact => {
+            return {
+                ...contact,
+                uidSegment1: contact.uid.substring(0,2).toUpperCase(), 
+                uidSegment2: contact.uid.substring(2,4).toUpperCase(), 
+                uidSegment3: contact.uid.substring(4,6).toUpperCase(),
+                uidSegment4: contact.uid.substring(6,8).toUpperCase(),
+                uidSegment5: contact.uid.substring(8,10).toUpperCase(),
+                uidSegment6: contact.uid.substring(10,13).toUpperCase()
+            }
+        });
         window._UI_STORE_.dispatch(setContactSearchResults(contactsWithMatchingUid))
     })
     yield;

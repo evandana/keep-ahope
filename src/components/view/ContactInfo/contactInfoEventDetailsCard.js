@@ -76,6 +76,7 @@ export class ContactInfoEventDetailsCard extends Component {
 
                 // skip these
                 case 'updatedAt':
+                case 'uid':
                     break;
 
                 // event meta

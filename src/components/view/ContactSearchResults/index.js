@@ -12,6 +12,8 @@ import Divider from 'material-ui/Divider';
 import { setIntakeFormToInitialState } from 'actions';
 import { DarkRawTheme } from 'material-ui/styles';
 
+import FormattedUid from '../common/formattedUid'
+
 class ContactSearchResults extends Component {
 
     handleNavigationToContact(contactUid) {
@@ -27,7 +29,7 @@ class ContactSearchResults extends Component {
     }
 
     render() {
-        const { searchResults, contactSearchQuery, currentContactUid, muiTheme: {palette} } = this.props;
+        const { searchResults, contactSearchQuery, currentContact, muiTheme: {palette} } = this.props;
 
         const regex = new RegExp(/\w{4}\d{6}\w{3}/);
         const isDateValid = this.isValidDate(contactSearchQuery);
@@ -38,19 +40,19 @@ class ContactSearchResults extends Component {
         return (
             <div>
                 {/* only show if there is nothing else showing */}
-                {(searchResults.length === 0 && contactSearchQuery.length < 1 && !currentContactUid) && (
+                {(searchResults.length === 0 && contactSearchQuery.length < 1 && !currentContact.uid) && (
                     <Subheader>
                         Enter User ID {contactSearchQuery}
                     </Subheader>
                 )}
 
-                {currentContactUid && (
+                {currentContact.uid && (
                     <div>
                         <Subheader>Most Recent Contact</Subheader>
                         <ListItem
-                            primaryText={currentContactUid}
+                            primaryText={<FormattedUid contact={currentContact} />}
                             leftIcon={<PersonIcon />}
-                            onClick={() => this.handleNavigationToContact(currentContactUid)}
+                            onClick={() => this.handleNavigationToContact(currentContact.uid)}
                         />
                         <Divider/>
                     </div>
@@ -113,7 +115,7 @@ class ContactSearchResults extends Component {
                                 return (
                                     <ListItem
                                         key={i}
-                                        primaryText={contact && contact.uid && contact.uid.toUpperCase()}
+                                        primaryText={<FormattedUid contact={contact} />}
                                         leftIcon={<PersonIcon />}
                                         onClick={() => this.handleNavigationToContact(contact.uid)}
                                         secondaryText={<span>{identifiers}</span>}
