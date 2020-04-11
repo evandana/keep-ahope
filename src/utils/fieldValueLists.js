@@ -81,8 +81,21 @@ export const otherDrugOptionsList = [
 
 export const referralsSelectOptionsList = [
     {label: 'No Referrals', value: null},
-    {label: 'Medical attention', value: 'Medical attention'},
-    {label: 'Mental health', value: 'Mental health'},
+    {label: 'PREP', value: 'PREP'},
+    {label: 'PEP', value: 'PEP'},
+    {label: 'HCV', value: 'HCV'},
+    {label: 'HIV tx', value: 'HIV tx'},
+    {label: 'STD tx', value: 'STD tx'},
+    {label: 'Wound care', value: 'Wound care'},
+    {label: 'Primary care', value: 'Primary care'},
+    {label: 'Mental health/behavioral health', value: 'Mental health/behavioral health'},
+    {label: 'Medical/other', value: 'Medical/other'},
+    {label: 'Detox', value: 'Detox'},
+    {label: 'Step-down program/residential', value: 'Step-down program/residential'},
+    {label: 'Outpatient', value: 'Outpatient'},
+    {label: 'Suboxone', value: 'Suboxone'},
+    {label: 'Methadone', value: 'Methadone'},
+    {label: 'Vivitrol', value: 'Vivitrol'},
     {label: 'Other', value: 'other'},
 ];
 export const enrollmentRadioOptions = [
