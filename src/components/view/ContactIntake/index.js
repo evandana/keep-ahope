@@ -208,8 +208,6 @@ class IntakeForm extends Component {
             max: overrides.max || 50,
         }
 
-        console.log(sliderName, options)
-
         const value = !this.props[sliderName] || this.props[sliderName] < 0 ? 0 : this.props[sliderName];
 
         return (
