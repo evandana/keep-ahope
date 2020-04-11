@@ -21,8 +21,8 @@ class CookieBanner extends Component {
     render() {
         const showBanner = !this.state.cookieConsent ? (
             <div className="cookie-banner">
-                <p>This website uses cookies, which are necessary to its functioning. By closing this banner, clicking a link or continuing to browse otherwise, you agree to the use of cookies.</p>
-                <RaisedButton label="OK, Got it!" onClick={this.handleClick} />
+                <p>This application uses cookies to improve website performance. We use cookies to personalize content and to analyze our traffic. We do not share your information with any outside partners.</p>
+                <RaisedButton label="I consent to cookie policy" onClick={this.handleClick} />
             </div>
         ) : null;
     

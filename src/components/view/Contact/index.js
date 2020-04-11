@@ -5,8 +5,6 @@ import ContactIntake from 'components/controller/ContactIntake';
 import ContactNavigation from 'components/controller/ContactNavigation';
 import ContactSearchResults from 'components/controller/ContactSearchResults';
 
-import CookieBanner from 'components/view/common/CookieBanner'
-
 class Contact extends Component {
 
     render() {
@@ -65,7 +63,6 @@ class Contact extends Component {
                         )}
                     </div>
                 )}
-                <CookieBanner />
             </div>
         );
     }

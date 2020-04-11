@@ -23,6 +23,8 @@ import Messages from 'components/controller/Messages';
 import Navigation from 'components/controller/Navigation';
 import { setCurrentSearchQuery, loginGoogleRequest, getConsentText } from './actions';
 
+import CookieBanner from 'components/view/common/CookieBanner'
+
 import './app.css';
 
 const Parse = require('parse');
@@ -104,6 +106,7 @@ class App extends Component {
                                 <AuthorizedRoute exact path="/search" component={Search} />
                                 <AuthorizedRoute path="/" component={Contact} />
                             </Switch>
+                            <CookieBanner />
                         </div>
                     </ConnectedRouter>
                 </Provider>
