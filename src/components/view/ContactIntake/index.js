@@ -208,6 +208,8 @@ class IntakeForm extends Component {
             max: overrides.max || 50,
         }
 
+        console.log(sliderName, options)
+
         const value = !this.props[sliderName] || this.props[sliderName] < 0 ? 0 : this.props[sliderName];
 
         return (
@@ -217,7 +219,7 @@ class IntakeForm extends Component {
                 </div>
                 <FlatButton
                     style={{ minWidth: '3em' }}
-                    onClick={() => updateCallback(sliderName, value === 0 ? 0 : value - 10 )}
+                    onClick={() => updateCallback(sliderName, value === 0 ? 0 : value - options.step )}
                     icon={<RemoveCircleIcon style={{ fill: this.props.palette.softPrimaryColor}} />}
                     >
                 </FlatButton>
@@ -234,7 +236,7 @@ class IntakeForm extends Component {
                 <FlatButton
                     style={{ minWidth: '3em' }}
                     icon={<AddBoxIcon style={{ fill: this.props.palette.softPrimaryColor}} />}
-                    onClick={() => updateCallback(sliderName, value + 10)}
+                    onClick={() => updateCallback(sliderName, value === options.max ? options.max : value + options.step)}
                     >
                 </FlatButton>
             </div>

@@ -43,11 +43,11 @@ class NewContactQuestionsForm extends Component {
 
         const { palette, updateIntakeFormField, fieldStyles } = this.props;
 
-        const options = {
-            defaultValue: 0,
+        const contactAgeOfFirstInjectionOptions = {
+            defaultValue: 1,
             step: 1,
-            min: 0,
-            max: 100,
+            min: 1,
+            max: 30,
         }
 
         // rest of the stuff for this form
@@ -70,7 +70,7 @@ class NewContactQuestionsForm extends Component {
                 </div>
 
                 <div style={{...fieldStyles}}>
-                    {this.buildSlider('contactAgeOfFirstInjection', 'Age of First Injection', this.props.contactAgeOfFirstInjection, this.props.handleSliderChange, options)}
+                    {this.buildSlider('contactAgeOfFirstInjection', 'Age of First Injection', this.props.contactAgeOfFirstInjection, this.props.handleSliderChange, contactAgeOfFirstInjectionOptions)}
                 </div>
                 <div style={{...fieldStyles}}>
                     <FieldWithManualOption
