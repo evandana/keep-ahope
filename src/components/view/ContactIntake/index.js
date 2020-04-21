@@ -217,7 +217,7 @@ class IntakeForm extends Component {
                 </div>
                 <FlatButton
                     style={{ minWidth: '3em' }}
-                    onClick={() => updateCallback(sliderName, value === 0 ? 0 : value - 10 )}
+                    onClick={() => updateCallback(sliderName, value === 0 ? 0 : value - options.step )}
                     icon={<RemoveCircleIcon style={{ fill: this.props.palette.softPrimaryColor}} />}
                     >
                 </FlatButton>
@@ -234,7 +234,7 @@ class IntakeForm extends Component {
                 <FlatButton
                     style={{ minWidth: '3em' }}
                     icon={<AddBoxIcon style={{ fill: this.props.palette.softPrimaryColor}} />}
-                    onClick={() => updateCallback(sliderName, value + 10)}
+                    onClick={() => updateCallback(sliderName, value === options.max ? options.max : value + options.step)}
                     >
                 </FlatButton>
             </div>
@@ -331,7 +331,7 @@ class IntakeForm extends Component {
             primaryDrug: userState.primaryDrug !== null ? userState.primaryDrug : null,
         
             // new contact
-            contactAgeOfFirstInjection: userState.contactAgeOfFirstInjection !== null ? userState.contactAgeOfFirstInjection : 0,
+            contactAgeOfFirstInjection: userState.contactAgeOfFirstInjection !== null ? userState.contactAgeOfFirstInjection : 30,
             contactCountryOfBirth: userState.contactCountryOfBirth !== null ? userState.contactCountryOfBirth : '',
             contactDateOfBirth: userState.contactDateOfBirth !== null ? userState.contactDateOfBirth : moment(uid.match(/\d{6}/)[0], 'MMDDYY'),
             contactEthnicity: userState.contactEthnicity !== null ? userState.contactEthnicity : null,
