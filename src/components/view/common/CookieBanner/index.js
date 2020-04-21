@@ -7,7 +7,7 @@ class CookieBanner extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cookieConsent: window.localStorage.getItem('cookieConsent')
+            cookieConsent: window.localStorage.getItem('cookieConsent') + '' == 'true'
         };
         this.handleClick = this.handleClick.bind(this);
     }
