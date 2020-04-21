@@ -44,11 +44,11 @@ class NewContactQuestionsForm extends Component {
         const { palette, updateIntakeFormField, fieldStyles } = this.props;
 
         const contactAgeOfFirstInjectionOptions = {
-            defaultValue: 1,
+            defaultValue: 30, // set in ContactIntake/index.js
             step: 1,
-            min: 1,
-            max: 30,
-        }
+            min: 0, // to indicate that it doesn't apply
+            max: 500,
+        };
 
         // rest of the stuff for this form
         return (

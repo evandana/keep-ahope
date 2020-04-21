@@ -27,12 +27,12 @@ class VisitOrOutreachQuestions extends Component {
             max: 12,
         }
 
-        const syringesTakenOptions = {
+        const syringesOptions = {
             defaultValue: 0,
             step: 10,
             min: 0,
-            max: 500,
-        }
+            max: 1000,
+        };
 
         return (
             <Card style={{ paddingBottom: '1rem' }}>
@@ -62,10 +62,10 @@ class VisitOrOutreachQuestions extends Component {
                     />  
                 </div>
                 <div style={{...fieldStyles}}>
-                    {this.buildSlider('syringesGiven', 'Syringes Given', this.props.syringesGiven, this.props.handleSliderChange)}
+                    {this.buildSlider('syringesGiven', 'Syringes Given', this.props.syringesGiven, this.props.handleSliderChange, syringesOptions)}
                 </div>
                 <div style={{...fieldStyles}}>
-                    {this.buildSlider('syringesTaken', 'Syringes Collected', this.props.syringesTaken, this.props.handleSliderChange, syringesTakenOptions)}
+                    {this.buildSlider('syringesTaken', 'Syringes Collected', this.props.syringesTaken, this.props.handleSliderChange, syringesOptions)}
                 </div>
                 <div style={{...fieldStyles}}>
                     {this.buildToggle('Narcan was offered', 'narcanWasOffered', this.props.handleChildToggleChange)}

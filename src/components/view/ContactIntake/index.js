@@ -331,7 +331,7 @@ class IntakeForm extends Component {
             primaryDrug: userState.primaryDrug !== null ? userState.primaryDrug : null,
         
             // new contact
-            contactAgeOfFirstInjection: userState.contactAgeOfFirstInjection !== null ? userState.contactAgeOfFirstInjection : 0,
+            contactAgeOfFirstInjection: userState.contactAgeOfFirstInjection !== null ? userState.contactAgeOfFirstInjection : 30,
             contactCountryOfBirth: userState.contactCountryOfBirth !== null ? userState.contactCountryOfBirth : '',
             contactDateOfBirth: userState.contactDateOfBirth !== null ? userState.contactDateOfBirth : moment(uid.match(/\d{6}/)[0], 'MMDDYY'),
             contactEthnicity: userState.contactEthnicity !== null ? userState.contactEthnicity : null,
