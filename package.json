@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@azure/msal-browser": "^2.3.0",
     "@google-cloud/storage": "^1.6.0",
     "ajv": "^6.5.5",
     "flexboxgrid": "^6.3.1",
