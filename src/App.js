@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 /** MATERIAL UI **/
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 /** ROUTER **/
 // import { Route } from 'react-router-dom';
 import { Switch } from 'react-router';
@@ -31,8 +30,6 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-
-        injectTapEventPlugin();
         
         Parse.initialize("AHOPEPARSESERVER");
 
