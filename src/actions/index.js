@@ -1,6 +1,6 @@
 import {
     // AUTHENTICATION
-    LOGIN_GOOGLE_REQUEST,
+    LOGIN_REQUEST,
     LOGOUT_USER_REQUEST,
 
     // USER
@@ -55,9 +55,9 @@ import {
 } from '../constants';
 
 /** AUTHENTICATION **/
-export function loginGoogleRequest() {
+export function loginRequest() {
     return { 
-        type: LOGIN_GOOGLE_REQUEST,
+        type: LOGIN_REQUEST,
      };
 }
 

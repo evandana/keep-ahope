@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { loginGoogleRequest } from 'actions';
+import { loginRequest } from 'actions';
 import Login from 'components/view/Login';
 
 
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 
 const LoginController = connect(
     mapStateToProps, 
-    { loginGoogleRequest }
+    { loginRequest }
 )(Login);
 
 export default LoginController;

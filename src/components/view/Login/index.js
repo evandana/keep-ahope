@@ -36,7 +36,7 @@ class Login extends Component {
     }
 
     render () {
-        const { loginGoogleRequest, showLoginSpinner } = this.props;
+        const { loginRequest, showLoginSpinner } = this.props;
 
         const isBrowserSupported = this.isBrowserSupported();
 
@@ -74,7 +74,7 @@ class Login extends Component {
                     <div>
                     {/* TODO: do not show this when user is logged in */}
                     Please sign in.
-                        <div onClick={loginGoogleRequest}>
+                        <div onClick={loginRequest}>
                             <img
                                 className='login-btn'
                                 srcSet={ getImageForEnv('google_signin/btn_google_signin_light_normal_web.png') + ' 1x, ' 
