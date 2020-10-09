@@ -2,6 +2,8 @@
 
 - Official [Microsoft Azure Docs](https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-spa-overview)
     - Follow instructions for setting up MSAL 2.0 for a Single-page application
+    - Use "Implict Grant Flow" because it's a SPA
+        - [Security considerations](The provided value for the input parameter 'response_type' is not allowed for this client. Expected value is 'code'. 'token' is disabled for this app.)
     - SSO: Find instructions there
 
 ## Questions

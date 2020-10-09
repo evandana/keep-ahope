@@ -12,14 +12,20 @@ const LogLevel = {
 
 export const config = {
     auth: {
-        // clientId: '249830c1-2833-4390-9b02-ee317eed17ef', // microsoft work accounts
-        clientId: '5391541c-2ee4-4e33-b671-ab58f8a943dc', // microsoft personal accounts
-        // redirectUri: "https://keep-ahope.appspot.com/", //defaults to application start page
-        // postLogoutRedirectUri: "https://keep-ahope.appspot.com/"
-        redirectUri: "http://localhost:3000/", //defaults to application start page
-        postLogoutRedirectUri: "http://localhost:3000/logout",
+        // MICROSOFT PERSONAL ACCOUNTS
+        clientId: '5391541c-2ee4-4e33-b671-ab58f8a943dc',
         // authority sets the audience
         authority: 'https://login.microsoftonline.com/consumers',
+
+        // MICROSOFT WORK ACCOUNTS
+        // clientId: '249830c1-2833-4390-9b02-ee317eed17ef',
+        
+        // LOCAL DEV
+        redirectUri: "http://localhost:3000/", //defaults to application start page
+        postLogoutRedirectUri: "http://localhost:3000/logout",
+        // FOR PROD
+        // redirectUri: "https://keep-ahope.appspot.com/", //defaults to application start page
+        // postLogoutRedirectUri: "https://keep-ahope.appspot.com/"
     },
     cache: {
         cacheLocation: "sessionStorage",
@@ -57,6 +63,7 @@ export const config = {
 
 var msUserInfo = {};
 var msLoginInfo = {};
+var accessToken = '';
 
 const myMsal = new PublicClientApplication(config);
 const userAgentApplication = new UserAgentApplication(config);
@@ -73,19 +80,22 @@ const requestToken = () => {
         .then(function(accessTokenResponse) {
             // Acquire token silent success
             // Call API with token
-            let accessToken = accessTokenResponse.accessToken;
-            console.warn('--accessToken', accessToken)
+            accessToken = accessTokenResponse.accessToken;
+            console.warn('--accessToken SUCCESS')
         }).catch(function (error) {
             //Acquire token silent failure, and send an interactive request
             if (error.errorMessage.indexOf("interaction_required") !== -1) {
                 userAgentApplication.acquireTokenPopup(accessTokenRequest).then(function(accessTokenResponse) {
                     // Acquire token interactive success
-                    console.warn('---accessToken interactive SUCCESS', accessTokenResponse);
+                    accessToken = accessTokenResponse.accessToken;
+                    console.warn('---accessToken interactive SUCCESS');
                 }).catch(function(error) {
                     // Acquire token interactive failure
+                    accessToken = '';
                     console.warn('---accessToken interactive ERROR', error);
                 });
             }
+            accessToken = '';
             console.warn('---accessToken ERROR', error);
         });
 }
