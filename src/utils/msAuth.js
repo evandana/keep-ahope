@@ -51,36 +51,42 @@ export const config = {
         },
         windowHashTimeout: 60000,
         iframeHashTimeout: 6000,
-        loadFrameTimeout: 0
+        // loadFrameTimeout: 0
     }
 }
 
-var username = "";
+var msUserInfo = {};
+var msLoginInfo = {};
 
 const myMsal = new PublicClientApplication(config);
 const userAgentApplication = new UserAgentApplication(config);
 
-const accessTokenRequest = {
-    scopes: ["user.read"]
-}
+const getAccessTokenRequest = () => ({
+    scopes: ["user.read"],
+    sid: msLoginInfo?.idTokenClaims?.sid,
+});
 
 const requestToken = () => {
+    const accessTokenRequest = getAccessTokenRequest();
+    console.log('---accessTokenRequest', accessTokenRequest)
     return userAgentApplication.acquireTokenSilent(accessTokenRequest)
         .then(function(accessTokenResponse) {
             // Acquire token silent success
             // Call API with token
             let accessToken = accessTokenResponse.accessToken;
+            console.warn('--accessToken', accessToken)
         }).catch(function (error) {
             //Acquire token silent failure, and send an interactive request
             if (error.errorMessage.indexOf("interaction_required") !== -1) {
                 userAgentApplication.acquireTokenPopup(accessTokenRequest).then(function(accessTokenResponse) {
                     // Acquire token interactive success
+                    console.warn('---accessToken interactive SUCCESS', accessTokenResponse);
                 }).catch(function(error) {
                     // Acquire token interactive failure
-                    console.warn(error);
+                    console.warn('---accessToken interactive ERROR', error);
                 });
             }
-            console.warn(error);
+            console.warn('---accessToken ERROR', error);
         });
 }
 
@@ -106,13 +112,15 @@ export const loginRequest = () => {
                 console.warn('---MS LOGIN: choose account');
             } else if (currentAccounts.length === 1) {
                 const {username: email, name, uniqueId: uid} = currentAccounts[0];
-                username = email;
                 console.warn('---MS LOGIN SUCCESS', email);
+                msUserInfo = currentAccounts[0];
+                msLoginInfo = loginResponse;
                 setCurrentUserAsHavingPermissions({
                     email,
                     fullName: name,
                     uid,
                 });
+                requestToken();
             }
         
         }).catch(function (error) {
@@ -123,7 +131,7 @@ export const loginRequest = () => {
 
 // you can select which account application should sign out
 const logoutRequestObject = {
-    account: myMsal.getAccountByUsername(username)
+    account: myMsal.getAccountByUsername(msUserInfo.email)
 }
 
 export const logoutRequest = () => myMsal.logout(logoutRequestObject);
