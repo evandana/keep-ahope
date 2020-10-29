@@ -73,6 +73,26 @@ const getAccessTokenRequest = () => ({
     sid: msLoginInfo?.idTokenClaims?.sid,
 });
 
+export const testToken = (overrideToken) => {
+    return fetch('http://localhost:7071/api/contact/aaaa000000aaa', {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'no-cors', // no-cors, *cors, same-origin
+            // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            // credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+            //   'Content-Type': 'application/json'
+              'Authorization': `Bearer ${overrideToken || accessToken}`
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            }
+            // redirect: 'follow', // manual, *follow, error
+            // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            // body: JSON.stringify(data) // body data type must match "Content-Type" header
+          })
+            // .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(`ERRAH: ${err}`));
+};
+
 const requestToken = () => {
     const accessTokenRequest = getAccessTokenRequest();
     console.log('---accessTokenRequest', accessTokenRequest)
@@ -81,7 +101,7 @@ const requestToken = () => {
             // Acquire token silent success
             // Call API with token
             accessToken = accessTokenResponse.accessToken;
-            console.warn('--accessToken SUCCESS')
+            console.warn('--accessToken SUCCESS', accessToken);
         }).catch(function (error) {
             //Acquire token silent failure, and send an interactive request
             if (error.errorMessage.indexOf("interaction_required") !== -1) {
@@ -106,10 +126,14 @@ const loginRequestObject = {
 };
 
 export const loginRequest = () => {
-    myMsal.loginPopup(loginRequestObject)
+    console.log('calling loginRequest ++++++++++++++++++++++++++++++++++++++')
+    return myMsal.loginPopup(loginRequestObject)
         .then(function (loginResponse) {
             //login success
-            console.warn('---loginResponse', loginResponse);
+            // console.warn('---loginResponse', loginResponse);
+
+            const loginToken = loginResponse.accessToken;
+            testToken(loginToken);
 
             // In case multiple accounts exist, you can select
             const currentAccounts = myMsal.getAllAccounts();
@@ -130,7 +154,7 @@ export const loginRequest = () => {
                     fullName: name,
                     uid,
                 });
-                requestToken();
+                // requestToken(); // --- TURN THIS BACK ON!
             }
         
         }).catch(function (error) {

@@ -34,7 +34,8 @@ function* stubLoginRequest() {
 
 function* loginRequest( ) {
 
-    window._UI_STORE_.dispatch(showLoginSpinner(true));
+    console.log('STARTING LOGIN REQUEST ➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡➡')
+    // window._UI_STORE_.dispatch(showLoginSpinner(true));
     
     // googleLoginRequest();
     msLoginRequest();
@@ -43,7 +44,8 @@ function* loginRequest( ) {
 }
 
 function* logoutUserRequest() {
-    googleLogoutRequest();
+    console.log('LOGGING OUT USER ☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️')
+    // googleLogoutRequest();
 
     yield;
 }

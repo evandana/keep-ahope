@@ -24,24 +24,24 @@ import { setCurrentSearchQuery, loginRequest, getConsentText } from './actions';
 
 import './app.css';
 
-const Parse = require('parse');
+// const Parse = require('parse');
 
 class App extends Component {
 
     constructor(props) {
         super(props);
         
-        Parse.initialize("AHOPEPARSESERVER");
+        // Parse.initialize("AHOPEPARSESERVER");
 
-        Parse.serverURL = 'https://keep-ahope.appspot.com/parse'
-        window._Parse_ = Parse;
+        // Parse.serverURL = 'https://keep-ahope.appspot.com/parse'
+        // window._Parse_ = Parse;
 
         // try to login with google (enables re-login on page refresh)
         window._UI_STORE_.dispatch( loginRequest() );
         
-        window._UI_STORE_.dispatch( getConsentText( { consentVersion: '0.0.1' } ) );
+        // window._UI_STORE_.dispatch( getConsentText( { consentVersion: '0.0.1' } ) );
 
-        window._UI_STORE_.dispatch(setCurrentSearchQuery(''));
+        // window._UI_STORE_.dispatch(setCurrentSearchQuery(''));
     }
 
 

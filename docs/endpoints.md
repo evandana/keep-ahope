@@ -43,18 +43,19 @@
 | ---------------------- | ------- |
 | syringesGivenAggregate | number  |
 | syringesTakenAggregate | number  |
+|        zipCode         | number  |
 | ---------------------- | ------- |
 |     countryOfBirth     | string  |
+|     healthInsurer      | string  |
+|      profileNotes      | string  |
+|          uid           | string  |
+| ---------------------- | ------- |
 |       ethnicity        | string  |
 |     genderIdentity     | string  |
-|     healthInsurer      | string  |
 |       hepCStatus       | string  |
 |       hivStatus        | string  |
 |     housingStatus      | string  |
 |      primaryDrug       | string  |
-|      profileNotes      | string  |
-|          uid           | string  |
-|        zipCode         | string  |
 
 ### Event
 |       Description       |   type   |
@@ -81,19 +82,20 @@
 |      syringesGiven      | number   |
 |      syringesTaken      | number   |
 | ----------------------- | -------- |
-|     uid', 'contacts     | relation |
+|     uid - contacts      | relation |
 | ----------------------- | -------- |
-|     countryOfBirth      | string   |
-|        ethnicity        | string   |
 |       eventNotes        | string   |
-|     genderIdentity      | string   |
+|     countryOfBirth      | string   |
 |      healthInsurer      | string   |
+|      profileNotes       | string   |
+|           uid           | string   |
+| ----------------------- | -------- |
+|        ethnicity        | string   |
+|     genderIdentity      | string   |
 |       hepCStatus        | string   |
 |        hivStatus        | string   |
 |      housingStatus      | string   |
 |       primaryDrug       | string   |
-|      profileNotes       | string   |
-|         zipCode         | string   |
 
 ### Consent
 | Description  |  type  |

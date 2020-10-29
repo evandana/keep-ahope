@@ -10,101 +10,101 @@ import { updateReportsData } from '../actions';
 
 function* fetchReportsData({ dateRange }) {
 
-    // db needs
-    // - count of all contacts total
-    // - count of all events total
-    // - all events in range
-    // - all contacts for events in range
+    // // db needs
+    // // - count of all contacts total
+    // // - count of all events total
+    // // - all events in range
+    // // - all contacts for events in range
 
-    // all events
-    const eventsAll = window._Parse_.Object.extend("event");
-    const eventsAllQuery = new window._Parse_.Query(eventsAll);
+    // // all events
+    // const eventsAll = window._Parse_.Object.extend("event");
+    // const eventsAllQuery = new window._Parse_.Query(eventsAll);
 
-    // all contacts
-    const contactsAll = window._Parse_.Object.extend("contacts");
-    const contactsAllQuery = new window._Parse_.Query(contactsAll);
+    // // all contacts
+    // const contactsAll = window._Parse_.Object.extend("contacts");
+    // const contactsAllQuery = new window._Parse_.Query(contactsAll);
     
-    // date range selector
-    const dateBoundsMinMax = getDateBoundsFromRangeKey({rangeKey: dateRange});
+    // // date range selector
+    // const dateBoundsMinMax = getDateBoundsFromRangeKey({rangeKey: dateRange});
 
-    // events in date range
-    const eventsFilteredQuery = new window._Parse_.Query(eventsAll);
-    eventsFilteredQuery.greaterThanOrEqualTo('date', dateBoundsMinMax.min);
-    eventsFilteredQuery.lessThanOrEqualTo('date', dateBoundsMinMax.max);
+    // // events in date range
+    // const eventsFilteredQuery = new window._Parse_.Query(eventsAll);
+    // eventsFilteredQuery.greaterThanOrEqualTo('date', dateBoundsMinMax.min);
+    // eventsFilteredQuery.lessThanOrEqualTo('date', dateBoundsMinMax.max);
 
-    // contacts with events in date range    
-    const contactsFilteredQuery = new window._Parse_.Query(contactsAll);
-    contactsFilteredQuery.greaterThanOrEqualTo('updatedAt', dateBoundsMinMax.min);
-    contactsFilteredQuery.lessThanOrEqualTo('updatedAt', dateBoundsMinMax.max);
+    // // contacts with events in date range    
+    // const contactsFilteredQuery = new window._Parse_.Query(contactsAll);
+    // contactsFilteredQuery.greaterThanOrEqualTo('updatedAt', dateBoundsMinMax.min);
+    // contactsFilteredQuery.lessThanOrEqualTo('updatedAt', dateBoundsMinMax.max);
     
-    // async queries
-    const contactsAllQueryCount = contactsAllQuery.count();
-    const eventsAllQueryCount = eventsAllQuery.count();
-    const eventsFilteredQueryFind = eventsFilteredQuery.find();
-    const contactsFilteredQueryFind = contactsFilteredQuery.find();
+    // // async queries
+    // const contactsAllQueryCount = contactsAllQuery.count();
+    // const eventsAllQueryCount = eventsAllQuery.count();
+    // const eventsFilteredQueryFind = eventsFilteredQuery.find();
+    // const contactsFilteredQueryFind = contactsFilteredQuery.find();
 
-    console.log('dateRange', dateRange)
+    // console.log('dateRange', dateRange)
 
-    Promise.all([
-        contactsAllQueryCount,
-        eventsAllQueryCount,
-        eventsFilteredQueryFind,
-        contactsFilteredQueryFind,
-    ]).then(([
-        contactsAllQueryCountResults,
-        eventsAllQueryCountResults,
-        eventsFilteredQueryFindResults,
-        contactsFilteredQueryFindResults,
-    ]) => {
-        /** 
-         * object definition: eventsFilteredQueryFindResults
-         * 
-         * {
-         *      className: "event"
-         *      id: "kuemd3hLtq"
-         *      _objCount: 105
-         *      attributes: Object
-         *      createdAt: Object
-         *      updatedAt: Object
-         * }
-         */
+    // Promise.all([
+    //     contactsAllQueryCount,
+    //     eventsAllQueryCount,
+    //     eventsFilteredQueryFind,
+    //     contactsFilteredQueryFind,
+    // ]).then(([
+    //     contactsAllQueryCountResults,
+    //     eventsAllQueryCountResults,
+    //     eventsFilteredQueryFindResults,
+    //     contactsFilteredQueryFindResults,
+    // ]) => {
+    //     /** 
+    //      * object definition: eventsFilteredQueryFindResults
+    //      * 
+    //      * {
+    //      *      className: "event"
+    //      *      id: "kuemd3hLtq"
+    //      *      _objCount: 105
+    //      *      attributes: Object
+    //      *      createdAt: Object
+    //      *      updatedAt: Object
+    //      * }
+    //      */
 
-        const eventAggregations = getEventAggregations(eventsFilteredQueryFindResults);
-        const contactBreakdownData = getContactBreakdownData(contactsFilteredQueryFindResults);
+    //     const eventAggregations = getEventAggregations(eventsFilteredQueryFindResults);
+    //     const contactBreakdownData = getContactBreakdownData(contactsFilteredQueryFindResults);
         
-        /** Example: */
-        // contacts: {
-        //     meta: {
-        //         total: 100,
-        //     },
-        //     total: 0,
-        //     birthCountry: [
-        //         {
-        //             label: 'US',
-        //             count: 0
-        //         }
-        //     ],
-        // }
+    //     /** Example: */
+    //     // contacts: {
+    //     //     meta: {
+    //     //         total: 100,
+    //     //     },
+    //     //     total: 0,
+    //     //     birthCountry: [
+    //     //         {
+    //     //             label: 'US',
+    //     //             count: 0
+    //     //         }
+    //     //     ],
+    //     // }
 
-        window._UI_STORE_.dispatch(updateReportsData({ 
-            reportsData: {
-                events: {
-                    _meta: {
-                        count: eventsFilteredQueryFindResults.length,
-                        unfilteredCount: eventsAllQueryCountResults,
-                    },
-                    ...eventAggregations,
-                },
-                contacts: {
-                    _meta: {
-                        count: contactsFilteredQueryFindResults.length,
-                        unfilteredCount: contactsAllQueryCountResults,
-                    },
-                    ...contactBreakdownData,
-                },
-            } 
-        }));
-    });
+    //     window._UI_STORE_.dispatch(updateReportsData({ 
+    //         reportsData: {
+    //             events: {
+    //                 _meta: {
+    //                     count: eventsFilteredQueryFindResults.length,
+    //                     unfilteredCount: eventsAllQueryCountResults,
+    //                 },
+    //                 ...eventAggregations,
+    //             },
+    //             contacts: {
+    //                 _meta: {
+    //                     count: contactsFilteredQueryFindResults.length,
+    //                     unfilteredCount: contactsAllQueryCountResults,
+    //                 },
+    //                 ...contactBreakdownData,
+    //             },
+    //         } 
+    //     }));
+    // });
 
     yield;
 }
