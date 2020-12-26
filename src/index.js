@@ -1,48 +1,30 @@
-/** React **/
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-/** REDUX **/
-import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import reducers from 'reducers';
-import { reducer as form } from 'redux-form';
-import sagas from 'sagas';
+import { MsalProvider } from "@azure/msal-react";
+import { PublicClientApplication } from "@azure/msal-browser";
 
-/** Routing **/
-import createHistory from 'history/createBrowserHistory';
-import { routerReducer, routerMiddleware, } from 'react-router-redux';
-
-/** App Configuration **/
-import registerServiceWorker from 'registerServiceWorker';
-import App from 'App';
-
-/** Redux Setup **/
-const history = createHistory();
-const sagaMiddleware = createSagaMiddleware();
-const middleware = [
-    sagaMiddleware,
-    routerMiddleware(history),
-];
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-    combineReducers({
-        ...reducers,
-        form,
-        router: routerReducer,
-    }),
-    composeEnhancers(applyMiddleware(...middleware)),
-);
-window._UI_STORE_ = store;
-
-sagaMiddleware.run(sagas);
-
-const appProps = {
-    history,
-    store,
+const configuration = {
+  auth: {
+    clientId: '2280eb47-32ca-4d19-8850-121fa68f6ee0',
+    authority: 'https://login.microsoftonline.com/554f3cfe-c7c2-4b8c-8766-970737835a38/'
+  }
 };
 
-/** Launch the App **/
-ReactDOM.render(<App {...appProps}  />, document.getElementById('root'));
-registerServiceWorker();
+const pca = new PublicClientApplication(configuration);
+
+const AppProvider = () => (
+  <MsalProvider instance={pca}>
+      <App />
+  </MsalProvider>
+);
+
+ReactDOM.render(<AppProvider />, document.getElementById("root"));
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
