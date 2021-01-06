@@ -10,16 +10,26 @@ const LogLevel = {
     Error: 'error',
 };
 
+// MICROSOFT PERSONAL ACCOUNTS
+const clientId = "5391541c-2ee4-4e33-b671-ab58f8a943dc"; // Application (client) ID of your API's application registration
+// ahope-dev (not personal accounts)
+// const clientId = "249830c1-2833-4390-9b02-ee317eed17ef"; // Application (client) ID of your API's application registration
+const b2cDomainHost = "ahopedevdomain.onmicrosoft.com";
+const tenantId = "258ce1bd-9043-4c45-96a8-c2a9c6cce4e6"; // Alternatively, you can use your Directory (tenant) ID (a GUID)
+// const tenantId = "2d9ca35b-66c3-4866-8c88-a4c56f53e020"; // b2c tenant // Alternatively, you can use your Directory (tenant) ID (a GUID)
+// const tenantId = "9188040d-6c67-4c5b-b112-36a304b66dad"; // Alternatively, you can use your Directory (tenant) ID (a GUID)
+// const policyName = "spot";
+
 export const config = {
     auth: {
-        // MICROSOFT PERSONAL ACCOUNTS
-        clientId: '5391541c-2ee4-4e33-b671-ab58f8a943dc',
+        clientId: clientId,
         // authority sets the audience
+        // authority: `https://login.microsoftonline.com/${tenantId}`,
         authority: 'https://login.microsoftonline.com/consumers',
 
         // MICROSOFT WORK ACCOUNTS
         // clientId: '249830c1-2833-4390-9b02-ee317eed17ef',
-        
+        // jwks: 'kg2LYs2T0CTjIfj4rt6JIynen38',
         // LOCAL DEV
         redirectUri: "http://localhost:3000/", //defaults to application start page
         postLogoutRedirectUri: "http://localhost:3000/logout",
@@ -49,7 +59,7 @@ export const config = {
                         console.debug(message);
                         return;
                     case LogLevel.Warning:
-                        console.warn(message);
+                        // console.warn(message);
                         return;
                 }
             },
@@ -69,11 +79,13 @@ const myMsal = new PublicClientApplication(config);
 const userAgentApplication = new UserAgentApplication(config);
 
 const getAccessTokenRequest = () => ({
-    scopes: ["user.read"],
+    scopes: [`api://${clientId}/ahope_scope`],
     sid: msLoginInfo?.idTokenClaims?.sid,
 });
 
 export const testToken = (overrideToken) => {
+
+    console.log(`testing with token: ${(overrideToken || accessToken).substr(0, 10)}...`)
     return fetch('http://localhost:7071/api/contact/aaaa000000aaa', {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'no-cors', // no-cors, *cors, same-origin
@@ -101,36 +113,52 @@ const requestToken = () => {
             // Acquire token silent success
             // Call API with token
             accessToken = accessTokenResponse.accessToken;
-            console.warn('--accessToken SUCCESS', accessToken);
+            console.warn('--accessToken SUCCESS', `${accessToken.substr(0,10)}...`);
+            // testToken(accessToken);
         }).catch(function (error) {
             //Acquire token silent failure, and send an interactive request
             if (error.errorMessage.indexOf("interaction_required") !== -1) {
                 userAgentApplication.acquireTokenPopup(accessTokenRequest).then(function(accessTokenResponse) {
                     // Acquire token interactive success
                     accessToken = accessTokenResponse.accessToken;
-                    console.warn('---accessToken interactive SUCCESS');
+                    // console.warn('---accessToken interactive SUCCESS');
                 }).catch(function(error) {
                     // Acquire token interactive failure
                     accessToken = '';
-                    console.warn('---accessToken interactive ERROR', error);
+                    // console.warn('---accessToken interactive ERROR', error);
                 });
             }
             accessToken = '';
-            console.warn('---accessToken ERROR', error);
+            // console.warn('---accessToken ERROR', error);
         });
 }
 
 const loginRequestObject = {
+    // identityMetadata: "https://" + b2cDomainHost + "/" + tenantId + "/" + policyName + "/v2.0/.well-known/openid-configuration/",
+    identityMetadata: `https://login.microsoftonline.com/${tenantId}/v2.0/.well-known/openid-configuration/`,
+    clientId: clientId,
+    // policyName: policyName,
+    // isB2C: false,
+    // clientSecret pairs with clientId 539..
+    clientSecret: '5wJzijADc_d9Rw_vc-GP_Pc0lS73P~Kcc8',
+    validateIssuer: false,
+    loggingLevel: 'info',
+    loggingNoPII: false,
+    passReqToCallback: false,
     scopes: ["User.Read"],
-    // scopes: ["User.ReadWrite"]
-};
+}
+
+// const loginRequestObject = {
+//     scopes: ["User.Read"],
+//     // scopes: ["User.ReadWrite"]
+// };
 
 export const loginRequest = () => {
     console.log('calling loginRequest ++++++++++++++++++++++++++++++++++++++')
     return myMsal.loginPopup(loginRequestObject)
         .then(function (loginResponse) {
             //login success
-            // console.warn('---loginResponse', loginResponse);
+            console.warn('---loginResponse', loginResponse);
 
             const loginToken = loginResponse.accessToken;
             testToken(loginToken);
@@ -140,13 +168,13 @@ export const loginRequest = () => {
         
             if (currentAccounts === null) {
                 // no accounts detected
-                console.warn('---MS LOGIN: no accounts detected');
+                // console.warn('---MS LOGIN: no accounts detected');
             } else if (currentAccounts.length > 1) {
                 // Add choose account code here
-                console.warn('---MS LOGIN: choose account');
+                // console.warn('---MS LOGIN: choose account');
             } else if (currentAccounts.length === 1) {
                 const {username: email, name, uniqueId: uid} = currentAccounts[0];
-                console.warn('---MS LOGIN SUCCESS', email);
+                // console.warn('---MS LOGIN SUCCESS', email);
                 msUserInfo = currentAccounts[0];
                 msLoginInfo = loginResponse;
                 setCurrentUserAsHavingPermissions({
@@ -154,12 +182,12 @@ export const loginRequest = () => {
                     fullName: name,
                     uid,
                 });
-                // requestToken(); // --- TURN THIS BACK ON!
+                requestToken(); // --- TURN THIS BACK ON!
             }
         
         }).catch(function (error) {
             //login failure
-            console.warn('---', error);
+            // console.warn('---', error);
         });
 }
 
